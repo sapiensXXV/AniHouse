@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>39168938502-ef0clkt851i5mpfsoa6a61ba00l8ch3h.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.39168938502-ef0clkt851i5mpfsoa6a61ba00l8ch3h</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDHCprUz2EOrsuY8nutvQEJe67i-q0DFTc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>39168938502</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.januaryOne.AniHouse-iOS</string>
+	<key>PROJECT_ID</key>
+	<string>anihouse-2b265</string>
+	<key>STORAGE_BUCKET</key>
+	<string>anihouse-2b265.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:39168938502:ios:e372041292d0cbd41ea987</string>
+</dict>
+</plist>
