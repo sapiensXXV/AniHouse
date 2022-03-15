@@ -7,18 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41D3DE59E22B0651D09C9DAA /* Pods_AniHouse_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */; };
 		BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */; };
 		BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602B27E0EFB300CFC94A /* ContentView.swift */; };
 		BB78602E27E0EFB400CFC94A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78602D27E0EFB400CFC94A /* Assets.xcassets */; };
 		BB78603127E0EFB400CFC94A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */; };
+		BB78603827E0F10500CFC94A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB78603727E0F10500CFC94A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F098F85799B1CB696AA8D58 /* Pods-AniHouse-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AniHouse-iOS.release.xcconfig"; path = "Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AniHouse_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DFD3BBAB2AEFA54BC58541D /* Pods-AniHouse-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AniHouse-iOS.debug.xcconfig"; path = "Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BB78602627E0EFB300CFC94A /* AniHouse-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AniHouse-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AniHouse_iOSApp.swift; sourceTree = "<group>"; };
 		BB78602B27E0EFB300CFC94A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BB78602D27E0EFB400CFC94A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BB78603727E0F10500CFC94A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,17 +32,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41D3DE59E22B0651D09C9DAA /* Pods_AniHouse_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D685C00B969B19129901FE8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BB78601D27E0EFB300CFC94A = {
 			isa = PBXGroup;
 			children = (
 				BB78602827E0EFB300CFC94A /* AniHouse-iOS */,
 				BB78602727E0EFB300CFC94A /* Products */,
+				F0F9C109A57C9FFCD3B10792 /* Pods */,
+				0D685C00B969B19129901FE8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +71,7 @@
 				BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */,
 				BB78602B27E0EFB300CFC94A /* ContentView.swift */,
 				BB78602D27E0EFB400CFC94A /* Assets.xcassets */,
+				BB78603727E0F10500CFC94A /* GoogleService-Info.plist */,
 				BB78602F27E0EFB400CFC94A /* Preview Content */,
 			);
 			path = "AniHouse-iOS";
@@ -67,6 +85,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F0F9C109A57C9FFCD3B10792 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2DFD3BBAB2AEFA54BC58541D /* Pods-AniHouse-iOS.debug.xcconfig */,
+				0F098F85799B1CB696AA8D58 /* Pods-AniHouse-iOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +102,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB78603427E0EFB400CFC94A /* Build configuration list for PBXNativeTarget "AniHouse-iOS" */;
 			buildPhases = (
+				E5A4972AE5780E228DC61774 /* [CP] Check Pods Manifest.lock */,
 				BB78602227E0EFB300CFC94A /* Sources */,
 				BB78602327E0EFB300CFC94A /* Frameworks */,
 				BB78602427E0EFB300CFC94A /* Resources */,
+				FAA4407569DF181FBCBF2CAA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,11 +156,54 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB78603127E0EFB400CFC94A /* Preview Assets.xcassets in Resources */,
+				BB78603827E0F10500CFC94A /* GoogleService-Info.plist in Resources */,
 				BB78602E27E0EFB400CFC94A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E5A4972AE5780E228DC61774 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AniHouse-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FAA4407569DF181FBCBF2CAA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BB78602227E0EFB300CFC94A /* Sources */ = {
@@ -263,6 +336,7 @@
 		};
 		BB78603527E0EFB400CFC94A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DFD3BBAB2AEFA54BC58541D /* Pods-AniHouse-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -292,6 +366,7 @@
 		};
 		BB78603627E0EFB400CFC94A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F098F85799B1CB696AA8D58 /* Pods-AniHouse-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
