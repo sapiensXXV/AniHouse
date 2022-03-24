@@ -13,6 +13,7 @@
 		BB78602E27E0EFB400CFC94A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78602D27E0EFB400CFC94A /* Assets.xcassets */; };
 		BB78603127E0EFB400CFC94A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */; };
 		BB78603827E0F10500CFC94A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB78603727E0F10500CFC94A /* GoogleService-Info.plist */; };
+		BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7914CA27EC68C2000E819E /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		BB78602D27E0EFB400CFC94A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BB78603727E0F10500CFC94A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BB7914CA27EC68C2000E819E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				BB78602D27E0EFB400CFC94A /* Assets.xcassets */,
 				BB78603727E0F10500CFC94A /* GoogleService-Info.plist */,
 				BB78602F27E0EFB400CFC94A /* Preview Content */,
+				BB7914CA27EC68C2000E819E /* LoginView.swift */,
 			);
 			path = "AniHouse-iOS";
 			sourceTree = "<group>";
@@ -91,7 +94,6 @@
 				2DFD3BBAB2AEFA54BC58541D /* Pods-AniHouse-iOS.debug.xcconfig */,
 				0F098F85799B1CB696AA8D58 /* Pods-AniHouse-iOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -210,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */,
 				BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */,
 				BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */,
 			);
