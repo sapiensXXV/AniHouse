@@ -14,6 +14,7 @@
 		BB78603127E0EFB400CFC94A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */; };
 		BB78603827E0F10500CFC94A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB78603727E0F10500CFC94A /* GoogleService-Info.plist */; };
 		BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7914CA27EC68C2000E819E /* LoginView.swift */; };
+		BB8F33EB27EC99580021A6EB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8F33EA27EC99580021A6EB /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BB78603727E0F10500CFC94A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BB7914CA27EC68C2000E819E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		BB8F33EA27EC99580021A6EB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,12 +72,13 @@
 		BB78602827E0EFB300CFC94A /* AniHouse-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				BB8F33E927EC99170021A6EB /* Models */,
+				BB8F33E827EC99120021A6EB /* Views */,
+				BB8F33E727EC99060021A6EB /* ModelViews */,
 				BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */,
-				BB78602B27E0EFB300CFC94A /* ContentView.swift */,
 				BB78602D27E0EFB400CFC94A /* Assets.xcassets */,
 				BB78603727E0F10500CFC94A /* GoogleService-Info.plist */,
 				BB78602F27E0EFB400CFC94A /* Preview Content */,
-				BB7914CA27EC68C2000E819E /* LoginView.swift */,
 			);
 			path = "AniHouse-iOS";
 			sourceTree = "<group>";
@@ -86,6 +89,30 @@
 				BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BB8F33E727EC99060021A6EB /* ModelViews */ = {
+			isa = PBXGroup;
+			children = (
+				BB78602B27E0EFB300CFC94A /* ContentView.swift */,
+				BB7914CA27EC68C2000E819E /* LoginView.swift */,
+				BB8F33EA27EC99580021A6EB /* RegisterView.swift */,
+			);
+			path = ModelViews;
+			sourceTree = "<group>";
+		};
+		BB8F33E827EC99120021A6EB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		BB8F33E927EC99170021A6EB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F0F9C109A57C9FFCD3B10792 /* Pods */ = {
@@ -213,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */,
+				BB8F33EB27EC99580021A6EB /* RegisterView.swift in Sources */,
 				BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */,
 				BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */,
 			);
