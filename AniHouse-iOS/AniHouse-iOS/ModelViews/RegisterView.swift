@@ -9,7 +9,9 @@ import SwiftUI
 
 struct RegisterView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("동물의 집")
+            .font(.largeTitle)
+            .fontWeight(.semibold)
     }
 }
 

@@ -46,3 +46,10 @@ pod init
 ```
 pod install --repo-update
 ```
+---
+## 🔨로그인화면
+Lottie Animation을 사용해서 로그인 화면에 애니메이션 삽입.<br>
+백그라운드 컬러는 **assets.xcassets**에 Custom Color그룹을 만들고 Light Gray색상을 등록해 사용했음<br>
+id입력부분은 입력한 텍스트 부분이 보이지만 비밀번호는 입력한 텍스트가 보이지 않도록 함.
+
+<img src="https://user-images.githubusercontent.com/76734067/159947156-32b51a1b-777b-4476-aece-9e50dcd9cbe2.png" width="30%">

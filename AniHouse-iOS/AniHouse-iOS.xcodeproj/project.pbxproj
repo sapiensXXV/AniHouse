@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		41D3DE59E22B0651D09C9DAA /* Pods_AniHouse_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */; };
+		BB29D0D327EC9F42009E3D5F /* walking_dog.json in Resources */ = {isa = PBXBuildFile; fileRef = BB29D0D227EC9F42009E3D5F /* walking_dog.json */; };
 		BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */; };
 		BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602B27E0EFB300CFC94A /* ContentView.swift */; };
 		BB78602E27E0EFB400CFC94A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78602D27E0EFB400CFC94A /* Assets.xcassets */; };
@@ -15,12 +16,15 @@
 		BB78603827E0F10500CFC94A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB78603727E0F10500CFC94A /* GoogleService-Info.plist */; };
 		BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7914CA27EC68C2000E819E /* LoginView.swift */; };
 		BB8F33EB27EC99580021A6EB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8F33EA27EC99580021A6EB /* RegisterView.swift */; };
+		BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */; };
+		BBCAEDBD27ECA95300DF03BB /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAEDBC27ECA95300DF03BB /* LottieView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0F098F85799B1CB696AA8D58 /* Pods-AniHouse-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AniHouse-iOS.release.xcconfig"; path = "Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AniHouse_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DFD3BBAB2AEFA54BC58541D /* Pods-AniHouse-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AniHouse-iOS.debug.xcconfig"; path = "Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		BB29D0D227EC9F42009E3D5F /* walking_dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = walking_dog.json; sourceTree = "<group>"; };
 		BB78602627E0EFB300CFC94A /* AniHouse-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AniHouse-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AniHouse_iOSApp.swift; sourceTree = "<group>"; };
 		BB78602B27E0EFB300CFC94A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -29,6 +33,8 @@
 		BB78603727E0F10500CFC94A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BB7914CA27EC68C2000E819E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BB8F33EA27EC99580021A6EB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		BBCAEDBC27ECA95300DF03BB /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +55,14 @@
 				21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB29D0D127EC9F15009E3D5F /* Lottie Animation JSON */ = {
+			isa = PBXGroup;
+			children = (
+				BB29D0D227EC9F42009E3D5F /* walking_dog.json */,
+			);
+			path = "Lottie Animation JSON";
 			sourceTree = "<group>";
 		};
 		BB78601D27E0EFB300CFC94A = {
@@ -72,13 +86,15 @@
 		BB78602827E0EFB300CFC94A /* AniHouse-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */,
 				BB8F33E927EC99170021A6EB /* Models */,
 				BB8F33E827EC99120021A6EB /* Views */,
 				BB8F33E727EC99060021A6EB /* ModelViews */,
-				BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */,
 				BB78602D27E0EFB400CFC94A /* Assets.xcassets */,
 				BB78603727E0F10500CFC94A /* GoogleService-Info.plist */,
 				BB78602F27E0EFB400CFC94A /* Preview Content */,
+				BB29D0D127EC9F15009E3D5F /* Lottie Animation JSON */,
+				BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */,
 			);
 			path = "AniHouse-iOS";
 			sourceTree = "<group>";
@@ -104,6 +120,7 @@
 		BB8F33E827EC99120021A6EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BBCAEDBC27ECA95300DF03BB /* LottieView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -185,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB78603127E0EFB400CFC94A /* Preview Assets.xcassets in Resources */,
+				BB29D0D327EC9F42009E3D5F /* walking_dog.json in Resources */,
 				BB78603827E0F10500CFC94A /* GoogleService-Info.plist in Resources */,
 				BB78602E27E0EFB400CFC94A /* Assets.xcassets in Resources */,
 			);
@@ -241,8 +259,10 @@
 			files = (
 				BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */,
 				BB8F33EB27EC99580021A6EB /* RegisterView.swift in Sources */,
+				BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */,
 				BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */,
 				BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */,
+				BBCAEDBD27ECA95300DF03BB /* LottieView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +393,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"AniHouse-iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 92B5D498S7;
 				ENABLE_PREVIEWS = YES;
@@ -403,6 +424,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"AniHouse-iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 92B5D498S7;
 				ENABLE_PREVIEWS = YES;
