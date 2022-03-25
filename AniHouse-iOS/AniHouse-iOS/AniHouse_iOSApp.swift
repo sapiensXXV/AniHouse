@@ -11,7 +11,8 @@ import SwiftUI
 struct AniHouse_iOSApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
+//            ContentView()
         }
     }
 }
