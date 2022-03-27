@@ -51,6 +51,19 @@ pod install --repo-update
 Lottie Animation을 사용해서 로그인화면에 애니메이션 삽입<br>
 백그라운드 컬러는 **assets.xcassets** 에 Custom Color그룹을 만들고 Light Gray색상을 등록
 id 입력부분은 입력한 텍스트 부분이 보이지만, 비밀번호는 입력한 텍스트가 보이지 않도록 함.<br>
-
-<img width="35%" alt="스크린샷 2022-03-25 오전 12 06 22" src="https://user-images.githubusercontent.com/76734067/160100808-fd23be3e-14c7-4f72-9aa8-fcd4886748df.png">
 <img src="https://user-images.githubusercontent.com/76734067/160101113-b122b821-686d-4287-a1e4-a7683c78b8d8.gif" width="36%">
+
+---
+## 🔨회원가입 화면
+Form 구조체를 사용해서 폼을 설계하였다.<br>
+네비게이션 바의 아이템으로 키보드를 내릴 수 있는 아이템과 회원가입버튼을 지정해주었다.<br>
+회원가입 버튼을 누르면 `@Published` 애노테이션으로 지정된 `isSigned` 변수의 값이 `true`로 변경되며 홈 뷰로 이동한다.
+또한 `FirebaseAuth`와의 연결을 통해서 회원이 직접등록되는 것 까지 확인하였다.
+<img src="https://user-images.githubusercontent.com/76734067/160276091-e99a57a6-8651-4972-a1c2-aba8d8683961.png" width="70%"><br>
+LoginView도 로그인 버튼을 눌렀을 때 `FirebaseAuth`에서 회원을 조회하고, 만약 등록되지 않은 회원일 때에는
+알림을 내보내도록 개발하였다.<br>
+<p>
+<img src="https://user-images.githubusercontent.com/76734067/160276287-42cfe4a4-18c9-4ff5-bc68-32d6e75aeea7.gif" width="28%">
+<img src="https://user-images.githubusercontent.com/76734067/160276327-e0becdb6-f34c-46df-8e6f-4ba28a9e40d1.gif" width="28%">
+<img src="https://user-images.githubusercontent.com/76734067/160276387-fe4cb757-33d8-42bc-8f8e-67a3e095f1ef.gif" width="28%">
+</p>
