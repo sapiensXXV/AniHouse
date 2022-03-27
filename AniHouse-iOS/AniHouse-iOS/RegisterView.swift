@@ -26,7 +26,7 @@ struct RegisterView: View {
         ZStack {
             if viewModel.signedIn {
                 VStack {
-                    Text("You are signed In!")
+                    Text("홈 화면")
                     
                     Button {
                         viewModel.signOut()
