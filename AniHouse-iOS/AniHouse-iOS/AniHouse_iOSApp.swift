@@ -16,7 +16,8 @@ struct AniHouse_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             let viewModel = AppViewModel()
-            LoginView()
+//            LoginView()
+            FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0)))
                 .environmentObject(viewModel)
 //            ContentView()
         }

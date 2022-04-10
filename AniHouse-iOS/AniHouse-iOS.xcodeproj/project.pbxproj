@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		41D3DE59E22B0651D09C9DAA /* Pods_AniHouse_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */; };
+		9125D53C28002BC9007CAEB3 /* ReviseFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125D53B28002BC9007CAEB3 /* ReviseFreeBoardView.swift */; };
+		9185C56327F81B010009B93F /* FreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56227F81B010009B93F /* FreeBoardView.swift */; };
+		9185C56527F81E3B0009B93F /* AddFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56427F81E3B0009B93F /* AddFreeBoardView.swift */; };
+		9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56627F8357C0009B93F /* FreeBoardContent.swift */; };
+		9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */; };
+		918DA44D27FC38C90040EF07 /* SelectedFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918DA44C27FC38C90040EF07 /* SelectedFreeBoardView.swift */; };
 		BB29D0D327EC9F42009E3D5F /* walking_dog.json in Resources */ = {isa = PBXBuildFile; fileRef = BB29D0D227EC9F42009E3D5F /* walking_dog.json */; };
 		BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */; };
 		BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602B27E0EFB300CFC94A /* ContentView.swift */; };
@@ -27,6 +33,12 @@
 		0F098F85799B1CB696AA8D58 /* Pods-AniHouse-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AniHouse-iOS.release.xcconfig"; path = "Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AniHouse_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DFD3BBAB2AEFA54BC58541D /* Pods-AniHouse-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AniHouse-iOS.debug.xcconfig"; path = "Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		9125D53B28002BC9007CAEB3 /* ReviseFreeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseFreeBoardView.swift; sourceTree = "<group>"; };
+		9185C56227F81B010009B93F /* FreeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeBoardView.swift; sourceTree = "<group>"; };
+		9185C56427F81E3B0009B93F /* AddFreeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFreeBoardView.swift; sourceTree = "<group>"; };
+		9185C56627F8357C0009B93F /* FreeBoardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FreeBoardContent.swift; path = "AniHouse-iOS/FreeBoardContent.swift"; sourceTree = SOURCE_ROOT; };
+		9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeBoardViewModel.swift; sourceTree = "<group>"; };
+		918DA44C27FC38C90040EF07 /* SelectedFreeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedFreeBoardView.swift; sourceTree = "<group>"; };
 		BB29D0D227EC9F42009E3D5F /* walking_dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = walking_dog.json; sourceTree = "<group>"; };
 		BB78602627E0EFB300CFC94A /* AniHouse-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AniHouse-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AniHouse_iOSApp.swift; sourceTree = "<group>"; };
@@ -118,6 +130,7 @@
 			children = (
 				BBA11DC927EF708A004F0327 /* AppViewModel.swift */,
 				BB78602B27E0EFB300CFC94A /* ContentView.swift */,
+				9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -130,6 +143,10 @@
 				BBA11DCB27EF7438004F0327 /* SignInView.swift */,
 				BB8F33EA27EC99580021A6EB /* RegisterView.swift */,
 				BBA11DC727EF6FA0004F0327 /* SignUpView.swift */,
+				9185C56227F81B010009B93F /* FreeBoardView.swift */,
+				9185C56427F81E3B0009B93F /* AddFreeBoardView.swift */,
+				918DA44C27FC38C90040EF07 /* SelectedFreeBoardView.swift */,
+				9125D53B28002BC9007CAEB3 /* ReviseFreeBoardView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -137,6 +154,7 @@
 		BB8F33E927EC99170021A6EB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9185C56627F8357C0009B93F /* FreeBoardContent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,13 +285,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBA11DCC27EF7438004F0327 /* SignInView.swift in Sources */,
+				9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */,
+				9185C56327F81B010009B93F /* FreeBoardView.swift in Sources */,
 				BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */,
 				BBA11DC827EF6FA1004F0327 /* SignUpView.swift in Sources */,
+				9185C56527F81E3B0009B93F /* AddFreeBoardView.swift in Sources */,
 				BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */,
+				9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */,
 				BB8F33EB27EC99580021A6EB /* RegisterView.swift in Sources */,
 				BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */,
 				BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */,
+				9125D53C28002BC9007CAEB3 /* ReviseFreeBoardView.swift in Sources */,
 				BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */,
+				918DA44D27FC38C90040EF07 /* SelectedFreeBoardView.swift in Sources */,
 				BBA11DC027EEFCDB004F0327 /* LottieView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
