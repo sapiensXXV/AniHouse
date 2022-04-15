@@ -14,6 +14,9 @@
 		9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56627F8357C0009B93F /* FreeBoardContent.swift */; };
 		9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */; };
 		918DA44D27FC38C90040EF07 /* SelectedFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918DA44C27FC38C90040EF07 /* SelectedFreeBoardView.swift */; };
+		BB10AE972808AA6D009E195C /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB10AE962808AA6D009E195C /* TabBarView.swift */; };
+		BB10AE992808AAF5009E195C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB10AE982808AAF5009E195C /* MainView.swift */; };
+		BB10AE9C2808AB0F009E195C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB10AE9B2808AB0F009E195C /* SettingView.swift */; };
 		BB29D0D327EC9F42009E3D5F /* walking_dog.json in Resources */ = {isa = PBXBuildFile; fileRef = BB29D0D227EC9F42009E3D5F /* walking_dog.json */; };
 		BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */; };
 		BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602B27E0EFB300CFC94A /* ContentView.swift */; };
@@ -39,6 +42,9 @@
 		9185C56627F8357C0009B93F /* FreeBoardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FreeBoardContent.swift; path = "AniHouse-iOS/FreeBoardContent.swift"; sourceTree = SOURCE_ROOT; };
 		9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeBoardViewModel.swift; sourceTree = "<group>"; };
 		918DA44C27FC38C90040EF07 /* SelectedFreeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedFreeBoardView.swift; sourceTree = "<group>"; };
+		BB10AE962808AA6D009E195C /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		BB10AE982808AAF5009E195C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		BB10AE9B2808AB0F009E195C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BB29D0D227EC9F42009E3D5F /* walking_dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = walking_dog.json; sourceTree = "<group>"; };
 		BB78602627E0EFB300CFC94A /* AniHouse-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AniHouse-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AniHouse_iOSApp.swift; sourceTree = "<group>"; };
@@ -75,6 +81,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BB10AE932808A857009E195C /* LoginAndRegsiter */ = {
+			isa = PBXGroup;
+			children = (
+				BB7914CA27EC68C2000E819E /* LoginView.swift */,
+				BBA11DCB27EF7438004F0327 /* SignInView.swift */,
+				BB8F33EA27EC99580021A6EB /* RegisterView.swift */,
+				BBA11DC727EF6FA0004F0327 /* SignUpView.swift */,
+			);
+			name = LoginAndRegsiter;
+			sourceTree = "<group>";
+		};
+		BB10AE942808A867009E195C /* FreeBoard */ = {
+			isa = PBXGroup;
+			children = (
+				9185C56227F81B010009B93F /* FreeBoardView.swift */,
+				9185C56427F81E3B0009B93F /* AddFreeBoardView.swift */,
+				918DA44C27FC38C90040EF07 /* SelectedFreeBoardView.swift */,
+				9125D53B28002BC9007CAEB3 /* ReviseFreeBoardView.swift */,
+			);
+			name = FreeBoard;
+			sourceTree = "<group>";
+		};
+		BB10AE952808A9A1009E195C /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				BB10AE982808AAF5009E195C /* MainView.swift */,
+			);
+			name = MainView;
+			sourceTree = "<group>";
+		};
+		BB10AE9A2808AB04009E195C /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				BB10AE9B2808AB0F009E195C /* SettingView.swift */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
 		BB29D0D127EC9F15009E3D5F /* Lottie Animation JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +151,8 @@
 				BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */,
 				BB8F33E927EC99170021A6EB /* Models */,
 				BB8F33E827EC99120021A6EB /* Views */,
+				BB10AE9A2808AB04009E195C /* Setting */,
+				BBA11DBF27EEFCDB004F0327 /* LottieView.swift */,
 				BB8F33E727EC99060021A6EB /* ViewModels */,
 				BB78602D27E0EFB400CFC94A /* Assets.xcassets */,
 				BB78603727E0F10500CFC94A /* GoogleService-Info.plist */,
@@ -138,15 +184,10 @@
 		BB8F33E827EC99120021A6EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BBA11DBF27EEFCDB004F0327 /* LottieView.swift */,
-				BB7914CA27EC68C2000E819E /* LoginView.swift */,
-				BBA11DCB27EF7438004F0327 /* SignInView.swift */,
-				BB8F33EA27EC99580021A6EB /* RegisterView.swift */,
-				BBA11DC727EF6FA0004F0327 /* SignUpView.swift */,
-				9185C56227F81B010009B93F /* FreeBoardView.swift */,
-				9185C56427F81E3B0009B93F /* AddFreeBoardView.swift */,
-				918DA44C27FC38C90040EF07 /* SelectedFreeBoardView.swift */,
-				9125D53B28002BC9007CAEB3 /* ReviseFreeBoardView.swift */,
+				BB10AE962808AA6D009E195C /* TabBarView.swift */,
+				BB10AE952808A9A1009E195C /* MainView */,
+				BB10AE932808A857009E195C /* LoginAndRegsiter */,
+				BB10AE942808A867009E195C /* FreeBoard */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -287,13 +328,16 @@
 				BBA11DCC27EF7438004F0327 /* SignInView.swift in Sources */,
 				9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */,
 				9185C56327F81B010009B93F /* FreeBoardView.swift in Sources */,
+				BB10AE9C2808AB0F009E195C /* SettingView.swift in Sources */,
 				BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */,
 				BBA11DC827EF6FA1004F0327 /* SignUpView.swift in Sources */,
 				9185C56527F81E3B0009B93F /* AddFreeBoardView.swift in Sources */,
 				BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */,
 				9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */,
 				BB8F33EB27EC99580021A6EB /* RegisterView.swift in Sources */,
+				BB10AE972808AA6D009E195C /* TabBarView.swift in Sources */,
 				BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */,
+				BB10AE992808AAF5009E195C /* MainView.swift in Sources */,
 				BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */,
 				9125D53C28002BC9007CAEB3 /* ReviseFreeBoardView.swift in Sources */,
 				BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */,

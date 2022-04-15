@@ -17,9 +17,10 @@ struct AniHouse_iOSApp: App {
         WindowGroup {
             let viewModel = AppViewModel()
 //            LoginView()
-            FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0)))
-                .environmentObject(viewModel)
+//            FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0)))
+//                .environmentObject(viewModel)
 //            ContentView()
+            TabBarView()
         }
     }
 }
