@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		41D3DE59E22B0651D09C9DAA /* Pods_AniHouse_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */; };
 		9125D53C28002BC9007CAEB3 /* ReviseFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125D53B28002BC9007CAEB3 /* ReviseFreeBoardView.swift */; };
+		915C98C928192771009D27EB /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915C98C828192771009D27EB /* AddPostView.swift */; };
 		9185C56327F81B010009B93F /* FreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56227F81B010009B93F /* FreeBoardView.swift */; };
 		9185C56527F81E3B0009B93F /* AddFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56427F81E3B0009B93F /* AddFreeBoardView.swift */; };
 		9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56627F8357C0009B93F /* FreeBoardContent.swift */; };
@@ -37,6 +38,7 @@
 		21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AniHouse_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DFD3BBAB2AEFA54BC58541D /* Pods-AniHouse-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AniHouse-iOS.debug.xcconfig"; path = "Target Support Files/Pods-AniHouse-iOS/Pods-AniHouse-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9125D53B28002BC9007CAEB3 /* ReviseFreeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseFreeBoardView.swift; sourceTree = "<group>"; };
+		915C98C828192771009D27EB /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		9185C56227F81B010009B93F /* FreeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeBoardView.swift; sourceTree = "<group>"; };
 		9185C56427F81E3B0009B93F /* AddFreeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFreeBoardView.swift; sourceTree = "<group>"; };
 		9185C56627F8357C0009B93F /* FreeBoardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FreeBoardContent.swift; path = "AniHouse-iOS/FreeBoardContent.swift"; sourceTree = SOURCE_ROOT; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				BB10AE982808AAF5009E195C /* MainView.swift */,
+				915C98C828192771009D27EB /* AddPostView.swift */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */,
 				9185C56327F81B010009B93F /* FreeBoardView.swift in Sources */,
 				BB10AE9C2808AB0F009E195C /* SettingView.swift in Sources */,
+				915C98C928192771009D27EB /* AddPostView.swift in Sources */,
 				BB7914CB27EC68C2000E819E /* LoginView.swift in Sources */,
 				BBA11DC827EF6FA1004F0327 /* SignUpView.swift in Sources */,
 				9185C56527F81E3B0009B93F /* AddFreeBoardView.swift in Sources */,

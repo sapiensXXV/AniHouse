@@ -352,6 +352,9 @@ PODS:
   - Firebase/Firestore (8.13.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 8.13.0)
+  - Firebase/Storage (8.13.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 8.13.0)
   - FirebaseAuth (8.13.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
@@ -379,6 +382,9 @@ PODS:
     - "gRPC-C++ (~> 1.28.0)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 2.30908.0)
+  - FirebaseStorage (8.13.0):
+    - FirebaseCore (~> 8.0)
+    - GTMSessionFetcher/Core (~> 1.5)
   - GoogleDataTransport (9.1.2):
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
@@ -440,6 +446,7 @@ PODS:
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
+  - Firebase/Storage
   - lottie-ios
   - RealmSwift (~> 10)
 
@@ -452,6 +459,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseFirestore
+    - FirebaseStorage
     - GoogleDataTransport
     - GoogleUtilities
     - "gRPC-C++"
@@ -472,6 +480,7 @@ SPEC CHECKSUMS:
   FirebaseCore: c7e3fa30492e50ccdeef280bf0d5584af38da3e1
   FirebaseCoreDiagnostics: c2836d254a8f0bbb4121ff18f2c2ea39d118fd08
   FirebaseFirestore: 11d872a1e6f745f5ab52b96a218c60bfc6cbd770
+  FirebaseStorage: 0f115042c1596f5df5a80b67cf414d8f028ccddd
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
@@ -484,6 +493,6 @@ SPEC CHECKSUMS:
   Realm: f9bc5a212a9ab084b4ed90cda1c28d835a38a06b
   RealmSwift: 0b03bb38001bee4280dcc27709e6b33f438cfad1
 
-PODFILE CHECKSUM: f85d7866a1fb1c6149e8498848440d46b3f4c37c
+PODFILE CHECKSUM: fced137075f6545eadf40e0c870881ad7041d526
 
 COCOAPODS: 1.11.2
