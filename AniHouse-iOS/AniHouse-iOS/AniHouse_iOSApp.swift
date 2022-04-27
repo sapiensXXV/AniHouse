@@ -15,6 +15,7 @@ struct AniHouse_iOSApp: App {
     
     var body: some Scene {
         WindowGroup {
+            //뷰 모델 생성
             let viewModel = AppViewModel()
 //            LoginView()
 //            FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0)))
