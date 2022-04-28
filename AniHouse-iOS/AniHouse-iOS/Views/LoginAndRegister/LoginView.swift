@@ -17,10 +17,8 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             if viewModel.signedIn {
-                Text("You are signed In!")
+                MainView()
                 // 이미 로그인 한 유저의 경우 이곳을 통해 홈 뷰로 이동.
-                
-                
             }
             else {
                 SignInView()
