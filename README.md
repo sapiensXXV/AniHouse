@@ -67,3 +67,33 @@ LoginView도 로그인 버튼을 눌렀을 때 `FirebaseAuth`에서 회원을 �
 <img src="https://user-images.githubusercontent.com/76734067/160276327-e0becdb6-f34c-46df-8e6f-4ba28a9e40d1.gif" width="28%">
 <img src="https://user-images.githubusercontent.com/76734067/160276387-fe4cb757-33d8-42bc-8f8e-67a3e095f1ef.gif" width="28%">
 </p>
+
+---
+## 🔨메인 뷰
+`LazyVGrid`를 통해서 구현하였습니다.
+
+<img width="124" alt="image" src="https://user-images.githubusercontent.com/76734067/165814994-bdd7c2ba-518c-4626-ada3-431c80e1c222.png">
+<br>
+
+### 2022-04-29 기준
+
+각 그리드는 위와 같은 셀들로 구성되어 있으며, 전체적인 화면은 한줄에 2개의 열로 구성되어 있습니다. 
+위의 기본 셀은 어떤 이미지도, 제목도, 내용도 없는`ScrollView` 를 통해서사용자가 아래로 스크롤 할 수 있으며, 위 의셀은 임시로
+그리드 뷰를 보여주기 위해서 기본이미지와 타이틀을 적용한 상태입니다. 
+
+화면 우측하단의 버튼을 눌러서 글을 작성할 수 있는 화면으로 넘어가도록 하였습니다. 
+
+게시글의 구성요소는 다음과 같으며, 아래의 정보들이 FireStore에 저장됩니다.
+* 게시글 작성자
+* 제목
+* 내용
+* 이미지
+
+게시글 작성화면에서 하단의 이미지 버튼을 누르면, 이미지를 선택할 수 있는 화면으로 넘어갑니다.
+
+자유게시판이 이미지 없이 작성할 수 있는 화면인 반면, 메인에서는 이미지 없이는 작성할 수 없도록 할 예정입니다.
+<p>
+<img src="https://user-images.githubusercontent.com/76734067/165816985-74d841e5-35be-4646-8529-5e04ccdae4df.gif" width="30%">
+<img src="https://user-images.githubusercontent.com/76734067/165818548-6a02c25f-28b1-4e80-a298-c730f66d64a1.gif" width="30%" >
+</p>
+화면 우측 하단의 버튼을 누르면 글을 작성할 수 있는 화면으로 넘어간다.

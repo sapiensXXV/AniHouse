@@ -15,8 +15,8 @@
 		BB2C6A082819C18C00D1FA2B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A042819C18C00D1FA2B /* LoginView.swift */; };
 		BB2C6A092819C18C00D1FA2B /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A052819C18C00D1FA2B /* RegisterView.swift */; };
 		BB2C6A0A2819C18C00D1FA2B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A062819C18C00D1FA2B /* SignUpView.swift */; };
-		BB2C6A0D2819C19500D1FA2B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A0B2819C19500D1FA2B /* MainView.swift */; };
-		BB2C6A0E2819C19500D1FA2B /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A0C2819C19500D1FA2B /* AddPostView.swift */; };
+		BB2C6A0D2819C19500D1FA2B /* MainView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A0B2819C19500D1FA2B /* MainView2.swift */; };
+		BB2C6A0E2819C19500D1FA2B /* AddPostView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A0C2819C19500D1FA2B /* AddPostView2.swift */; };
 		BB2C6A132819C19F00D1FA2B /* AddFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A0F2819C19F00D1FA2B /* AddFreeBoardView.swift */; };
 		BB2C6A142819C19F00D1FA2B /* SelectedFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A102819C19F00D1FA2B /* SelectedFreeBoardView.swift */; };
 		BB2C6A152819C19F00D1FA2B /* FreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A112819C19F00D1FA2B /* FreeBoardView.swift */; };
@@ -31,6 +31,12 @@
 		BBA11DC027EEFCDB004F0327 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA11DBF27EEFCDB004F0327 /* LottieView.swift */; };
 		BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA11DC927EF708A004F0327 /* AppViewModel.swift */; };
 		BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */; };
+		BBD6FB04281A89F300BCA90F /* MainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB03281A89F300BCA90F /* MainViewCell.swift */; };
+		BBD6FB08281A8A1B00BCA90F /* MainBoardPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB07281A8A1B00BCA90F /* MainBoardPost.swift */; };
+		BBD6FB0A281A952E00BCA90F /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB09281A952E00BCA90F /* Constant.swift */; };
+		BBD6FB0C281A983300BCA90F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB0B281A983300BCA90F /* MainView.swift */; };
+		BBD6FB0E281AC23C00BCA90F /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB0D281AC23C00BCA90F /* AddPostView.swift */; };
+		BBD6FB2A281AF5EE00BCA90F /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB29281AF5EE00BCA90F /* PhotoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +50,8 @@
 		BB2C6A042819C18C00D1FA2B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BB2C6A052819C18C00D1FA2B /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		BB2C6A062819C18C00D1FA2B /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		BB2C6A0B2819C19500D1FA2B /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		BB2C6A0C2819C19500D1FA2B /* AddPostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		BB2C6A0B2819C19500D1FA2B /* MainView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView2.swift; sourceTree = "<group>"; };
+		BB2C6A0C2819C19500D1FA2B /* AddPostView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostView2.swift; sourceTree = "<group>"; };
 		BB2C6A0F2819C19F00D1FA2B /* AddFreeBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFreeBoardView.swift; sourceTree = "<group>"; };
 		BB2C6A102819C19F00D1FA2B /* SelectedFreeBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedFreeBoardView.swift; sourceTree = "<group>"; };
 		BB2C6A112819C19F00D1FA2B /* FreeBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeBoardView.swift; sourceTree = "<group>"; };
@@ -61,6 +67,12 @@
 		BBA11DBF27EEFCDB004F0327 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		BBA11DC927EF708A004F0327 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		BBD6FB03281A89F300BCA90F /* MainViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCell.swift; sourceTree = "<group>"; };
+		BBD6FB07281A8A1B00BCA90F /* MainBoardPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardPost.swift; sourceTree = "<group>"; };
+		BBD6FB09281A952E00BCA90F /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		BBD6FB0B281A983300BCA90F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		BBD6FB0D281AC23C00BCA90F /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		BBD6FB29281AF5EE00BCA90F /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +118,11 @@
 		BB2C6A002819C16300D1FA2B /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				BB2C6A0C2819C19500D1FA2B /* AddPostView.swift */,
-				BB2C6A0B2819C19500D1FA2B /* MainView.swift */,
+				BB2C6A0C2819C19500D1FA2B /* AddPostView2.swift */,
+				BB2C6A0B2819C19500D1FA2B /* MainView2.swift */,
+				BBD6FB03281A89F300BCA90F /* MainViewCell.swift */,
+				BBD6FB0B281A983300BCA90F /* MainView.swift */,
+				BBD6FB0D281AC23C00BCA90F /* AddPostView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -163,16 +178,18 @@
 		BB78602827E0EFB300CFC94A /* AniHouse-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				BB2C69FF2819C15600D1FA2B /* Views */,
 				BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */,
+				BB2C69FF2819C15600D1FA2B /* Views */,
 				BB8F33E927EC99170021A6EB /* Models */,
-				BBA11DBF27EEFCDB004F0327 /* LottieView.swift */,
 				BB8F33E727EC99060021A6EB /* ViewModels */,
 				BB78602D27E0EFB400CFC94A /* Assets.xcassets */,
 				BB78603727E0F10500CFC94A /* GoogleService-Info.plist */,
 				BB78602F27E0EFB400CFC94A /* Preview Content */,
 				BB29D0D127EC9F15009E3D5F /* Lottie Animation JSON */,
 				BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */,
+				BBA11DBF27EEFCDB004F0327 /* LottieView.swift */,
+				BBD6FB09281A952E00BCA90F /* Constant.swift */,
+				BBD6FB29281AF5EE00BCA90F /* PhotoPicker.swift */,
 			);
 			path = "AniHouse-iOS";
 			sourceTree = "<group>";
@@ -199,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				9185C56627F8357C0009B93F /* FreeBoardContent.swift */,
+				BBD6FB07281A8A1B00BCA90F /* MainBoardPost.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -329,23 +347,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB2C6A092819C18C00D1FA2B /* RegisterView.swift in Sources */,
-				BB2C6A0D2819C19500D1FA2B /* MainView.swift in Sources */,
+				BB2C6A0D2819C19500D1FA2B /* MainView2.swift in Sources */,
 				BB2C6A072819C18C00D1FA2B /* SignInView.swift in Sources */,
 				BB2C6A192819C1C200D1FA2B /* SettingView.swift in Sources */,
 				9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */,
+				BBD6FB04281A89F300BCA90F /* MainViewCell.swift in Sources */,
 				BB2C6A142819C19F00D1FA2B /* SelectedFreeBoardView.swift in Sources */,
 				BB2C6A1B2819C1E300D1FA2B /* TabBarView.swift in Sources */,
 				BB2C6A0A2819C18C00D1FA2B /* SignUpView.swift in Sources */,
 				BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */,
 				BB2C6A152819C19F00D1FA2B /* FreeBoardView.swift in Sources */,
+				BBD6FB08281A8A1B00BCA90F /* MainBoardPost.swift in Sources */,
 				9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */,
 				BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */,
 				BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */,
-				BB2C6A0E2819C19500D1FA2B /* AddPostView.swift in Sources */,
+				BB2C6A0E2819C19500D1FA2B /* AddPostView2.swift in Sources */,
 				BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */,
 				BB2C6A082819C18C00D1FA2B /* LoginView.swift in Sources */,
 				BBA11DC027EEFCDB004F0327 /* LottieView.swift in Sources */,
+				BBD6FB0C281A983300BCA90F /* MainView.swift in Sources */,
+				BBD6FB0A281A952E00BCA90F /* Constant.swift in Sources */,
 				BB2C6A132819C19F00D1FA2B /* AddFreeBoardView.swift in Sources */,
+				BBD6FB0E281AC23C00BCA90F /* AddPostView.swift in Sources */,
+				BBD6FB2A281AF5EE00BCA90F /* PhotoPicker.swift in Sources */,
 				BB2C6A162819C19F00D1FA2B /* ReviseFreeBoardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
