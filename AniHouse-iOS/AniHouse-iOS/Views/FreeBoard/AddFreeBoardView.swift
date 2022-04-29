@@ -26,11 +26,11 @@ struct AddFreeBoardView: View {
             }
             
             Section(header: Text("게시글 내용")) {
-                    TextEditor(text: $boardBody)
-                        .frame(height: 300)
-                        .foregroundColor(Color.black)
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
+                TextEditor(text: $boardBody)
+                    .frame(height: 300)
+                    .foregroundColor(Color.black)
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
             }
             // alert을 같은 view에 넣으면 정상적으로 처리가 안되므로 여기에 alert을 추가함
             .alert(isPresented: $showingFailureAlert) {
@@ -53,20 +53,17 @@ struct AddFreeBoardView: View {
                     UserDefaults.standard.set(self.priority, forKey: "priority")
                     let db = Firestore.firestore()
                     db.collection("FreeBoard").document(String(self.priority)).setData(["title":boardTitle,"body":boardBody, "priority":priority])
-
+                    
                     // 작성하였으므로 내용 삭제
                     boardTitle = ""
                     boardBody = ""
-
+                    
                     presentationMode.wrappedValue.dismiss()
                 }
             }) {
                 Text("게시글 올리기")
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
             }
-//            .alert(isPresented: $showingAlert) {
-//                Alert(title: Text("제출 완료!"), message: nil, dismissButton: .default(Text("확인")))
-//            }
         }
     }
 }
