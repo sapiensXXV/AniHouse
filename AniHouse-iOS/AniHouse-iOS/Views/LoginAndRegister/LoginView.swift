@@ -11,19 +11,24 @@ import Lottie
 struct LoginView: View {
     @State var userId: String = ""
     @State var userPassword: String = ""
-    
+    // UserDefault를 사용하여 자동 로그인 구현
+    @State private var loginCheck = UserDefaults.standard.bool(forKey: "loginCheck")
+
     @EnvironmentObject var viewModel: AppViewModel
     
     var body: some View {
-        NavigationView {
-            if viewModel.signedIn {
-                MainView()
+//        NavigationView {
+        if UserDefaults.standard.bool(forKey: "loginCheck") {
+                let _ = print(viewModel.signedIn)
+//                MainView()
+                // 로그인 성공하면 바로 TabBarView로 이동
+                TabBarView()
                 // 이미 로그인 한 유저의 경우 이곳을 통해 홈 뷰로 이동.
             }
             else {
                 SignInView()
             }
-        }
+//        }
     }
 }
 
