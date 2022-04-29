@@ -11,4 +11,8 @@ struct FreeBoardContent {
     var title: String
     var body: String
     var priority: Int
+    var author: String
+    var hit: Int
+    var comment: [String]
+    var hitCheck: Bool
 }

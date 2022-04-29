@@ -24,9 +24,10 @@ struct SelectedFreeBoardView: View {
 //                        .padding(.bottom, 2)
 //                        .foregroundColor(.gray)
                     Text(selectedData.title)
-                        .padding()
-                        .border(Color.black, width: 3)
+                        .padding(7)
+                        .background(Color("MainViewCellColor"))
                         .cornerRadius(5)
+                        .shadow(color: .gray, radius: 2, x: 0, y: 0)
                 }
                                 
                 Spacer()
@@ -52,6 +53,10 @@ struct SelectedFreeBoardView: View {
 //                    .padding(.bottom, 2)
 //                    .foregroundColor(.gray)
                 Text("작성자")
+                    .padding(7)
+                    .background(Color("MainViewCellColor"))
+                    .cornerRadius(5)
+                    .shadow(color: .gray, radius: 2, x: 0, y: 0)
 
             }
             .padding()
@@ -63,6 +68,10 @@ struct SelectedFreeBoardView: View {
 //                    .padding(.bottom, 2)
 //                    .foregroundColor(.gray)
                 Text(selectedData.body)
+                    .padding(7)
+                    .background(Color("MainViewCellColor"))
+                    .cornerRadius(5)
+                    .shadow(color: .gray, radius: 2, x: 0, y: 0)
             }
             .padding()
             
@@ -198,6 +207,6 @@ struct SelectedFreeBoardView: View {
 
 struct SelectedFreeBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectedFreeBoardView(selectedData: .init(title: "", body: "", priority: 0))
+        SelectedFreeBoardView(selectedData: .init(title: "", body: "", priority: 0, author: "", hit:0, comment: [""], hitCheck: false))
     }
 }

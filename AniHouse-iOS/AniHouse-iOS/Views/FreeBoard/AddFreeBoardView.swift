@@ -52,7 +52,7 @@ struct AddFreeBoardView: View {
                     self.priority += 1
                     UserDefaults.standard.set(self.priority, forKey: "priority")
                     let db = Firestore.firestore()
-                    db.collection("FreeBoard").document(String(self.priority)).setData(["title":boardTitle,"body":boardBody, "priority":priority])
+                    db.collection("FreeBoard").document(String(self.priority)).setData(["title":boardTitle,"body":boardBody, "priority":priority, "author":"최은성", "hit":100, "comment":[""], "hitCheck": false])
                     
                     // 작성하였으므로 내용 삭제
                     boardTitle = ""

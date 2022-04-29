@@ -88,7 +88,7 @@ struct FreeBoardView: View {
 
 struct FreeBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0)))
+        FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0, author: "", hit:0, comment: [""], hitCheck: false)))
     }
 }
 
