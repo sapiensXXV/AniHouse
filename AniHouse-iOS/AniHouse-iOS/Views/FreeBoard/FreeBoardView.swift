@@ -11,8 +11,8 @@ struct FreeBoardView: View {
     @State private var title = ""
     @State private var showModal = false
     @ObservedObject private var viewModel = FreeBoardViewModel()
-//    @Binding var selectedTitle:String
-//    @Binding var selectedBody:String
+    //    @Binding var selectedTitle:String
+    //    @Binding var selectedBody:String
     @Binding var selectedData: FreeBoardContent
     @State private var search = false
     @State private var searchTitle = ""
@@ -30,15 +30,15 @@ struct FreeBoardView: View {
                         searchTitle = title
                         title = ""
                     }) {
-                       Image(systemName: "magnifyingglass")
+                        Image(systemName: "magnifyingglass")
                     }
-                        .padding()
+                    .padding()
                     Button(action: {
                         showModal = true
                     }) {
-                       Image(systemName: "plus")
+                        Image(systemName: "plus")
                     }
-                        .padding()
+                    .padding()
                     // 게시글 추가 Modal View
                     .sheet(isPresented: self.$showModal) {
                         AddFreeBoardView()
@@ -50,12 +50,28 @@ struct FreeBoardView: View {
                         // 게시글 제목 검색 기능
                         if search == true && data.title.contains(searchTitle) {
                             NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
-                                Text("\(data.title)")
+                                VStack(alignment: .leading) {
+                                    Text("\(data.title)")
+                                        .font(Font.headline.weight(.heavy))
+                                        .font(.system(size: 13))
+                                        .lineLimit(1)
+                                    Text("\(data.body)")
+                                        .font(.system(size: 12))
+                                        .lineLimit(1)
+                                }
                             }
                         }
                         else if search == false || searchTitle == "" {
                             NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
-                                Text("\(data.title)")
+                                VStack(alignment: .leading) {
+                                    Text("\(data.title)")
+                                        .font(Font.headline.weight(.heavy))
+                                        .font(.system(size: 13))
+                                        .lineLimit(1)
+                                    Text("\(data.body)")
+                                        .font(.system(size: 12))
+                                        .lineLimit(1)
+                                }
                             }
                         }
                     }
@@ -76,3 +92,15 @@ struct FreeBoardView_Previews: PreviewProvider {
     }
 }
 
+
+// swipe하여 뒤로 가기 기능
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
+}
