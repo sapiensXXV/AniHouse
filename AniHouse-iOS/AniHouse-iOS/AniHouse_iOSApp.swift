@@ -17,11 +17,13 @@ struct AniHouse_iOSApp: App {
         WindowGroup {
             //뷰 모델 생성
             let viewModel = AppViewModel()
-//            LoginView()
-//            FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0)))
-//                .environmentObject(viewModel)
-//            ContentView()
-            TabBarView()
+            //            LoginView()
+            //            FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0)))
+            //                .environmentObject(viewModel)
+            //            ContentView()
+            //            TabBarView()
+            LoginView()
+                .environmentObject(viewModel)
         }
     }
 }

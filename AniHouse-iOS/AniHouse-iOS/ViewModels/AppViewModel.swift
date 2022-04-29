@@ -33,7 +33,6 @@ class AppViewModel: ObservableObject {
             // 성공
             DispatchQueue.main.async {
                 self?.signedIn = true
-
             }
         }
     }
