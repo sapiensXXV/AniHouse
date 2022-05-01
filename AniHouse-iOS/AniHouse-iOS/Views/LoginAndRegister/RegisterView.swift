@@ -21,13 +21,12 @@ struct RegisterView: View {
     
     @EnvironmentObject var viewModel: AppViewModel
     
-    
     var body: some View {
         ZStack {
             if viewModel.signedIn {
                 VStack {
                     Text("홈 화면")
-                    
+
                     Button {
                         viewModel.signOut()
                     } label: {
@@ -39,7 +38,6 @@ struct RegisterView: View {
                     .background(Color.blue)
                     .cornerRadius(8)
                 }
-
             }
             else {
                 SignUpView()

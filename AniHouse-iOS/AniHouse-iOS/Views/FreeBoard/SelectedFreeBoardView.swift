@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
+import FirebaseAuth
 
 struct SelectedFreeBoardView: View {
     @State var selectedData: FreeBoardContent
@@ -14,11 +15,17 @@ struct SelectedFreeBoardView: View {
     @State var showModal = false
     @Environment(\.presentationMode) var presentationMode
     
+    @State var isLiked: Bool = false
+    private let animationDuration: Double = 0.1
+    private var animationScale: CGFloat {
+        isLiked ? 0.7 : 1.3
+    }
+    @State private var animate = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             // 게시글 제목
-            HStack(alignment: .bottom) {
-                VStack(alignment: .leading) {
+            HStack {
 //                    Text("게시글 제목")
 //                        .font(.system(size: 12))
 //                        .padding(.bottom, 2)
@@ -28,20 +35,50 @@ struct SelectedFreeBoardView: View {
                         .background(Color("MainViewCellColor"))
                         .cornerRadius(5)
                         .shadow(color: .gray, radius: 2, x: 0, y: 0)
-                }
-                                
+
                 Spacer()
+
+                Text("\(selectedData.hit)")
+                    .padding(7)
+                    .background(Color("MainViewCellColor"))
+                    .cornerRadius(5)
+                    .shadow(color: .gray, radius: 2, x: 0, y: 0)
+
                 
                 // 게시글 좋아요 버튼
                 Button(action: {
-                    
+                    self.animate = true
+                    // 한명이 하나의 좋아요만 누를 수 있게 하기 위함
+                    if selectedData.hitCheck == false {
+                        selectedData.hit += 1
+                        selectedData.hitCheck.toggle()
+                    }
+                    else {
+                        selectedData.hit -= 1
+                        selectedData.hitCheck.toggle()
+                    }
+                    let db = Firestore.firestore()
+                    db.collection("FreeBoard").document(String(selectedData.priority)).setData(["title":selectedData.title,"body":selectedData.body, "priority":selectedData.priority, "author":selectedData.author, "hit":selectedData.hit, "comment":[""], "hitCheck":selectedData.hitCheck])
+
+//                    let user = Auth.auth().currentUser
+//                    db.collection("HitList").document(user?.email ?? "nil").updateData(["hitCheck":FieldValue.arrayUnion([selectedData.hitCheck]), "priority": FieldValue.arrayUnion([selectedData.priority])])
+                                        
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
+                        self.animate = false
+                        self.isLiked.toggle()
+                    })
                 }, label: {
-                    Image("like")
+                    Image(systemName: selectedData.hitCheck ? "heart.fill" : "heart")
                         .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .frame(width: 20, height: 20)
+                        .foregroundColor(selectedData.hitCheck ? .red : .gray)
                 })
                     .buttonStyle(BorderlessButtonStyle())
                     .padding(.leading)
+                    .scaleEffect(animate ? animationScale : 1)
+                    .animation(Animation.easeIn(duration: animationDuration), value: animationScale)
+//                    .animation(.easeIn(duration: animationDuration))
 
             }
             .padding()
@@ -52,7 +89,7 @@ struct SelectedFreeBoardView: View {
 //                    .font(.system(size: 12))
 //                    .padding(.bottom, 2)
 //                    .foregroundColor(.gray)
-                Text("작성자")
+                Text(selectedData.author)
                     .padding(7)
                     .background(Color("MainViewCellColor"))
                     .cornerRadius(5)
@@ -120,86 +157,6 @@ struct SelectedFreeBoardView: View {
 
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-//        VStack {
-//            // 추후 사용자 이름도 가져올 예정
-//            Form {
-//                Section(header: Text("게시글 제목").fontWeight(.heavy)) {
-//                    HStack {
-//                        ZStack {
-//                            Text(selectedData.title)
-//                        }
-//
-//                    }
-//
-//                }
-//
-//                Section(header: Text("작성자").fontWeight(.heavy)) {
-//                    // login view 연결 시 사용자 정보 가져올 예정
-//                    Text("작성자")
-//                }
-//
-//                Section(header: Text("게시글 내용").fontWeight(.heavy)) {
-//                    Text(selectedData.body)
-//                        .frame(height: 300, alignment: .top)
-//                }
-//
-//                Section {
-//                    HStack(alignment: .center) {
-//                        Spacer()
-//                        Text("이 게시글을 추천합니다.")
-//                        Button(action: {
-//
-//                        }, label: {
-//                            Image("like")
-//                                .resizable()
-//                                .frame(width: 20, height: 20)
-//                        })
-//                            .buttonStyle(BorderlessButtonStyle())
-//                        Spacer()
-//                    }
-//                }
-//
-//                HStack {
-//                    Spacer()
-//                    // 게시글 삭제 기능
-//                    Button(action: {
-//                        showingAlert = true
-//                    }, label: {
-//                        Text("게시글 삭제")
-//                            .alert("삭제하시겠습니까?", isPresented: $showingAlert) {
-//                                Button("삭제", role: .destructive) {
-//                                    let db = Firestore.firestore()
-//                                    db.collection("FreeBoard").document(String(selectedData.priority)).delete() { err in
-//                                        if let err = err {
-//                                            print("Error removing document: \(err)")
-//                                        } else {
-//                                            print("Document successfully removed!")
-//                                        }
-//                                    }
-//                                }
-//                                Button("취소", role: .cancel) {
-//
-//                                }
-//                            }
-//                    })
-//                        .buttonStyle(BorderlessButtonStyle())
-//
-//                    Spacer()
-//
-//                    // 게시글 수정 기능
-//                    Button(action: {
-//                        presentationMode.wrappedValue.dismiss()
-//                        showModal = true
-//                    }, label: {
-//                        Text("게시글 수정")
-//                    })
-//                        .buttonStyle(BorderlessButtonStyle())     .sheet(isPresented: self.$showModal) {
-//                            ReviseFreeBoardView(selectedData: selectedData)
-//                        }
-//                    Spacer()
-//                }
-//            }
-//        }
         .navigationTitle("")
         .navigationBarHidden(true)
     }

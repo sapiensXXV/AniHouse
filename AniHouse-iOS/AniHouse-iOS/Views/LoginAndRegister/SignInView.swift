@@ -15,6 +15,7 @@ struct SignInView: View {
     // UserDefault를 사용하여 자동 로그인 구현
     @State private var loginCheck = UserDefaults.standard.bool(forKey: "loginCheck")
 
+    
     @EnvironmentObject var viewModel: AppViewModel
     
     var body: some View {
@@ -51,10 +52,13 @@ struct SignInView: View {
                             return
                         }
                         viewModel.signIn(email: email, password: password)
+                        // viewModel.signedIn이 비동기적으로 처리되는데 이를 기다리지 않고
+                        // 즉, isShowingAlert을 동기적으로 처리하지 않아서 isShowingAlert 값이 viewModel.signedIn이 반영되지 않은 상태였음.
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            isShowingAlert = !viewModel.signedIn // 실제 로그인 여부와 반대로 값을 받는다.
+                        }
                         self.loginCheck = true
                         UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
-                        isShowingAlert = !viewModel.signedIn // 실제 로그인 여부와 반대로 값을 받는다.
-                        
                     } label: {
                         Text("로그인")
                             .fontWeight(.semibold)
