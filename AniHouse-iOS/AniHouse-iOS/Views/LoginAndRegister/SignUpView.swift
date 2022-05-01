@@ -21,7 +21,8 @@ struct SignUpView: View {
     
     @EnvironmentObject var viewModel: AppViewModel
     
-    
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         ZStack {
             Color("Light Gray")
@@ -59,6 +60,8 @@ struct SignUpView: View {
                             }
                             
                             viewModel.signUp(email: email, password: firstPwd)
+                            // 회원가입 완료 시, 뒤로 돌아가기 위해서 즉, SignInView로 돌아가기 위함
+                            self.presentationMode.wrappedValue.dismiss()
                         }
                     }
                 } // toolbar

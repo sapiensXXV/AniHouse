@@ -19,7 +19,7 @@ struct LoginView: View {
     var body: some View {
 //        NavigationView {
         if UserDefaults.standard.bool(forKey: "loginCheck") {
-                let _ = print(viewModel.signedIn)
+                let _ = print("viewModel.signedIn: \(viewModel.signedIn)")
 //                MainView()
                 // 로그인 성공하면 바로 TabBarView로 이동
                 TabBarView()

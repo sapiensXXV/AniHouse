@@ -46,7 +46,7 @@ struct ReviseFreeBoardView: View {
                     showingAlert = true
                     
                     let db = Firestore.firestore()
-                    db.collection("FreeBoard").document(String(selectedData.priority)).setData(["title":selectedData.title,"body":selectedData.body, "priority":selectedData.priority, "author":"최은성", "hit":100, "comment":[""], "hitCheck":false])
+                    db.collection("FreeBoard").document(String(selectedData.priority)).setData(["title":selectedData.title,"body":selectedData.body, "priority":selectedData.priority, "author":selectedData.author, "hit":selectedData.hit, "comment":[""], "hitCheck":selectedData.hitCheck])
 
                     // 작성하였으므로 내용 삭제
                     selectedData.title = ""
