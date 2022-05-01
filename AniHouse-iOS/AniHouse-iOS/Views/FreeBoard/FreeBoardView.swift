@@ -51,10 +51,15 @@ struct FreeBoardView: View {
                         if search == true && data.title.contains(searchTitle) {
                             NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
                                 VStack(alignment: .leading) {
-                                    Text("\(data.title)")
-                                        .font(Font.headline.weight(.heavy))
-                                        .font(.system(size: 13))
-                                        .lineLimit(1)
+                                    HStack {
+                                        Text("\(data.title)")
+                                            .font(Font.headline.weight(.heavy))
+                                            .font(.system(size: 13))
+                                            .lineLimit(1)
+                                        Spacer()
+                                        Text("추천수: \(data.hit)")
+                                            .font(.system(size: 11))
+                                    }
                                     Text("\(data.body)")
                                         .font(.system(size: 12))
                                         .lineLimit(1)
@@ -64,10 +69,15 @@ struct FreeBoardView: View {
                         else if search == false || searchTitle == "" {
                             NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
                                 VStack(alignment: .leading) {
-                                    Text("\(data.title)")
-                                        .font(Font.headline.weight(.heavy))
-                                        .font(.system(size: 13))
-                                        .lineLimit(1)
+                                    HStack {
+                                        Text("\(data.title)")
+                                            .font(Font.headline.weight(.heavy))
+                                            .font(.system(size: 13))
+                                            .lineLimit(1)
+                                        Spacer()
+                                        Text("추천수: \(data.hit)")
+                                            .font(.system(size: 11))
+                                    }
                                     Text("\(data.body)")
                                         .font(.system(size: 12))
                                         .lineLimit(1)

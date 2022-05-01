@@ -15,6 +15,8 @@ class AppViewModel: ObservableObject {
     
     @Published var signedIn = false
     
+//    @Published var now = DispatchTime.now()
+    
     var isSignedIn: Bool {
         return auth.currentUser != nil // true라면 가입되어 있는 유저
     }
@@ -33,6 +35,7 @@ class AppViewModel: ObservableObject {
             // 성공
             DispatchQueue.main.async {
                 self?.signedIn = true
+//                self?.now = DispatchTime.now()
             }
         }
     }
