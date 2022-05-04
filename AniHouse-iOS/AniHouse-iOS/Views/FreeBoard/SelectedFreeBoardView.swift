@@ -15,6 +15,7 @@ struct SelectedFreeBoardView: View {
     @State var showModal = false
     @Environment(\.presentationMode) var presentationMode
     
+    let user = Auth.auth().currentUser
     @State var isLiked: Bool = false
     private let animationDuration: Double = 0.1
     private var animationScale: CGFloat {
@@ -26,10 +27,6 @@ struct SelectedFreeBoardView: View {
         VStack(alignment: .leading) {
             // 게시글 제목
             HStack {
-//                    Text("게시글 제목")
-//                        .font(.system(size: 12))
-//                        .padding(.bottom, 2)
-//                        .foregroundColor(.gray)
                     Text(selectedData.title)
                         .padding(7)
                         .background(Color("MainViewCellColor"))
@@ -47,22 +44,24 @@ struct SelectedFreeBoardView: View {
                 
                 // 게시글 좋아요 버튼
                 Button(action: {
+                    let db = Firestore.firestore()
                     self.animate = true
                     // 한명이 하나의 좋아요만 누를 수 있게 하기 위함
                     if selectedData.hitCheck == false {
                         selectedData.hit += 1
                         selectedData.hitCheck.toggle()
+                        // 현재 보고 있는 게시글이 current user ID 이름의 document의 배열에
+                        // 존재하지 않으니 아직 좋아요를 눌렀지 않았다는 의미이므로 배열에 해당 게시글을 추가
+                        db.collection("HitList").document("\(user?.email ?? "nil")").updateData(["user":FieldValue.arrayUnion([selectedData.priority])])
                     }
                     else {
                         selectedData.hit -= 1
                         selectedData.hitCheck.toggle()
+                        // document의 배열에 이미 존재하니까 이미 좋아요를 누른 상태에서 한번 더 누르면 좋아요를 하지 않는다는 의미이므로 배열에서 해당 게시글을 삭제
+                        db.collection("HitList").document("\(user?.email ?? "nil")").updateData(["user":FieldValue.arrayRemove([selectedData.priority])])
                     }
-                    let db = Firestore.firestore()
                     db.collection("FreeBoard").document(String(selectedData.priority)).setData(["title":selectedData.title,"body":selectedData.body, "priority":selectedData.priority, "author":selectedData.author, "hit":selectedData.hit, "comment":[""], "hitCheck":selectedData.hitCheck])
-
-//                    let user = Auth.auth().currentUser
-//                    db.collection("HitList").document(user?.email ?? "nil").updateData(["hitCheck":FieldValue.arrayUnion([selectedData.hitCheck]), "priority": FieldValue.arrayUnion([selectedData.priority])])
-                                        
+                                                            
                     DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
                         self.animate = false
                         self.isLiked.toggle()
@@ -78,17 +77,45 @@ struct SelectedFreeBoardView: View {
                     .padding(.leading)
                     .scaleEffect(animate ? animationScale : 1)
                     .animation(Animation.easeIn(duration: animationDuration), value: animationScale)
-//                    .animation(.easeIn(duration: animationDuration))
 
             }
             .padding()
+            .onAppear(perform: {
+                // 게시글을 눌렀을 때의 View가 SelectedFreeBoardView이다.
+                // 현재 있는 View의 하트가 빈 하트인지, 색칠된 하트인지 구별하기 위해서
+                // HitList에 current user ID document가 없을 경우 -> 빈 하트
+                // 그렇지 않는 경우 중에서 해당 document의 array field에 해당 게시글이 있을 경우 -> 색칠된 하트
+                // 그 이외 -> 빈 하트
+                let db = Firestore.firestore()
+
+                let docRef = db.collection("HitList").document("\(user?.email ?? "nil")")
+                docRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                        print("Document data: \(dataDescription)")
+                        if let arr = document["user"] as? Array<String> {
+                            if arr.contains(selectedData.priority) {
+                                selectedData.hitCheck = true
+                                print("====================")
+                                print(arr)
+                            }
+                            else {
+                                selectedData.hitCheck = false
+                            }
+                        }
+                        else {
+                            selectedData.hitCheck = false
+                        }
+                        
+                    } else {
+                        selectedData.hitCheck = false
+                        print("Document does not exist")
+                    }
+                }
+            })
             
             // 게시글 작성자
             VStack(alignment: .leading) {
-//                Text("작성자")
-//                    .font(.system(size: 12))
-//                    .padding(.bottom, 2)
-//                    .foregroundColor(.gray)
                 Text(selectedData.author)
                     .padding(7)
                     .background(Color("MainViewCellColor"))
@@ -100,10 +127,6 @@ struct SelectedFreeBoardView: View {
 
             // 게시글 내용
             VStack(alignment: .leading) {
-//                Text("게시글 내용")
-//                    .font(.system(size: 12))
-//                    .padding(.bottom, 2)
-//                    .foregroundColor(.gray)
                 Text(selectedData.body)
                     .padding(7)
                     .background(Color("MainViewCellColor"))
@@ -164,6 +187,6 @@ struct SelectedFreeBoardView: View {
 
 struct SelectedFreeBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectedFreeBoardView(selectedData: .init(title: "", body: "", priority: 0, author: "", hit:0, comment: [""], hitCheck: false))
+        SelectedFreeBoardView(selectedData: .init(title: "", body: "", priority: "", author: "", hit:0, comment: [""], hitCheck: false))
     }
 }

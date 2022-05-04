@@ -25,7 +25,7 @@ class FreeBoardViewModel: ObservableObject {
                 
                 let title = data["title"] as? String ?? ""
                 let body = data["body"] as? String ?? ""
-                let priority = data["priority"] as? Int ?? 0
+                let priority = data["priority"] as? String ?? ""
                 let author = data["author"] as? String ?? ""
                 let hit = data["hit"] as? Int ?? 0
                 let comment = data["comment"] as? [String] ?? [""]

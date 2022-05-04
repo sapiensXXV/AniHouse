@@ -65,6 +65,6 @@ struct ReviseFreeBoardView: View {
 
 struct ReviseFreeBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        ReviseFreeBoardView(selectedData: .init(title: "", body: "", priority: 0, author: "", hit:0, comment: [""], hitCheck: false))
+        ReviseFreeBoardView(selectedData: .init(title: "", body: "", priority: "", author: "", hit:0, comment: [""], hitCheck: false))
     }
 }
