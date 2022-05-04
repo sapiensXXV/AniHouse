@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+import FirebaseAuth
 
 struct FreeBoardView: View {
     @State private var title = ""
     @State private var showModal = false
     @ObservedObject private var viewModel = FreeBoardViewModel()
-    //    @Binding var selectedTitle:String
-    //    @Binding var selectedBody:String
     @Binding var selectedData: FreeBoardContent
     @State private var search = false
     @State private var searchTitle = ""
+
+    let user = Auth.auth().currentUser
     var body: some View {
         NavigationView {
             VStack {
@@ -87,6 +89,22 @@ struct FreeBoardView: View {
                     }
                     .onAppear() {
                         self.viewModel.fetchData()
+                        // FreeBoardView가 나타날 때 실행할 action
+                        // HitList document 생성
+                        // current user ID 이름으로 생성
+                        // 이미 존재하다면 생성하지 않고 그렇지 않을 경우 생성
+                        let db = Firestore.firestore()
+                        let docRef = db.collection("HitList").document("\(user?.email ?? "nil")")
+                        docRef.getDocument { (document, error) in
+                            if let document = document, document.exists {
+                                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                                print("Document data: \(dataDescription)")
+                            } else {
+                                db.collection("HitList").document("\(user?.email ?? "nil")").setData(["user":"nil"])
+                                print("Document does not exist")
+                            }
+                        }
+                        
                     }
                 }
             }
@@ -98,7 +116,7 @@ struct FreeBoardView: View {
 
 struct FreeBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0, author: "", hit:0, comment: [""], hitCheck: false)))
+        FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: "", author: "", hit:0, comment: [""], hitCheck: false)))
     }
 }
 
