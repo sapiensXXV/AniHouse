@@ -6,20 +6,46 @@
 //
 
 import SwiftUI
+import UIKit
+import SDWebImageSwiftUI
+import Firebase
 
 struct MainViewCell: View {
     
-    var mainImage: Image = Image(Constant.ImageName.defaultImage)
+    @ObservedObject var model = MainPostViewModel()
+    
+    @State var image: UIImage? = UIImage(named: Constant.ImageName.defaultImage)
+    @State var url = ""
+    var imageName: String = ""
     var title: String = "타이틀"
     var content: String = "본문 미리보기"
     
+    @StateObject var storageManager = StorageManager()
+    
+    init(imageName: String, title: String, content: String) {
+        self.imageName = imageName
+        self.title = title
+        self.content = content
+        model.getData()
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Image(Constant.ImageName.defaultImage)
-                .resizable()
-                .frame(minWidth: 120, idealWidth: 140, maxWidth: 160,
-                       minHeight: 120, idealHeight: 140, maxHeight: 160)
-                .cornerRadius(10)
+            if url != "" {
+                AnimatedImage(url: URL(string: url)!)
+                    .frame(width: 145, height: 145)
+                    .cornerRadius(10)
+                    .scaledToFill()
+            }
+            else {
+                Loader()
+            }
+            
+//            Image(uiImage: self.image!)
+//                .resizable()
+//                .frame(minWidth: 120, idealWidth: 140, maxWidth: 160,
+//                       minHeight: 120, idealHeight: 140, maxHeight: 160)
+//                .cornerRadius(10)
             Text(title)
                 .font(.system(size: 16))
                 .fontWeight(.black)
@@ -35,11 +61,36 @@ struct MainViewCell: View {
         .background(Color("MainViewCellColor"))
         .cornerRadius(15)
         .shadow(color: .gray, radius: 2, x: 0, y: 0)
+        .onAppear {
+            let storage = Storage.storage().reference()
+            storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
+                if err != nil {
+                    print((err?.localizedDescription)!)
+                    return
+                }
+                self.url = "\(url!)"
+            }
+        }
+    }
+    
+}
+
+struct Loader: UIViewRepresentable {
+    func makeUIView(context: UIViewRepresentableContext<Loader>) -> UIActivityIndicatorView {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.startAnimating()
+        return indicator
+    }
+    
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<Loader>) {
+        
     }
 }
 
 struct MainViewCell_Previews: PreviewProvider {
     static var previews: some View {
-        MainViewCell()
+        MainViewCell(imageName: "uMjkVL3MxsDJ6y5zlYEV",
+                     title: "기본 타이틀",
+                     content: "기본 본문")
     }
 }

@@ -15,5 +15,9 @@ class Constant {
     }
     class ButtonColor {
         static var addButton: String = "add-button"
+        static var lightGray: String = "Light Gray"
+    }
+    class MainViewPostModel {
+        
     }
 }

@@ -12,18 +12,15 @@ import Firebase
 struct AniHouse_iOSApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject var MainFirestoreManager = MainPostViewModel()
     
     var body: some Scene {
         WindowGroup {
             //뷰 모델 생성
             let viewModel = AppViewModel()
-            //            LoginView()
-            //            FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: 0)))
-            //                .environmentObject(viewModel)
-            //            ContentView()
-            //            TabBarView()
             LoginView()
                 .environmentObject(viewModel)
+                .environmentObject(MainFirestoreManager)
         }
     }
 }
