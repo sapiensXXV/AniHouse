@@ -16,7 +16,6 @@ struct SelectedFreeBoardView: View {
     @Environment(\.presentationMode) var presentationMode
     
     let user = Auth.auth().currentUser
-
     @State var isLiked: Bool = false
     private let animationDuration: Double = 0.1
     private var animationScale: CGFloat {
