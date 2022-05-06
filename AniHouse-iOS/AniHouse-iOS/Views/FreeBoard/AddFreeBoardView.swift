@@ -61,7 +61,6 @@ struct AddFreeBoardView: View {
                     boardBody = ""
                                         
                     
-                    
                     presentationMode.wrappedValue.dismiss()
                 }
             }) {

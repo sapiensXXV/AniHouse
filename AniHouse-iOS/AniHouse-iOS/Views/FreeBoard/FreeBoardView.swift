@@ -16,77 +16,120 @@ struct FreeBoardView: View {
     @Binding var selectedData: FreeBoardContent
     @State private var search = false
     @State private var searchTitle = ""
-
+    
     let user = Auth.auth().currentUser
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    TextField("게시글 제목을 검색하세요", text: $title)
-                        .frame(width: 200)
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
+                ZStack {
+                    HStack {
+                        TextField("게시글 제목을 검색하세요", text: $title)
+                            .font(Font.custom("KoreanSDNR-B", size: 18))
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(12)
+                            .frame(width: 270)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
+                        Button(action: {
+                            search = true
+                            searchTitle = title
+                            title = ""
+                        }) {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(Color.black)
+                        }
                         .padding()
-                    Button(action: {
-                        search = true
-                        searchTitle = title
-                        title = ""
-                    }) {
-                        Image(systemName: "magnifyingglass")
-                    }
-                    .padding()
-                    Button(action: {
-                        showModal = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                    .padding()
-                    // 게시글 추가 Modal View
-                    .sheet(isPresented: self.$showModal) {
-                        AddFreeBoardView()
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
                 
                 ZStack {
                     List(viewModel.freeBoardContents, id: \.priority) { data in
                         // 게시글 제목 검색 기능
                         if search == true && data.title.contains(searchTitle) {
-                            NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        Text("\(data.title)")
-                                            .font(Font.headline.weight(.heavy))
-                                            .font(.system(size: 13))
-                                            .lineLimit(1)
-                                        Spacer()
-                                        Text("추천수: \(data.hit)")
-                                            .font(.system(size: 11))
-                                    }
-                                    Text("\(data.body)")
-                                        .font(.system(size: 12))
-                                        .lineLimit(1)
+                            ZStack {
+                                NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
+                                    EmptyView()
                                 }
+                                .opacity(0.0)
+                                .buttonStyle(PlainButtonStyle())
+                                ZStack {
+                                    Color.white
+                                        .cornerRadius(12)
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            Text("\(data.title)")
+                                                .font(Font.custom("KoreanSDNR-B", size: 18))
+                                                .lineLimit(1)
+                                            Spacer()
+                                            Image(systemName: "heart.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 11, height: 11)
+                                                .foregroundColor(.red)
+                                            Text("\(data.hit)")
+                                                .font(Font.custom("KoreanSDNR-M", size: 13))
+                                                .lineLimit(1)
+                                        }
+                                        Text("\(data.body)")
+                                            .font(Font.custom("KoreanSDNR-M", size: 13))
+                                            .lineLimit(1)
+                                    }
+                                    .padding()
+                                }
+                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                .listRowSeparator(.hidden)
+                                .buttonStyle(PlainButtonStyle())
+                                
                             }
+                            .listRowSeparator(.hidden)
+                            
                         }
                         else if search == false || searchTitle == "" {
-                            NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        Text("\(data.title)")
-                                            .font(Font.headline.weight(.heavy))
-                                            .font(.system(size: 13))
-                                            .lineLimit(1)
-                                        Spacer()
-                                        Text("추천수: \(data.hit)")
-                                            .font(.system(size: 11))
-                                    }
-                                    Text("\(data.body)")
-                                        .font(.system(size: 12))
-                                        .lineLimit(1)
+                            ZStack {
+                                NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
+                                    EmptyView()
                                 }
+                                // arrow 없애기 위해
+                                .opacity(0.0)
+                                .buttonStyle(PlainButtonStyle())
+                                ZStack {
+                                    Color.white
+                                        .cornerRadius(12)
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
+                                            Text("\(data.title)")
+                                            //                                                .font(.system(size: 25))
+                                                .font(Font.custom("KoreanSDNR-B", size: 18))
+                                                .lineLimit(1)
+                                            Spacer()
+                                            Image(systemName: "heart.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 11, height: 11)
+                                                .foregroundColor(.red)
+                                            Text("\(data.hit)")
+                                                .font(Font.custom("KoreanSDNR-M", size: 13))
+                                                .lineLimit(1)
+                                        }
+                                        Text("\(data.body)")
+                                            .font(Font.custom("KoreanSDNR-M", size: 13))
+                                            .lineLimit(1)
+                                    }
+                                    .padding()
+                                }
+                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                .listRowSeparator(.hidden)  // 분리선 없애기 위해
+                                .buttonStyle(PlainButtonStyle())
+                                
                             }
+                            .listRowSeparator(.hidden)
+                            
                         }
                     }
+                    .listStyle(PlainListStyle())
                     .onAppear() {
                         self.viewModel.fetchData()
                         // FreeBoardView가 나타날 때 실행할 action
@@ -111,6 +154,32 @@ struct FreeBoardView: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
         }
+        .overlay(
+            Button(action: {
+                showModal = true
+            }) {
+                HStack {
+                    Image("pencil")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 20, height: 20)
+                    Text("글 쓰기")
+                        .font(Font.custom("KoreanSDNR-B", size: 15))
+                }
+                .frame(width: 100, height: 20)
+                .padding()
+            }
+                .foregroundColor(.black)
+                .background(Color("board-add-button"))
+                .cornerRadius(.infinity)
+                .padding(5)
+            // 게시글 추가 Modal View
+            .sheet(isPresented: self.$showModal) {
+                AddFreeBoardView()
+            }
+
+            ,alignment: .bottom
+        )
     }
 }
 
