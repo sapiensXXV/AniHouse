@@ -142,6 +142,6 @@ MainViewCell의 View가 출력될 때(.onAppear) 게시글의 이미지 정보�
 <p>
 <img width="30%" src="https://user-images.githubusercontent.com/76734067/167267729-8b2a474c-06cc-4549-8f81-d677e9320d8d.gif">
 <img width="30%%" src="https://user-images.githubusercontent.com/76734067/167267802-b458c029-38af-4f4d-b0e2-5a2068280487.gif">
-<img width="30%" src="https://user-images.githubusercontent.com/76734067/167267871-f864895f-bd09-4b06-a3fa-914d0f469794.gif">
+<img width="30%" src="https://user-images.githubusercontent.com/76734067/167268096-687a5773-576e-4464-bc68-f6a3baddf126.gif">
 </p>
 
