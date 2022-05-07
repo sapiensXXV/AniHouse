@@ -1,10 +1,15 @@
 # AniHouse
 숭실대학교 2022-2 전공종합설계 iOS앱
 
-## 프로젝트 세팅
-* Xcode 13
+## 프로젝트 환경
+<p>
+<img src="https://img.shields.io/badge/iOS-15.2-black?logo=apple">
+<img src="https://img.shields.io/badge/Xcode-13.2.1-blue?logo=xcode">
+<img src="https://img.shields.io/badge/Swift-5.2-orange?logo=swift">
+</p>
+
 * RealmSwift 10.24.1
-* Swift 5.2
+* SDWebImage 2.0.2
 * SF Symbol V3
 
 ## Podfile
@@ -23,7 +28,11 @@ target 'AniHouse-iOS' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'RealmSwift', '~>10'
+  pod 'lottie-ios'
+  pod 'Firebase/Storage'
   
+  pod 'SDWebImageSwiftUI'
+
   # 필요없는 경고 제거
   inhibit_all_warnings!
   
@@ -75,7 +84,7 @@ LoginView도 로그인 버튼을 눌렀을 때 `FirebaseAuth`에서 회원을 �
 <img width="124" alt="image" src="https://user-images.githubusercontent.com/76734067/165814994-bdd7c2ba-518c-4626-ada3-431c80e1c222.png">
 <br>
 
-### 2022-04-29 기준
+## 2022-04-29 기준
 
 각 그리드는 위와 같은 셀들로 구성되어 있으며, 전체적인 화면은 한줄에 2개의 열로 구성되어 있습니다. 
 위의 기본 셀은 어떤 이미지도, 제목도, 내용도 없는`ScrollView` 를 통해서사용자가 아래로 스크롤 할 수 있으며, 위 의셀은 임시로
@@ -97,3 +106,42 @@ LoginView도 로그인 버튼을 눌렀을 때 `FirebaseAuth`에서 회원을 �
 <img src="https://user-images.githubusercontent.com/76734067/165818548-6a02c25f-28b1-4e80-a298-c730f66d64a1.gif" width="30%" >
 </p>
 화면 우측 하단의 버튼을 누르면 글을 작성할 수 있는 화면으로 넘어간다.
+<br><br>
+
+## 2022-05-08
+기본적으로 사용되던 MainView의 셀들을, 이미지, 타이틀, 본문의 실제데이터를 firestore에서 불러와 적용하였습니다.
+firestore를 사용하기 위해서 새로운 viewModel을 개발하였고, 이 viewModel은 `ObservedObject` 구조체를 상속받으며,
+firestore에 저장한 게시글을 내부에서`@Published`로 선언한 `posts`변수에 저장하도록 하였습니다.
+
+firestore내부의 게시글 컬렉션이름은 `MainViewPost`이며, 도큐먼트 하나는 다음으로 이루어져 있습니다.
+* `title`: 게시글의 제목
+* `body`: 게시글의 내용
+* `date`: 게시글이 작성된 날짜
+* `hit`: Like 횟수
+* `author`: 게시글 작성자
+* **컬렉션 `comment`**
+  - `author`: 댓글 작성자
+  - `content`: 댓글 내용
+  - `date`: 댓글 작성 날짜
+
+게시글에 포함되어 있는 이미지는 firestore에 저장하기 번거롭다고 판단하여 Firebase Storage에 저장하였다.
+이미지의 이름은 해당하는 게시글의 `document name`으로 하여 MainView에서 셀들을 로드하거나, 게시글을 눌러 게시글의 정보를 볼때
+Storage에서 해당이미지만 불러올 수 있도록 프로그래밍 하였다.
+
+
+### ⛔️ **error**
+게시글을 작성한 후에 다시 `MainView`로 돌아오게되는데, 이때 Storage에 이미지가 업로드 되기 전에 View를 로드하여 이미지를 불러올 수
+없었다. url정보를 확인해보니, View가 로드된 다음에 이미지를 불러온 것 같았다. 그리고 `MainView`자체에서 이미지를 불러오고 출력하고,
+데이터를 갱신하는등 너무 많은 역할을 하나의 View에서 수행하는 듯 하여, 게시글의 정보를 담은 MainPost 객체를 MainViewCell에 넘겨주고,
+각각의 cell에서 이미지, 제목, 내용 등을 불러오도록하였다.
+
+MainViewCell의 View가 출력될 때(.onAppear) 게시글의 이미지 정보를 불러오고, `DispatchQueue.main.asycAfter`를 이용하여
+1초 후에 다시 로드하도록 프로그램하여 해결하였다.
+
+### 프로그램 동작
+<p>
+<img width="30%" src="https://user-images.githubusercontent.com/76734067/167267729-8b2a474c-06cc-4549-8f81-d677e9320d8d.gif">
+<img width="30%%" src="https://user-images.githubusercontent.com/76734067/167267802-b458c029-38af-4f4d-b0e2-5a2068280487.gif">
+<img width="30%" src="https://user-images.githubusercontent.com/76734067/167267871-f864895f-bd09-4b06-a3fa-914d0f469794.gif">
+</p>
+
