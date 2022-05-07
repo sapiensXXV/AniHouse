@@ -20,6 +20,8 @@ struct MainViewCell: View {
     var title: String = "타이틀"
     var content: String = "본문 미리보기"
     
+    let timer = Timer.publish(every: 1, on: .main, in: .common, options: .none).autoconnect()
+    
     @StateObject var storageManager = StorageManager()
     
     init(imageName: String, title: String, content: String) {
@@ -62,6 +64,10 @@ struct MainViewCell: View {
         .cornerRadius(15)
         .shadow(color: .gray, radius: 2, x: 0, y: 0)
         .onAppear {
+            
+             
+        }
+        .onReceive(timer) { _ in
             let storage = Storage.storage().reference()
             storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
                 if err != nil {
