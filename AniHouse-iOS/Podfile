@@ -10,7 +10,9 @@ target 'AniHouse-iOS' do
   pod 'Firebase/Firestore'
   pod 'RealmSwift', '~>10'
   pod 'lottie-ios'
-  pod 'Firebase/Storage'  
+  pod 'Firebase/Storage'
+  
+  pod 'SDWebImageSwiftUI'
 
   # 필요없는 경고 제거
   inhibit_all_warnings!

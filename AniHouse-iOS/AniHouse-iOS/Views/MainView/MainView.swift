@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseStorage
 
 enum LayoutType: CaseIterable {
     case all, dog, cat, reptiles, bird, fish
@@ -19,16 +20,22 @@ extension LayoutType {
 struct MainView: View {
     
     @State var selectedLayoutType: LayoutType = .all
+    @State var url = ""
+    var image: UIImage? = UIImage(named: Constant.ImageName.defaultImage)
+    let defaultImage: UIImage = UIImage(named: Constant.ImageName.defaultImage)!
     
-    var testPosts: [MainViewCell] = [
-        MainViewCell(),
-        MainViewCell(),
-        MainViewCell(),
-        MainViewCell(),
-        MainViewCell(),
-        MainViewCell(),
-        MainViewCell()
-    ]
+    @ObservedObject var model = MainPostViewModel()
+    @ObservedObject var storageManager = StorageManager()
+    
+    
+    init() {
+        model.getData()
+        for post in model.posts {
+            storageManager.loadImage(imageName: post.id)
+        }
+        
+        
+    }
     
     var columns = [
         GridItem(.flexible(minimum: 120, maximum: 160), spacing: 20, alignment: nil),
@@ -37,7 +44,7 @@ struct MainView: View {
     
     var body: some View {
         
-        var dummyPostArray = MainBoardPost.dummyPostArray
+        
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
                 VStack {
@@ -67,13 +74,19 @@ struct MainView: View {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 20) {
                             //임시로 더미를 출력
-                            ForEach(dummyPostArray, content: { (dataItem: MainBoardPost) in
-                                MainViewCell()
+                            ForEach(model.posts, content: { (dataItem: MainPost) in
+                                MainViewCell(imageName: dataItem.id,
+                                             title: dataItem.title,
+                                             content: dataItem.body)
                                     .padding(.horizontal, 5)
-                                
-//                                .background(Color("MainViewCellColor"))
-                                
                             })
+                        }
+                    }
+                    .onAppear {
+                        model.getData()
+                        for post in model.posts {
+                            print("loadImage를 시도합니다...")
+                            storageManager.loadImage(imageName: post.id)
                         }
                     }
                     
@@ -96,6 +109,7 @@ struct MainView: View {
             } // ZStack
             .navigationTitle("🐶 우리 가족 소개하기")
             .navigationBarTitleDisplayMode(.inline)
+            
             
         }
         
