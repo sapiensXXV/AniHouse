@@ -26,6 +26,7 @@
 		BB2C6A162819C19F00D1FA2B /* ReviseFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A122819C19F00D1FA2B /* ReviseFreeBoardView.swift */; };
 		BB2C6A192819C1C200D1FA2B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A182819C1C200D1FA2B /* SettingView.swift */; };
 		BB2C6A1B2819C1E300D1FA2B /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A1A2819C1E300D1FA2B /* TabBarView.swift */; };
+		BB633090282666F5009A0BC4 /* SelectedMainPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB63308F282666F5009A0BC4 /* SelectedMainPost.swift */; };
 		BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */; };
 		BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB78602B27E0EFB300CFC94A /* ContentView.swift */; };
 		BB78602E27E0EFB400CFC94A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78602D27E0EFB400CFC94A /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		BB2C6A122819C19F00D1FA2B /* ReviseFreeBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviseFreeBoardView.swift; sourceTree = "<group>"; };
 		BB2C6A182819C1C200D1FA2B /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BB2C6A1A2819C1E300D1FA2B /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		BB63308F282666F5009A0BC4 /* SelectedMainPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedMainPost.swift; sourceTree = "<group>"; };
 		BB78602627E0EFB300CFC94A /* AniHouse-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AniHouse-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AniHouse_iOSApp.swift; sourceTree = "<group>"; };
 		BB78602B27E0EFB300CFC94A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				BBD6FB03281A89F300BCA90F /* MainViewCell.swift */,
 				BBD6FB0B281A983300BCA90F /* MainView.swift */,
 				BBD6FB0D281AC23C00BCA90F /* AddPostView.swift */,
+				BB63308F282666F5009A0BC4 /* SelectedMainPost.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				BB2C6A0A2819C18C00D1FA2B /* SignUpView.swift in Sources */,
 				BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */,
 				BB2C6A152819C19F00D1FA2B /* FreeBoardView.swift in Sources */,
+				BB633090282666F5009A0BC4 /* SelectedMainPost.swift in Sources */,
 				BBD6FB08281A8A1B00BCA90F /* MainBoardPost.swift in Sources */,
 				9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */,
 				BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */,

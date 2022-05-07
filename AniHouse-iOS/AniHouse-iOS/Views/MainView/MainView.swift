@@ -32,6 +32,8 @@ struct MainView: View {
         model.getData()
         for post in model.posts {
             storageManager.loadImage(imageName: post.id)
+            print("--------------------------")
+            print("post.date = \(post.date)")
         }
         
         
@@ -75,10 +77,16 @@ struct MainView: View {
                         LazyVGrid(columns: columns, spacing: 20) {
                             //임시로 더미를 출력
                             ForEach(model.posts, content: { (dataItem: MainPost) in
-                                MainViewCell(imageName: dataItem.id,
-                                             title: dataItem.title,
-                                             content: dataItem.body)
-                                    .padding(.horizontal, 5)
+                                NavigationLink {
+//                                    Text("selected view")
+                                    SelectedMainPost(post: dataItem)
+                                } label: {
+                                    MainViewCell(imageName: dataItem.id,
+                                                 title: dataItem.title,
+                                                 content: dataItem.body)
+                                        .padding(.horizontal, 5)
+                                }
+
                             })
                         }
                     }

@@ -20,7 +20,7 @@ class MainPostViewModel: ObservableObject {
     func getData() {
         let db = Firestore.firestore()
         
-        db.collection("MainPost").getDocuments { snapshot, error in
+        db.collection("MainPost").order(by: "date", descending: true).getDocuments { snapshot, error in
             guard error == nil else { return }
             if let snapshot = snapshot {
                 DispatchQueue.main.async {
@@ -33,7 +33,7 @@ class MainPostViewModel: ObservableObject {
                                              hit: data["hit"] as? Int ?? 0,
                                              date: data["date"] as? Date ?? Date())
                         self.currentPostId = data.documentID
-                        print(post)
+//                        print(post)
                         return post
                     }
                 }
@@ -79,7 +79,7 @@ class MainPostViewModel: ObservableObject {
                      "hit": hit,
                      "date": date]) { error in
             guard error == nil else { return }
-            print("uploadPostId = \(id)")
+//            print("uploadPostId = \(id)")
 //            self.uploadPostId = id
 //            self.getData()
             

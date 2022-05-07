@@ -33,6 +33,7 @@ struct MainViewCell: View {
     
     var body: some View {
         VStack(alignment: .leading) {
+            Rectangle().frame(height: 0)
             if url != "" {
                 AnimatedImage(url: URL(string: url)!)
                     .frame(width: 145, height: 145)
@@ -67,7 +68,7 @@ struct MainViewCell: View {
             
              
         }
-        .onReceive(timer) { _ in
+        .onAppear {
             let storage = Storage.storage().reference()
             storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
                 if err != nil {
@@ -75,6 +76,16 @@ struct MainViewCell: View {
                     return
                 }
                 self.url = "\(url!)"
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
+                    if err != nil {
+                        print((err?.localizedDescription)!)
+                        return
+                    }
+                    self.url = "\(url!)"
+                }
             }
         }
     }
