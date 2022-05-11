@@ -30,11 +30,9 @@ struct MainView: View {
     
     init() {
         model.getData()
-        for post in model.posts {
-            storageManager.loadImage(imageName: post.id)
-            print("--------------------------")
-            print("post.date = \(post.date)")
-        }
+//        for post in model.posts {
+//            storageManager.loadImage(imageName: post.id)
+//        }
         
         
     }
@@ -50,27 +48,27 @@ struct MainView: View {
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
                 VStack {
-                    Picker(selection: $selectedLayoutType) {
-                        //content
-                        ForEach(LayoutType.allCases, id: \.self) { layoutType in
-                            switch layoutType {
-                            case .all:
-                                Text("전체")
-                            case .dog: Text("멍멍이") // 이제 이런 부분에 따라서 멍멍이, 야옹이 등 게시물만 리턴해야함.
-                            case .cat: Text("야옹이")
-                            case .reptiles: Text("파충류")
-                            case .fish: Text("물고기")
-                            case .bird: Text("조류")
-                                
-                            }
-                            
-                        }
-                    } label: {
-                        Text("레이아웃 타입")
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding(.bottom, 5)
-                    .padding(.horizontal, 5)
+//                    Picker(selection: $selectedLayoutType) {
+//                        //content
+//                        ForEach(LayoutType.allCases, id: \.self) { layoutType in
+//                            switch layoutType {
+//                            case .all:
+//                                Text("전체")
+//                            case .dog: Text("멍멍이") // 이제 이런 부분에 따라서 멍멍이, 야옹이 등 게시물만 리턴해야함.
+//                            case .cat: Text("야옹이")
+//                            case .reptiles: Text("파충류")
+//                            case .fish: Text("물고기")
+//                            case .bird: Text("조류")
+//
+//                            }
+//
+//                        }
+//                    } label: {
+//                        Text("레이아웃 타입")
+//                    }
+//                    .pickerStyle(SegmentedPickerStyle())
+//                    .padding(.bottom, 5)
+//                    .padding(.horizontal, 5)
 
                     //스크롤 뷰로 감싸서 스크롤이 가능하도록 설정
                     ScrollView {
@@ -78,25 +76,16 @@ struct MainView: View {
                             //임시로 더미를 출력
                             ForEach(model.posts, content: { (dataItem: MainPost) in
                                 NavigationLink {
-//                                    Text("selected view")
                                     SelectedMainPost(post: dataItem)
                                 } label: {
-                                    MainViewCell(imageName: dataItem.id,
-                                                 title: dataItem.title,
-                                                 content: dataItem.body)
-                                        .padding(.horizontal, 5)
+                                    MainViewCell(post: dataItem)
+//                                        .padding(.horizontal, 5)
                                 }
 
                             })
                         }
                     }
-                    .onAppear {
-                        model.getData()
-                        for post in model.posts {
-                            print("loadImage를 시도합니다...")
-                            storageManager.loadImage(imageName: post.id)
-                        }
-                    }
+                    .padding(0)
                     
                 } // VStack
                 
@@ -117,6 +106,13 @@ struct MainView: View {
             } // ZStack
             .navigationTitle("🐶 우리 가족 소개하기")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                model.getData()
+//                for post in model.posts {
+//                    print("loadImage를 시도합니다...")
+//                    storageManager.loadImage(imageName: post.id)
+//                }
+            }
             
             
         }

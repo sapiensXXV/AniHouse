@@ -28,12 +28,11 @@ class MainPostViewModel: ObservableObject {
                         let post =  MainPost(id: data.documentID,
                                              title: data["title"] as? String ?? "",
                                              body: data["body"] as? String ?? "",
-//                                             image: UIImage(named: Constant.ImageName.defaultImage), // 나중에 수정
                                              author: data["author"] as? String ?? "",
                                              hit: data["hit"] as? Int ?? 0,
+                                             likeUsers: data["likeUser"] as? [String] ?? [],
                                              date: data["date"] as? Date ?? Date())
                         self.currentPostId = data.documentID
-//                        print(post)
                         return post
                     }
                 }
@@ -77,25 +76,12 @@ class MainPostViewModel: ObservableObject {
                      "body": body,
                      "author": author,
                      "hit": hit,
+                     "likeUser": [],
                      "date": date]) { error in
             guard error == nil else { return }
-//            print("uploadPostId = \(id)")
-//            self.uploadPostId = id
-//            self.getData()
-            
         }
         self.uploadPostId = id
         self.getData()
-//        db.collection("MainPost").addDocument(data: ["title": title,
-//                                                     "body": body,
-////                                                     "image": image,
-//                                                     "author": author,
-//                                                     "hit": hit,
-//                                                     "date": date]) { error in
-//            guard error == nil else { return }
-//            self.getData()
-//        }
-        
     }
     
     func addComment(author: String, date: Date, content: String) {
@@ -109,8 +95,32 @@ class MainPostViewModel: ObservableObject {
             }
     }
     
-    func printMainPostLog(data: MainPost) {
-        print(data)
+    /// post: 현재 접근한 글
+    /// currentUser: 글의 좋아요 유저 목록에서 추가할 유저의 이메일
+    func addLike(post: MainPost, currentUser: String) {
+        let db = Firestore.firestore()
+        var currentLikeUsers = post.likeUsers
+        /// 파이어베이스 딜레이를 방지하기위해서 혹시 이미 배열 내부에 유저가 있을 때만 추가.
+        if(!currentLikeUsers.contains(currentUser)) {
+            currentLikeUsers.append(currentUser)
+        }
+//        let currentHit = post.hit + 1
+        db.collection("MainPost").document(post.id).setData(["likeUser": currentLikeUsers, "hit": currentLikeUsers.count], merge: true) { error in
+            if let e = error { print(e.localizedDescription) }
+        }
+        self.getData()
+    }
+    
+    /// post: 현재 접근한 글
+    /// currentUser: 글의 좋아요 유저 목록에서 지울 유저의 이메일
+    func deleteLike(post: MainPost, currentUser: String) {
+        let db = Firestore.firestore()
+        let currentLikeUsers = post.likeUsers.filter { $0 != currentUser }
+        db.collection("MainPost").document(post.id).setData(["likeUser": currentLikeUsers, "hit": currentLikeUsers.count], merge: true) { error in
+            if let e = error { print(e.localizedDescription) }
+        }
+        
+        self.getData()
     }
     
 }
