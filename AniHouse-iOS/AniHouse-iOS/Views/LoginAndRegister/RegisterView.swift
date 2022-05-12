@@ -21,8 +21,6 @@ struct RegisterView: View {
     
     @EnvironmentObject var viewModel: AppViewModel
     
-    @ObservedObject var firstoreManager = FirestoreManager()
-    
     var body: some View {
         ZStack {
             if viewModel.signedIn {
