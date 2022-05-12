@@ -24,6 +24,8 @@ struct SelectedFreeBoardView: View {
     }
     @State private var animate = false
     
+    @State private var isPresented = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             // 게시글 제목
@@ -64,10 +66,10 @@ struct SelectedFreeBoardView: View {
                         .frame(width: 20, height: 20)
                         .foregroundColor(selectedData.hitCheck ? .red : .gray)
                 })
-                    .buttonStyle(BorderlessButtonStyle())
-                    .padding(.leading)
-                    .scaleEffect(animate ? animationScale : 1)
-                    .animation(Animation.easeIn(duration: animationDuration), value: animationScale)
+                .buttonStyle(BorderlessButtonStyle())
+                .padding(.leading)
+                .scaleEffect(animate ? animationScale : 1)
+                .animation(Animation.easeIn(duration: animationDuration), value: animationScale)
                 
                 Text("\(selectedData.hit)")
                     .font(Font.custom("KoreanSDNR-M", size: 13))
@@ -128,69 +130,71 @@ struct SelectedFreeBoardView: View {
             // 구분선
             Divider()
             
-            // 게시글 삭제, 수정
-            HStack(alignment: .center) {
-                // 게시글 삭제 기능
-                ZStack {
-                    Color.white
-                        .cornerRadius(12)
-                    Button(action: {
-                        showingAlert = true
-                    }, label: {
-                        Text("게시글 삭제")
-                            .frame(width: 170, height: 50, alignment: .center)
-                            .alert("삭제하시겠습니까?", isPresented: $showingAlert) {
-                                Button("삭제", role: .destructive) {
-                                    let db = Firestore.firestore()
-                                    db.collection("FreeBoard").document(String(selectedData.priority)).delete() { err in
-                                        if let err = err {
-                                            print("Error removing document: \(err)")
-                                        } else {
-                                            print("Document successfully removed!")
-                                        }
-                                    }
-                                }
-                                Button("취소", role: .cancel) {
-                                    
-                                }
-                            }
-                    })
-                        .buttonStyle(BorderlessButtonStyle())
-                    
-                }
-                .frame(width: 170, height: 50, alignment: .center)
-                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                
-                //                Spacer()
-                
-                // 게시글 수정 기능
-                ZStack {
-                    Color.white
-                        .cornerRadius(12)
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                        showModal = true
-                    }, label: {
-                        Text("게시글 수정")
-                    })
-                        .buttonStyle(BorderlessButtonStyle())
-                        .sheet(isPresented: self.$showModal) {
-                            ReviseFreeBoardView(selectedData: selectedData)
-                        }
-                }
-                .frame(width: 170, height: 50, alignment: .center)
-                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            
             Spacer()
             
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .navigationTitle("")
-        .navigationBarHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        // dots 클릭 시, 게시글 삭제 버튼과 수정 버튼 표시
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    isPresented.toggle()
+                }, label: {
+                    Image("dots")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                })
+            }
+        }
+        .overlay (
+            editView
+            ,alignment: .topTrailing
+        )
+        //        .navigationTitle("")
+        //        .navigationBarHidden(true)
     }
+    @ViewBuilder
+    private var editView: some View {
+        if isPresented {
+            VStack {
+                Button(action: {
+                    showingAlert = true
+                }, label: {
+                    Text("게시글 삭제")
+                        .alert("삭제하시겠습니까?", isPresented: $showingAlert) {
+                            Button("삭제", role: .destructive) {
+                                let db = Firestore.firestore()
+                                db.collection("FreeBoard").document(String(selectedData.priority)).delete() { err in
+                                    if let err = err {
+                                        print("Error removing document: \(err)")
+                                    } else {
+                                        print("Document successfully removed!")
+                                    }
+                                }
+                            }
+                            Button("취소", role: .cancel) {
+                                
+                            }
+                        }
+                })
+                .buttonStyle(BorderlessButtonStyle())
+                .padding(.bottom, 3)
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                    showModal = true
+                }, label: {
+                    Text("게시글 수정")
+                })
+                .buttonStyle(BorderlessButtonStyle())
+                .sheet(isPresented: self.$showModal) {
+                    ReviseFreeBoardView(selectedData: selectedData)
+                }
+            }
+            .padding(.trailing)
+        }
+    }
+    
 }
 
 struct SelectedFreeBoardView_Previews: PreviewProvider {
@@ -198,3 +202,4 @@ struct SelectedFreeBoardView_Previews: PreviewProvider {
         SelectedFreeBoardView(selectedData: .init(title: "", body: "", priority: "", author: "", hit:0, comment: [""], hitCheck: false))
     }
 }
+

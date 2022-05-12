@@ -16,6 +16,7 @@ struct FreeBoardView: View {
     @Binding var selectedData: FreeBoardContent
     @State private var search = false
     @State private var searchTitle = ""
+    @State private var isPresented = true
     
     let user = Auth.auth().currentUser
     var body: some View {
@@ -155,6 +156,13 @@ struct FreeBoardView: View {
             .navigationBarHidden(true)
         }
         .overlay(
+            alertView
+            ,alignment: .bottom
+        )
+    }
+    @ViewBuilder
+    private var alertView: some View {
+        if isPresented {
             Button(action: {
                 showModal = true
             }) {
@@ -177,9 +185,7 @@ struct FreeBoardView: View {
             .sheet(isPresented: self.$showModal) {
                 AddFreeBoardView()
             }
-
-            ,alignment: .bottom
-        )
+        }
     }
 }
 
