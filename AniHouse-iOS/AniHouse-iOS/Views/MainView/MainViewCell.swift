@@ -13,6 +13,7 @@ import Firebase
 struct MainViewCell: View {
     
     @ObservedObject var model = MainPostViewModel()
+    @ObservedObject var userInfoModel = UserInfoViewModel()
     
     @State var image: UIImage? = UIImage(named: Constant.ImageName.defaultImage)
     @State var url = ""

@@ -19,6 +19,8 @@ struct SignUpView: View {
     @State private var firstPwd: String = ""
     @State private var secondPwd: String = ""
     
+    @ObservedObject var userManager = UserInfoViewModel()
+    
     @EnvironmentObject var viewModel: AppViewModel
     
     @Environment(\.presentationMode) var presentationMode
@@ -40,6 +42,7 @@ struct SignUpView: View {
                     
                     Section(header: Text("계정정보")) {
                         TextField("이메일", text: $email)
+                            .disableAutocorrection(true)
                         SecureField("패스워드", text: $firstPwd)
                         SecureField("패스워드를 다시 입력하세요", text: $secondPwd)
                     }
@@ -58,8 +61,11 @@ struct SignUpView: View {
                             guard !email.isEmpty, !firstPwd.isEmpty else {
                                 return
                             }
-                            
-                            viewModel.signUp(email: email, password: firstPwd)
+                            userManager.addUser(name: firstName+lastName,
+                                                nickName: nickName,
+                                                email: email.lowercased(),
+                                                birth: birthDate)
+                            viewModel.signUp(email: email.lowercased(), password: firstPwd.lowercased())
                             // 회원가입 완료 시, 뒤로 돌아가기 위해서 즉, SignInView로 돌아가기 위함
                             self.presentationMode.wrappedValue.dismiss()
                         }

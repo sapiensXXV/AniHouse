@@ -35,6 +35,7 @@
 		BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA11DC927EF708A004F0327 /* AppViewModel.swift */; };
 		BBAF79DB282D06B900F75E29 /* MainCommentAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAF79DA282D06B900F75E29 /* MainCommentAddView.swift */; };
 		BBAF79DE282D11CA00F75E29 /* MainCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAF79DD282D11CA00F75E29 /* MainCommentView.swift */; };
+		BBAF79E0282D833200F75E29 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAF79DF282D833200F75E29 /* UserInfoViewModel.swift */; };
 		BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */; };
 		BBD6FB04281A89F300BCA90F /* MainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB03281A89F300BCA90F /* MainViewCell.swift */; };
 		BBD6FB08281A8A1B00BCA90F /* MainBoardPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB07281A8A1B00BCA90F /* MainBoardPost.swift */; };
@@ -80,6 +81,7 @@
 		BBA11DC927EF708A004F0327 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		BBAF79DA282D06B900F75E29 /* MainCommentAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCommentAddView.swift; sourceTree = "<group>"; };
 		BBAF79DD282D11CA00F75E29 /* MainCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCommentView.swift; sourceTree = "<group>"; };
+		BBAF79DF282D833200F75E29 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
 		BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		BBD6FB03281A89F300BCA90F /* MainViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCell.swift; sourceTree = "<group>"; };
 		BBD6FB07281A8A1B00BCA90F /* MainBoardPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardPost.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */,
 				BB19783728252CD9002B5B60 /* StorageManager.swift */,
 				BBDDF99F2822CF1900B3001A /* MainPostViewModel.swift */,
+				BBAF79DF282D833200F75E29 /* UserInfoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */,
 				BBDDF9A52822D56100B3001A /* MainPostComment.swift in Sources */,
 				BBDDF9A22822CF6600B3001A /* MainPost.swift in Sources */,
+				BBAF79E0282D833200F75E29 /* UserInfoViewModel.swift in Sources */,
 				BBD6FB04281A89F300BCA90F /* MainViewCell.swift in Sources */,
 				BB2C6A142819C19F00D1FA2B /* SelectedFreeBoardView.swift in Sources */,
 				BBAF79DE282D11CA00F75E29 /* MainCommentView.swift in Sources */,
