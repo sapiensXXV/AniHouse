@@ -11,13 +11,17 @@ import SDWebImageSwiftUI
 
 struct SelectedMainPost: View {
     
-    @ObservedObject var storeManager = MainPostViewModel()
+    @ObservedObject var model = MainPostViewModel()
     
     @State var post: MainPost = MainPost() // 게시글 객체를 넘겨받음.
     @State var hitValue: Int = 0 // 현재 좋아요 개수
     @State private var animate = false // 애니매이션 동작여부
     @State var isLiked: Bool = false // 현재 유저가 좋아요를 체크했는지 여부
     @State var dateString: String = ""
+    @State var idGetComment: Bool = false
+    @State var currentComments: [Comment] = [Comment]()
+    
+    @State var formatter: DateFormatter = DateFormatter()
     
     private let animationDuration: Double = 0.1
     private var animationScale: CGFloat {
@@ -28,7 +32,10 @@ struct SelectedMainPost: View {
     @State var url = ""
     
     // 좋아요 애니메이션
-    
+//    init(post: MainPost) {
+//        self.post = post
+//        self.storeManager.getComment(collectionName: "MainPost", documentId: post.id)
+//    }
     
     var body: some View {
         ScrollView {
@@ -49,14 +56,14 @@ struct SelectedMainPost: View {
                         if isLiked {
                             /// 게시글의 좋아요를 누른 상태일 때 Like를 지운다.
                             DispatchQueue.main.async {
-                                storeManager.deleteLike(post: self.post, currentUser: self.user?.email ?? "")
+                                model.deleteLike(post: self.post, currentUser: self.user?.email ?? "")
                             }
                             self.isLiked.toggle()
                             hitValue -= 1
                         } else {
                             /// 좋아요를 누르지 않은 상태일 때
                             DispatchQueue.main.async {
-                                storeManager.addLike(post: self.post, currentUser: self.user?.email ?? "")
+                                model.addLike(post: self.post, currentUser: self.user?.email ?? "")
                                 
                             }
                             self.isLiked.toggle()
@@ -97,6 +104,22 @@ struct SelectedMainPost: View {
                     .font(.system(size: 11))
                     .padding(.horizontal, 5)
                     .padding(.vertical, 5)
+                MainCommentAddView(currentPost: self.post)
+                ForEach(self.currentComments) { comment in
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(comment.nickName)
+                                .fontWeight(.semibold)
+                            Spacer()
+                            Text(self.formatter.string(from: comment.date))
+                                .font(.system(size: 13))
+                                .foregroundColor(.secondary)
+                            
+                        }
+                        Text(comment.content)
+                    }
+                    
+                }
                 Spacer()
             }
             .onAppear {
@@ -115,12 +138,30 @@ struct SelectedMainPost: View {
                     isLiked = false
                 }
                 
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
+                self.formatter = DateFormatter()
+                self.formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
                 print("post.date = \(post.date)")
-                dateString = formatter.string(from: self.post.date)
-                
+                dateString = self.formatter.string(from: self.post.date)
             }
+        }
+        .onAppear {
+            model.getComment(collectionName: "MainPost", documentId: self.post.id)
+            print("model.comments: \(model.comments)")
+            for comment in model.comments {
+                self.currentComments.append(comment)
+            }
+            if model.comments.isEmpty {
+                self.currentComments.removeAll()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    model.getComment(collectionName: "MainPost", documentId: self.post.id)
+                    for comment in model.comments {
+                        self.currentComments.append(comment)
+                    }
+                    print("비어있어서 다시 수행했어요^^")
+                    print("self.currentComments: \(self.currentComments)")
+                }
+            }
+            
         }
         
         .navigationTitle("\(post.title)")

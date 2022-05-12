@@ -108,10 +108,6 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 model.getData()
-//                for post in model.posts {
-//                    print("loadImage를 시도합니다...")
-//                    storageManager.loadImage(imageName: post.id)
-//                }
             }
             
             
