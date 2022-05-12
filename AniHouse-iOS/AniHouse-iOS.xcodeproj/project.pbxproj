@@ -12,6 +12,7 @@
 		9124DE0F2822DC010094D790 /* a신디나루M.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9124DE0E2822DC010094D790 /* a신디나루M.otf */; };
 		9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56627F8357C0009B93F /* FreeBoardContent.swift */; };
 		9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */; };
+		91D6BD60282D1E0A00A6168C /* FreeAddCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */; };
 		BB19783828252CD9002B5B60 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB19783728252CD9002B5B60 /* StorageManager.swift */; };
 		BB29D0D327EC9F42009E3D5F /* walking_dog.json in Resources */ = {isa = PBXBuildFile; fileRef = BB29D0D227EC9F42009E3D5F /* walking_dog.json */; };
 		BB2C6A072819C18C00D1FA2B /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A032819C18C00D1FA2B /* SignInView.swift */; };
@@ -54,6 +55,7 @@
 		9124DE102822DE570094D790 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9185C56627F8357C0009B93F /* FreeBoardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FreeBoardContent.swift; path = "AniHouse-iOS/FreeBoardContent.swift"; sourceTree = SOURCE_ROOT; };
 		9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeBoardViewModel.swift; sourceTree = "<group>"; };
+		91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAddCommentView.swift; sourceTree = "<group>"; };
 		BB19783728252CD9002B5B60 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		BB29D0D227EC9F42009E3D5F /* walking_dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = walking_dog.json; sourceTree = "<group>"; };
 		BB2C6A032819C18C00D1FA2B /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				BB2C6A112819C19F00D1FA2B /* FreeBoardView.swift */,
 				BB2C6A122819C19F00D1FA2B /* ReviseFreeBoardView.swift */,
 				BB2C6A102819C19F00D1FA2B /* SelectedFreeBoardView.swift */,
+				91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */,
 			);
 			path = FreeBoard;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				BBD6FB0C281A983300BCA90F /* MainView.swift in Sources */,
 				BBD6FB0A281A952E00BCA90F /* Constant.swift in Sources */,
 				BB2C6A132819C19F00D1FA2B /* AddFreeBoardView.swift in Sources */,
+				91D6BD60282D1E0A00A6168C /* FreeAddCommentView.swift in Sources */,
 				BBD6FB0E281AC23C00BCA90F /* AddPostView.swift in Sources */,
 				BBD6FB2A281AF5EE00BCA90F /* PhotoPicker.swift in Sources */,
 				BB2C6A162819C19F00D1FA2B /* ReviseFreeBoardView.swift in Sources */,

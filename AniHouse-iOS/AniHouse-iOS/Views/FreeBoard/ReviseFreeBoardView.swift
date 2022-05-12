@@ -46,7 +46,7 @@ struct ReviseFreeBoardView: View {
                     showingAlert = true
                     
                     let db = Firestore.firestore()
-                    db.collection("FreeBoard").document(String(selectedData.priority)).setData(["title":selectedData.title,"body":selectedData.body, "priority":selectedData.priority, "author":selectedData.author, "hit":selectedData.hit, "comment":[""], "hitCheck":selectedData.hitCheck])
+                    db.collection("FreeBoard").document(String(selectedData.priority)).setData(["title":selectedData.title,"body":selectedData.body, "priority":selectedData.priority, "author":selectedData.author, "hit":selectedData.hit, "hitCheck":selectedData.hitCheck])
 
                     // 작성하였으므로 내용 삭제
                     selectedData.title = ""
@@ -65,6 +65,6 @@ struct ReviseFreeBoardView: View {
 
 struct ReviseFreeBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        ReviseFreeBoardView(selectedData: .init(title: "", body: "", priority: "", author: "", hit:0, comment: [""], hitCheck: false))
+        ReviseFreeBoardView(selectedData: .init(title: "", body: "", priority: "", author: "", hit:0, hitCheck: false))
     }
 }

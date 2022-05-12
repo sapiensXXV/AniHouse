@@ -49,24 +49,7 @@ class MainPostViewModel: ObservableObject {
         }
         
     }
-    
-    func getComment() {
-        let db = Firestore.firestore()
         
-        db.collection("MainPost").document(currentPostId)
-            .collection("comment").getDocuments { snapshot, error in
-                guard error == nil else { return }
-                if let snapshot = snapshot {
-                    self.comments = snapshot.documents.map { data in
-                        return Comment(id: data.documentID,
-                                       email: data["email"] as? String ?? "", nickName: data["nickName"] as? String ?? "",
-                                       content: data["content"] as? String ?? "",
-                                       date: data["date"] as? Date ?? Date())
-                    }
-                }
-            }
-    }
-    
     func getPostId() {
         
     }
@@ -129,15 +112,21 @@ class MainPostViewModel: ObservableObject {
             .collection("comment").order(by: "date", descending: true).getDocuments { snapshot, error in
                 guard error == nil else { return }
                 if let snapshot = snapshot {
-                    self.comments = snapshot.documents.map { data in
-                        var comment =  Comment(email: data["email"] as? String ?? "",
-                                               nickName: data["nickName"] as? String ?? "",
-                                               content: data["content"] as? String ?? "",
-                                               date: data["date"] as? Date ?? Date())
-                        let commentTimeStamp = data["date"] as? Timestamp
-                        comment.date = commentTimeStamp?.dateValue() ?? Date()
-                        return comment
+                    DispatchQueue.main.async {
+                        self.comments = snapshot.documents.map { data in
+                            var comment =  Comment(id: data.documentID,
+                                email: data["email"] as? String ?? "",
+                                                   nickName: data["nickName"] as? String ?? "",
+                                                   content: data["content"] as? String ?? "",
+                                                   date: data["date"] as? Date ?? Date())
+                            let commentTimeStamp = data["date"] as? Timestamp
+                            comment.date = commentTimeStamp?.dateValue() ?? Date()
+                            print(comment)
+                            return comment
+                        }
                     }
+                } else {
+                    
                 }
             }
     }

@@ -50,7 +50,7 @@ struct FreeBoardView: View {
                         // 게시글 제목 검색 기능
                         if search == true && data.title.contains(searchTitle) {
                             ZStack {
-                                NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
+                                NavigationLink(destination: SelectedFreeBoardView(selectedData: data, showingOverlay: $isPresented)) {
                                     EmptyView()
                                 }
                                 .opacity(0.0)
@@ -89,7 +89,7 @@ struct FreeBoardView: View {
                         }
                         else if search == false || searchTitle == "" {
                             ZStack {
-                                NavigationLink(destination: SelectedFreeBoardView(selectedData: data)) {
+                                NavigationLink(destination: SelectedFreeBoardView(selectedData: data, showingOverlay: $isPresented)) {
                                     EmptyView()
                                 }
                                 // arrow 없애기 위해
@@ -132,6 +132,7 @@ struct FreeBoardView: View {
                     }
                     .listStyle(PlainListStyle())
                     .onAppear() {
+                        isPresented = true
                         self.viewModel.fetchData()
                         // FreeBoardView가 나타날 때 실행할 action
                         // HitList document 생성
@@ -191,7 +192,7 @@ struct FreeBoardView: View {
 
 struct FreeBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: "", author: "", hit:0, comment: [""], hitCheck: false)))
+        FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: "", author: "", hit:0, hitCheck: false)))
     }
 }
 

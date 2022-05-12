@@ -13,6 +13,5 @@ struct FreeBoardContent {
     var priority: String
     var author: String
     var hit: Int
-    var comment: [String]
     var hitCheck: Bool
 }
