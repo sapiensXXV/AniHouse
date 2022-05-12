@@ -7,6 +7,9 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
+import QuartzCore
+import RealmSwift
 
 class MainPostViewModel: ObservableObject {
     @Published var posts: [MainPost] = [MainPost]()
@@ -14,7 +17,7 @@ class MainPostViewModel: ObservableObject {
     @Published var currentPostId: String = ""
     @Published var uploadPostId: String = ""
     
-    private var dummyComment = Comment(id: "comment id", author: "author", content: "body", date: Date())
+//    private var dummyComment = Comment(id: "comment id", author: "author", content: "body", date: Date())
     
     //MARK: - 데이터 읽기
     func getData() {
@@ -25,7 +28,7 @@ class MainPostViewModel: ObservableObject {
             if let snapshot = snapshot {
                 DispatchQueue.main.async {
                     self.posts = snapshot.documents.map { data in
-                        let post =  MainPost(id: data.documentID,
+                        var post =  MainPost(id: data.documentID,
                                              title: data["title"] as? String ?? "",
                                              body: data["body"] as? String ?? "",
                                              author: data["author"] as? String ?? "",
@@ -33,6 +36,9 @@ class MainPostViewModel: ObservableObject {
                                              likeUsers: data["likeUser"] as? [String] ?? [],
                                              date: data["date"] as? Date ?? Date())
                         self.currentPostId = data.documentID
+                        let postTimeStamp = data["date"] as? Timestamp
+                        post.date = postTimeStamp?.dateValue() ?? Date()
+                        print("post: \(post)")
                         return post
                     }
                 }
@@ -42,23 +48,6 @@ class MainPostViewModel: ObservableObject {
             }
         }
         
-    }
-    
-    func getComment() {
-        let db = Firestore.firestore()
-        
-        db.collection("MainPost").document(currentPostId)
-            .collection("comment").getDocuments { snapshot, error in
-                guard error == nil else { return }
-                if let snapshot = snapshot {
-                    self.comments = snapshot.documents.map { data in
-                        return Comment(id: data.documentID,
-                                       author: data["author"] as? String ?? "",
-                                       content: data["content"] as? String ?? "",
-                                       date: data["date"] as? Date ?? Date())
-                    }
-                }
-            }
     }
     
     func getPostId() {
@@ -84,16 +73,6 @@ class MainPostViewModel: ObservableObject {
         self.getData()
     }
     
-    func addComment(author: String, date: Date, content: String) {
-        let db = Firestore.firestore()
-        db.collection("MainPost").document(currentPostId)
-            .collection("comment").addDocument(data: ["author": author,
-                                                      "date": date,
-                                                      "content": content]) { error in
-                guard error == nil else { return }
-                self.getData()
-            }
-    }
     
     /// post: 현재 접근한 글
     /// currentUser: 글의 좋아요 유저 목록에서 추가할 유저의 이메일
@@ -122,5 +101,49 @@ class MainPostViewModel: ObservableObject {
         
         self.getData()
     }
+    
+    
+    //MARK: - 코멘트
+    
+    func getComment(collectionName: String, documentId: String) {
+        let db = Firestore.firestore()
+        
+        db.collection(collectionName).document(documentId)
+            .collection("comment").order(by: "date", descending: true).getDocuments { snapshot, error in
+                guard error == nil else { return }
+                if let snapshot = snapshot {
+                    self.comments = snapshot.documents.map { data in
+                        var comment =  Comment(email: data["email"] as? String ?? "",
+                                               nickName: data["nickName"] as? String ?? "",
+                                               content: data["content"] as? String ?? "",
+                                               date: data["date"] as? Date ?? Date())
+                        let commentTimeStamp = data["date"] as? Timestamp
+                        comment.date = commentTimeStamp?.dateValue() ?? Date()
+                        return comment
+                    }
+                }
+            }
+    }
+    
+    func addComment(collectionName: String, documentId: String, newComment: Comment) {
+        let db = Firestore.firestore()
+        let ref = db.collection(collectionName).document(documentId).collection("comment").document()
+        ref.setData(["email": newComment.email,
+                     "nickName": newComment.nickName,
+                     "content": newComment.content,
+                     "date": newComment.date]) { error in
+            print(error?.localizedDescription)
+        }
+        getComment(collectionName: collectionName, documentId: documentId)
+    }
+    
+    func deleteComment(collectionName: String, documentId: String, commentId: String) {
+        let db = Firestore.firestore()
+        db.collection(collectionName).document(documentId).collection("comment").document(commentId).delete { error in
+            print(error?.localizedDescription)
+        }
+        getComment(collectionName: collectionName, documentId: documentId)
+    }
+    
     
 }

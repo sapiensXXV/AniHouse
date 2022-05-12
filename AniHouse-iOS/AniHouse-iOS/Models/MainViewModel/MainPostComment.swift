@@ -8,8 +8,9 @@
 import Foundation
 
 struct Comment: Identifiable {
-    var id: String
-    var author: String
+    var id: String = ""
+    var email: String
+    var nickName: String
     var content: String
     var date: Date
 }

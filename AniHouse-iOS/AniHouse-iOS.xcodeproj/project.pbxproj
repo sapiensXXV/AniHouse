@@ -18,8 +18,6 @@
 		BB2C6A082819C18C00D1FA2B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A042819C18C00D1FA2B /* LoginView.swift */; };
 		BB2C6A092819C18C00D1FA2B /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A052819C18C00D1FA2B /* RegisterView.swift */; };
 		BB2C6A0A2819C18C00D1FA2B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A062819C18C00D1FA2B /* SignUpView.swift */; };
-		BB2C6A0D2819C19500D1FA2B /* MainView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A0B2819C19500D1FA2B /* MainView2.swift */; };
-		BB2C6A0E2819C19500D1FA2B /* AddPostView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A0C2819C19500D1FA2B /* AddPostView2.swift */; };
 		BB2C6A132819C19F00D1FA2B /* AddFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A0F2819C19F00D1FA2B /* AddFreeBoardView.swift */; };
 		BB2C6A142819C19F00D1FA2B /* SelectedFreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A102819C19F00D1FA2B /* SelectedFreeBoardView.swift */; };
 		BB2C6A152819C19F00D1FA2B /* FreeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C6A112819C19F00D1FA2B /* FreeBoardView.swift */; };
@@ -62,8 +60,6 @@
 		BB2C6A042819C18C00D1FA2B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BB2C6A052819C18C00D1FA2B /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		BB2C6A062819C18C00D1FA2B /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		BB2C6A0B2819C19500D1FA2B /* MainView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView2.swift; sourceTree = "<group>"; };
-		BB2C6A0C2819C19500D1FA2B /* AddPostView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostView2.swift; sourceTree = "<group>"; };
 		BB2C6A0F2819C19F00D1FA2B /* AddFreeBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFreeBoardView.swift; sourceTree = "<group>"; };
 		BB2C6A102819C19F00D1FA2B /* SelectedFreeBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedFreeBoardView.swift; sourceTree = "<group>"; };
 		BB2C6A112819C19F00D1FA2B /* FreeBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeBoardView.swift; sourceTree = "<group>"; };
@@ -144,8 +140,6 @@
 		BB2C6A002819C16300D1FA2B /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				BB2C6A0C2819C19500D1FA2B /* AddPostView2.swift */,
-				BB2C6A0B2819C19500D1FA2B /* MainView2.swift */,
 				BBD6FB03281A89F300BCA90F /* MainViewCell.swift */,
 				BBD6FB0B281A983300BCA90F /* MainView.swift */,
 				BBD6FB0D281AC23C00BCA90F /* AddPostView.swift */,
@@ -392,7 +386,6 @@
 			files = (
 				BB2C6A092819C18C00D1FA2B /* RegisterView.swift in Sources */,
 				BBDDF9A02822CF1900B3001A /* MainPostViewModel.swift in Sources */,
-				BB2C6A0D2819C19500D1FA2B /* MainView2.swift in Sources */,
 				BB2C6A072819C18C00D1FA2B /* SignInView.swift in Sources */,
 				BB942D74282C075B002C47DC /* UserInfo.swift in Sources */,
 				BB2C6A192819C1C200D1FA2B /* SettingView.swift in Sources */,
@@ -411,7 +404,6 @@
 				9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */,
 				BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */,
 				BB78602C27E0EFB300CFC94A /* ContentView.swift in Sources */,
-				BB2C6A0E2819C19500D1FA2B /* AddPostView2.swift in Sources */,
 				BB78602A27E0EFB300CFC94A /* AniHouse_iOSApp.swift in Sources */,
 				BB2C6A082819C18C00D1FA2B /* LoginView.swift in Sources */,
 				BBA11DC027EEFCDB004F0327 /* LottieView.swift in Sources */,

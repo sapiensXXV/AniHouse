@@ -58,7 +58,7 @@ struct MainViewCell: View {
                         .frame(width: 11, height: 11)
                         .foregroundColor(.red)
                     Text("\(post.hit)")
-                        .font(Font.custom("KoreanSDNR-M", size: 13))
+                        .font(.system(size: 13))
                         .foregroundColor(.black)
                         .lineLimit(1)
                     Spacer()

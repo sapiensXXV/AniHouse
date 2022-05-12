@@ -84,11 +84,11 @@ struct SelectedMainPost: View {
                 }
                 
                 Text("\(post.title)")
-                    .font(Font.custom("KoreanSDNR-B", size: 20))
+                    .font(.system(size: 20))
                     .fontWeight(.semibold)
                     .padding(5)
                 Text("\(post.body)")
-                    .font(Font.custom("KoreanSDNR-M", size: 16))
+                    .font(.system(size: 16))
                     .padding(.horizontal, 5)
                     .padding(.vertical, 5)
                     .lineSpacing(3)
@@ -117,7 +117,8 @@ struct SelectedMainPost: View {
                 
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
-                dateString = formatter.string(from: post.date)
+                print("post.date = \(post.date)")
+                dateString = formatter.string(from: self.post.date)
                 
             }
         }
