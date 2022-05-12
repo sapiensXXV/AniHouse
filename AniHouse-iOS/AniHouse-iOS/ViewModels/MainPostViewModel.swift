@@ -8,12 +8,11 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
-import QuartzCore
-import RealmSwift
 
 class MainPostViewModel: ObservableObject {
+    
     @Published var posts: [MainPost] = [MainPost]()
-    @Published var comments: [Comment] = [Comment]()
+    @Published var comments: [Comment] = []
     @Published var currentPostId: String = ""
     @Published var uploadPostId: String = ""
     
@@ -38,7 +37,7 @@ class MainPostViewModel: ObservableObject {
                         self.currentPostId = data.documentID
                         let postTimeStamp = data["date"] as? Timestamp
                         post.date = postTimeStamp?.dateValue() ?? Date()
-                        print("post: \(post)")
+//                        print("posts: \(self.posts)")
                         return post
                     }
                 }
@@ -48,23 +47,6 @@ class MainPostViewModel: ObservableObject {
             }
         }
         
-    }
-    
-    func getComment() {
-        let db = Firestore.firestore()
-        
-        db.collection("MainPost").document(currentPostId)
-            .collection("comment").getDocuments { snapshot, error in
-                guard error == nil else { return }
-                if let snapshot = snapshot {
-                    self.comments = snapshot.documents.map { data in
-                        return Comment(id: data.documentID,
-                                       email: data["email"] as? String ?? "", nickName: data["nickName"] as? String ?? "",
-                                       content: data["content"] as? String ?? "",
-                                       date: data["date"] as? Date ?? Date())
-                    }
-                }
-            }
     }
     
     func getPostId() {
@@ -121,45 +103,72 @@ class MainPostViewModel: ObservableObject {
     
     
     //MARK: - 코멘트
-    
     func getComment(collectionName: String, documentId: String) {
         let db = Firestore.firestore()
-        
+        print("MainPostViewModel - getComment(\(collectionName), \(documentId))")
         db.collection(collectionName).document(documentId)
-            .collection("comment").order(by: "date", descending: true).getDocuments { snapshot, error in
+            .collection("comment").order(by: "date", descending: false).getDocuments { snapshot, error in
                 guard error == nil else { return }
                 if let snapshot = snapshot {
-                    self.comments = snapshot.documents.map { data in
-                        var comment =  Comment(email: data["email"] as? String ?? "",
-                                               nickName: data["nickName"] as? String ?? "",
-                                               content: data["content"] as? String ?? "",
-                                               date: data["date"] as? Date ?? Date())
-                        let commentTimeStamp = data["date"] as? Timestamp
-                        comment.date = commentTimeStamp?.dateValue() ?? Date()
-                        return comment
+                    DispatchQueue.main.async {
+                        for data in snapshot.documents {
+                            var comment =  Comment(id: data.documentID,
+                                                   email: data["email"] as? String ?? "",
+                                                   nickName: data["nickName"] as? String ?? "",
+                                                   content: data["content"] as? String ?? "",
+                                                   date: data["date"] as? Date ?? Date())
+                            let commentTimeStamp = data["date"] as? Timestamp
+                            comment.date = commentTimeStamp?.dateValue() ?? Date()
+                            self.comments.append(comment)
+                            print("comment: \(comment)")
+                        }
+//                        self.comments = snapshot.documents.map { data in
+//                            var comment =  Comment(id: data.documentID,
+//                                                   email: data["email"] as? String ?? "",
+//                                                   nickName: data["nickName"] as? String ?? "",
+//                                                   content: data["content"] as? String ?? "",
+//                                                   date: data["date"] as? Date ?? Date())
+//                            let commentTimeStamp = data["date"] as? Timestamp
+//                            comment.date = commentTimeStamp?.dateValue() ?? Date()
+//                            print("comment: \(comment)")
+//                            print("comments: \(self.comments)")
+//                            comments.append
+//                            return comment
+//                        }
                     }
+                } else {
+                    print(error?.localizedDescription ?? "")
                 }
             }
+        
     }
     
     func addComment(collectionName: String, documentId: String, newComment: Comment) {
         let db = Firestore.firestore()
-        let ref = db.collection(collectionName).document(documentId).collection("comment").document()
-        ref.setData(["email": newComment.email,
+        let ref = db.collection(collectionName).document(documentId)
+            .collection("comment").document()
+        ref.setData(["id": ref.documentID,
+                     "email": newComment.email,
                      "nickName": newComment.nickName,
                      "content": newComment.content,
                      "date": newComment.date]) { error in
             print(error?.localizedDescription)
         }
-        getComment(collectionName: collectionName, documentId: documentId)
+        Task {
+            try? await getComment(collectionName: collectionName, documentId: documentId)
+        }
+        
     }
     
     func deleteComment(collectionName: String, documentId: String, commentId: String) {
         let db = Firestore.firestore()
-        db.collection(collectionName).document(documentId).collection("comment").document(commentId).delete { error in
+        db.collection(collectionName).document(documentId)
+            .collection("comment").document(commentId).delete { error in
             print(error?.localizedDescription)
         }
-        getComment(collectionName: collectionName, documentId: documentId)
+        Task {
+            try? await getComment(collectionName: collectionName, documentId: documentId)
+        }
     }
     
     
