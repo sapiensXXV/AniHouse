@@ -28,10 +28,9 @@ class FreeBoardViewModel: ObservableObject {
                 let priority = data["priority"] as? String ?? ""
                 let author = data["author"] as? String ?? ""
                 let hit = data["hit"] as? Int ?? 0
-                let comment = data["comment"] as? [String] ?? [""]
                 let hitCheck = data["hitCheck"] as? Bool ?? false
                 
-                let freeBoardContent = FreeBoardContent(title: title, body: body, priority: priority, author: author, hit: hit, comment: comment,hitCheck: hitCheck)
+                let freeBoardContent = FreeBoardContent(title: title, body: body, priority: priority, author: author, hit: hit, hitCheck: hitCheck)
                 return freeBoardContent
             }
         }

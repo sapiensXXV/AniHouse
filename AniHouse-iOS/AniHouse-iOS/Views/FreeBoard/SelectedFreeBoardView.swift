@@ -25,7 +25,10 @@ struct SelectedFreeBoardView: View {
     @State private var animate = false
     
     @State private var isPresented = false
-    
+    @State private var commentField = ""
+    @Binding var showingOverlay: Bool
+    @ObservedObject var storeManager = MainPostViewModel()
+
     var body: some View {
         VStack(alignment: .leading) {
             // 게시글 제목
@@ -53,7 +56,7 @@ struct SelectedFreeBoardView: View {
                         // document의 배열에 이미 존재하니까 이미 좋아요를 누른 상태에서 한번 더 누르면 좋아요를 하지 않는다는 의미이므로 배열에서 해당 게시글을 삭제
                         db.collection("HitList").document("\(user?.email ?? "nil")").updateData(["user":FieldValue.arrayRemove([selectedData.priority])])
                     }
-                    db.collection("FreeBoard").document(String(selectedData.priority)).setData(["title":selectedData.title,"body":selectedData.body, "priority":selectedData.priority, "author":selectedData.author, "hit":selectedData.hit, "comment":[""], "hitCheck":selectedData.hitCheck])
+                    db.collection("FreeBoard").document(String(selectedData.priority)).setData(["title":selectedData.title,"body":selectedData.body, "priority":selectedData.priority, "author":selectedData.author, "hit":selectedData.hit,  "hitCheck":selectedData.hitCheck])
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
                         self.animate = false
@@ -77,6 +80,8 @@ struct SelectedFreeBoardView: View {
             }
             .padding()
             .onAppear(perform: {
+                showingOverlay = false
+                storeManager.getData()
                 // 게시글을 눌렀을 때의 View가 SelectedFreeBoardView이다.
                 // 현재 있는 View의 하트가 빈 하트인지, 색칠된 하트인지 구별하기 위해서
                 // HitList에 current user ID document가 없을 경우 -> 빈 하트
@@ -129,9 +134,10 @@ struct SelectedFreeBoardView: View {
             
             // 구분선
             Divider()
+                        
+            FreeAddCommentView(selectedData: selectedData)
             
             Spacer()
-            
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .navigationBarTitleDisplayMode(.inline)
@@ -153,6 +159,24 @@ struct SelectedFreeBoardView: View {
         )
         //        .navigationTitle("")
         //        .navigationBarHidden(true)
+        HStack {
+            TextField("", text: $commentField)
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+                .frame(width: 270)
+                .disableAutocorrection(true)
+                .autocapitalization(.none)
+            Button(action: {
+                let comment = Comment(email: user?.email ?? "nil", nickName: "최은성", content: commentField, date: Date())
+                storeManager.addComment(collectionName: "FreeBoard", documentId: String(selectedData.priority), newComment: comment)
+                print(selectedData.priority)
+                // 댓글을 달았으므로 내용 삭제
+                commentField = ""
+            }, label: {
+                Text("전송")
+            })
+        }
+        .padding(.bottom, 10)
     }
     @ViewBuilder
     private var editView: some View {
@@ -180,6 +204,7 @@ struct SelectedFreeBoardView: View {
                 })
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(.bottom, 3)
+                .foregroundColor(.black)
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                     showModal = true
@@ -187,19 +212,22 @@ struct SelectedFreeBoardView: View {
                     Text("게시글 수정")
                 })
                 .buttonStyle(BorderlessButtonStyle())
+                .foregroundColor(.black)
                 .sheet(isPresented: self.$showModal) {
                     ReviseFreeBoardView(selectedData: selectedData)
                 }
             }
             .padding(.trailing)
+            .background(Color.white)
+            .border(.black)
         }
     }
     
 }
 
-struct SelectedFreeBoardView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectedFreeBoardView(selectedData: .init(title: "", body: "", priority: "", author: "", hit:0, comment: [""], hitCheck: false))
-    }
-}
+//struct SelectedFreeBoardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectedFreeBoardView(selectedData: .init(title: "", body: "", priority: "", author: "", hit:0, comment: [""], hitCheck: false))
+//    }
+//}
 

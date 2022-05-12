@@ -48,7 +48,7 @@ class MainPostViewModel: ObservableObject {
         }
         
     }
-    
+        
     func getPostId() {
         
     }
