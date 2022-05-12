@@ -33,6 +33,8 @@
 		BB942D74282C075B002C47DC /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB942D73282C075B002C47DC /* UserInfo.swift */; };
 		BBA11DC027EEFCDB004F0327 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA11DBF27EEFCDB004F0327 /* LottieView.swift */; };
 		BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA11DC927EF708A004F0327 /* AppViewModel.swift */; };
+		BBAF79DB282D06B900F75E29 /* MainCommentAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAF79DA282D06B900F75E29 /* MainCommentAddView.swift */; };
+		BBAF79DE282D11CA00F75E29 /* MainCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAF79DD282D11CA00F75E29 /* MainCommentView.swift */; };
 		BBCAEDBB27ECA62200DF03BB /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */; };
 		BBD6FB04281A89F300BCA90F /* MainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB03281A89F300BCA90F /* MainViewCell.swift */; };
 		BBD6FB08281A8A1B00BCA90F /* MainBoardPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD6FB07281A8A1B00BCA90F /* MainBoardPost.swift */; };
@@ -76,6 +78,8 @@
 		BB942D73282C075B002C47DC /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		BBA11DBF27EEFCDB004F0327 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		BBA11DC927EF708A004F0327 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		BBAF79DA282D06B900F75E29 /* MainCommentAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCommentAddView.swift; sourceTree = "<group>"; };
+		BBAF79DD282D11CA00F75E29 /* MainCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCommentView.swift; sourceTree = "<group>"; };
 		BBCAEDBA27ECA62200DF03BB /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		BBD6FB03281A89F300BCA90F /* MainViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCell.swift; sourceTree = "<group>"; };
 		BBD6FB07281A8A1B00BCA90F /* MainBoardPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardPost.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 		BB2C6A002819C16300D1FA2B /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				BBAF79DC282D10F000F75E29 /* Comment */,
 				BBD6FB03281A89F300BCA90F /* MainViewCell.swift */,
 				BBD6FB0B281A983300BCA90F /* MainView.swift */,
 				BBD6FB0D281AC23C00BCA90F /* AddPostView.swift */,
@@ -245,6 +250,15 @@
 				BB942D73282C075B002C47DC /* UserInfo.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BBAF79DC282D10F000F75E29 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				BBAF79DA282D06B900F75E29 /* MainCommentAddView.swift */,
+				BBAF79DD282D11CA00F75E29 /* MainCommentView.swift */,
+			);
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		BBDDF9A32822D54A00B3001A /* MainViewModel */ = {
@@ -395,10 +409,12 @@
 				BBDDF9A22822CF6600B3001A /* MainPost.swift in Sources */,
 				BBD6FB04281A89F300BCA90F /* MainViewCell.swift in Sources */,
 				BB2C6A142819C19F00D1FA2B /* SelectedFreeBoardView.swift in Sources */,
+				BBAF79DE282D11CA00F75E29 /* MainCommentView.swift in Sources */,
 				BB2C6A1B2819C1E300D1FA2B /* TabBarView.swift in Sources */,
 				BB2C6A0A2819C18C00D1FA2B /* SignUpView.swift in Sources */,
 				BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */,
 				BB2C6A152819C19F00D1FA2B /* FreeBoardView.swift in Sources */,
+				BBAF79DB282D06B900F75E29 /* MainCommentAddView.swift in Sources */,
 				BB633090282666F5009A0BC4 /* SelectedMainPost.swift in Sources */,
 				BBD6FB08281A8A1B00BCA90F /* MainBoardPost.swift in Sources */,
 				9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */,
