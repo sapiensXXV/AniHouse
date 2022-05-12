@@ -50,6 +50,23 @@ class MainPostViewModel: ObservableObject {
         
     }
     
+    func getComment() {
+        let db = Firestore.firestore()
+        
+        db.collection("MainPost").document(currentPostId)
+            .collection("comment").getDocuments { snapshot, error in
+                guard error == nil else { return }
+                if let snapshot = snapshot {
+                    self.comments = snapshot.documents.map { data in
+                        return Comment(id: data.documentID,
+                                       email: data["email"] as? String ?? "", nickName: data["nickName"] as? String ?? "",
+                                       content: data["content"] as? String ?? "",
+                                       date: data["date"] as? Date ?? Date())
+                    }
+                }
+            }
+    }
+    
     func getPostId() {
         
     }
