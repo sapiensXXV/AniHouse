@@ -24,10 +24,9 @@ struct MainViewCell: View {
     
     @StateObject var storageManager = StorageManager()
     
-    init(imageName: String, title: String, content: String) {
-        self.imageName = imageName
-        self.title = title
-        self.content = content
+    var post: MainPost
+    init(post: MainPost) {
+        self.post = post
         model.getData()
     }
     
@@ -36,61 +35,80 @@ struct MainViewCell: View {
             Rectangle().frame(height: 0)
             if url != "" {
                 AnimatedImage(url: URL(string: url)!)
-                    .frame(width: 145, height: 145)
+                    .frame(minWidth: 170, idealWidth: 175, maxWidth: 180,
+                           minHeight: 170, idealHeight: 175, maxHeight: 180)
                     .cornerRadius(10)
                     .scaledToFill()
+//                    .scaledToFit()
+                    .padding(1)
             }
             else {
-                Loader()
+                VStack {
+                    Rectangle().frame(height: 0)
+                    Loader()
+                        .frame(width: 20, height: 20)
+                }
             }
-            
-//            Image(uiImage: self.image!)
-//                .resizable()
-//                .frame(minWidth: 120, idealWidth: 140, maxWidth: 160,
-//                       minHeight: 120, idealHeight: 140, maxHeight: 160)
-//                .cornerRadius(10)
-            Text(title)
-                .font(.system(size: 16))
-                .fontWeight(.black)
-                .lineLimit(1) // 한줄로 제한
-            Spacer().frame(height:3)
-            Text(content)
-                .font(.system(size: 13))
-                .foregroundColor(Color.secondary)
-                .lineLimit(3) // 세줄로 제한
+            VStack(alignment: .leading)
+            {
+                HStack {
+                    Image(systemName: "heart.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 11, height: 11)
+                        .foregroundColor(.red)
+                    Text("\(post.hit)")
+                        .font(Font.custom("KoreanSDNR-M", size: 13))
+                        .foregroundColor(.black)
+                        .lineLimit(1)
+                    Spacer()
+                }
+                
+                Text(post.title)
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+                    .fontWeight(.black)
+                    .lineLimit(1) // 한줄로 제한
+                    
+                Spacer().frame(height:3)
+                Text(post.body)
+                    .font(.system(size: 13))
+                    .foregroundColor(Color.secondary)
+                    .lineLimit(3) // 세줄로 제한
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+                
             
         }
-        .padding(7)
+        .padding(0)
         .background(Color("MainViewCellColor"))
         .cornerRadius(15)
-        .shadow(color: .gray, radius: 2, x: 0, y: 0)
+//        .shadow(color: .gray, radius: 2, x: 0, y: 0)
         .onAppear {
-            
-             
-        }
-        .onAppear {
-            let storage = Storage.storage().reference()
-            storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
-                if err != nil {
-                    print((err?.localizedDescription)!)
-                    return
-                }
-                self.url = "\(url!)"
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
-                    if err != nil {
-                        print((err?.localizedDescription)!)
-                        return
-                    }
-                    self.url = "\(url!)"
+            loadMainImage(imageName: post.id)
+            if self.url == "" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    loadMainImage(imageName: post.id)
                 }
             }
         }
     }
     
+    func loadMainImage(imageName: String) {
+        let storage = Storage.storage().reference()
+        storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
+            if err != nil {
+                print((err?.localizedDescription)!)
+                return
+            }
+            self.url = "\(url!)"
+        }
+    }
+    
 }
+
+
 
 struct Loader: UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<Loader>) -> UIActivityIndicatorView {
@@ -106,8 +124,6 @@ struct Loader: UIViewRepresentable {
 
 struct MainViewCell_Previews: PreviewProvider {
     static var previews: some View {
-        MainViewCell(imageName: "uMjkVL3MxsDJ6y5zlYEV",
-                     title: "기본 타이틀",
-                     content: "기본 본문")
+        MainViewCell(post: MainPost())
     }
 }

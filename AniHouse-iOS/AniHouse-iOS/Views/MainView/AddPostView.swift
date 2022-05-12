@@ -56,11 +56,11 @@ struct AddPostView: View {
                 
                 Image(uiImage: uploadImage)
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
                     .foregroundColor(Color("add-image-color"))
 //                    .font(.system(size: 50))
-                    .frame(width: 60, height: 60)
-                    .padding(20)
+                    .frame(width: 80, height: 80)
+                    .padding(0)
                     .background(Color("Light Gray"))
                     .cornerRadius(15)
                     .onTapGesture {
@@ -68,6 +68,23 @@ struct AddPostView: View {
                         isShowingPhotoPicker = true
                     }
                 Spacer()
+            } //VStack
+            
+        }
+        .navigationTitle("🐱 글쓰기")
+        .navigationBarTitleDisplayMode(.inline)
+        .padding(.horizontal, 10)
+        .sheet(isPresented: $isShowingPhotoPicker, content: {
+            //content
+            PhotoPicker(bindedImage: $uploadImage)
+        })
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button {
+                    hideKeyboard()
+                } label: {
+                    Image(systemName: "keyboard.chevron.compact.down")
+                }
                 
                 Button {
                     // 올바른지 검사하기, 알림창 내보내기
@@ -79,50 +96,23 @@ struct AddPostView: View {
                                   author: user?.email ?? "unknown",
                                   hit: 0,
                                   date: Date())
-                    model.getData()
-                    print("model.uploadPostID: \(model.uploadPostId)")
+                    
+//                    print("model.uploadPostID: \(model.uploadPostId)")
                     storageManager.uploadImage(image: uploadImage, uploadPostId: model.uploadPostId)
+                    model.getData()
                     
                     presentationMode.wrappedValue.dismiss()
-                    
-                    
-                    
                 } label: {
-                    Text("제출하기")
-                        .foregroundColor(Color.white)
-                        .fontWeight(.semibold)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(13)
-                        .padding(.top, 5)
+                    Text("저장")
                 }
-
-            } //VStack
-            
+            }
         }
-        .navigationTitle("🐱 글쓰기")
-        .navigationBarTitleDisplayMode(.inline)
-        .padding(.horizontal, 10)
-        .sheet(isPresented: $isShowingPhotoPicker, content: {
-            //content
-            PhotoPicker(bindedImage: $uploadImage)
-            
-        })
     }
     
     // 새로 생성할 MainPost 객체의 내용이 올바른지 검사한다.
     func postValidationCheck() {
         
     }
-    
-    // 포스팅할 데이터를 파이어스토어에 저장한다.
-//    mutating func addPostFirestore() {
-//        print("AddPostView - addPostFirestore")
-//        postInfo.title = title
-//        postInfo.body = content
-//        postInfo.author = user?.email
-//    }
-    
 }
 
 struct AddPostView_Previews: PreviewProvider {

@@ -32,41 +32,21 @@ class StorageManager: ObservableObject {
             }
         }
     }
-    func loadImage(imageName: String) {
-        let ref = Storage.storage().reference(forURL: "gs://anihouse-2b265.appspot.com/MainPostImage/\(imageName).jpg")
-        var image: UIImage?
-//        var img: UIImage?
-        
-            ref.downloadURL { url, error in
-                guard url != nil, error == nil else { return }
-                print("url: \(url!)")
-                let data = NSData(contentsOf: url!)
-                image = UIImage(data: data! as Data)!
-                self.mainPostImages[imageName] = image
-                print("mainPostImages[\(imageName)] = \(image!)")
-                
-            
-            
-        }
-        
-        
-    }
-    
-//    func getURL(path: String) -> String {
+//    func loadImage(imageName: String) {
+//        let ref = Storage.storage().reference(forURL: "gs://anihouse-2b265.appspot.com/MainPostImage/\(imageName).jpg")
+//        var image: UIImage?
+////        var img: UIImage?
 //
-//        let storage = Storage.storage()
-//        let gsReference = storage.reference(forURL: "gs://anihouse-2b265.appspot.com/\(path)")
+//        ref.downloadURL { url, error in
+//            guard url != nil, error == nil else { return }
 //
-//        print(path)
-//
-//        storageRef.downloadURL { url, error in
-//            if error != nil {
-//                print((error?.localizedDescription)!)
-//                return
-//            }
-//            self.imageURL = url?.absoluteURL ?? URL(string: "")
+//            print("url: \(url!)")
+//            let data = NSData(contentsOf: url!)
+//            image = UIImage(data: data! as Data)!
+//            self.mainPostImages[imageName] = image
+//            print("mainPostImages[\(imageName)] = \(image!)")
 //        }
-//        return imageURL!.path
+//
 //    }
     
 
