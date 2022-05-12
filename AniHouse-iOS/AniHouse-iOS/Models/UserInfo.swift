@@ -11,4 +11,5 @@ struct UserInfo {
     var email: String = ""
     var nickName: String = ""
     var birthday: Date = Date()
+    
 }

@@ -65,7 +65,6 @@ struct SelectedMainPost: View {
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
                             self.animate = false
-//                            self.isLiked.toggle()
                         })
                     } label: {
                         Image(systemName: self.isLiked ? "heart.fill" : "heart")
