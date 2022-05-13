@@ -12,9 +12,11 @@ import Firebase
 struct MainCommentAddView: View {
     
     @ObservedObject var storeManager = MainPostViewModel()
-    
+    @ObservedObject var userInfoManager = UserInfoViewModel()
+    @State var userNickName: String = ""
     @State var currentPost: MainPost = MainPost()
     @State var commentContent: String = ""
+    @Binding var currentComments: [Comment]
     let user = Auth.auth().currentUser // 현재 유저객체
 
     var body: some View {
@@ -25,14 +27,20 @@ struct MainCommentAddView: View {
                 .padding()
             Spacer()
             Button {
+                
+                let newComment = Comment(email: (user?.email)!,
+                                         nickName: self.userNickName,
+                                         content: self.commentContent,
+                                        date: Date())
                 storeManager.addComment(collectionName: "MainPost",
                                         documentId: currentPost.id,
-                                        newComment: Comment(email: (user?.email)!,
-                                                            nickName: "defaultNickName",
-                                                            content: self.commentContent,
-                                                            date: Date()))
+                                        newComment: newComment)
                 storeManager.getComment(collectionName: "MainPsot", documentId: currentPost.id)
+                withAnimation {
+                    self.currentComments.append(newComment)
+                }
                 print("comment add button pressed")
+                commentContent = ""
             } label: {
                 Text("등록")
                     .foregroundColor(Color.white)
@@ -46,11 +54,21 @@ struct MainCommentAddView: View {
         }
         .background(Color(Constant.ButtonColor.lightGray))
         .cornerRadius(6)
+        .onAppear {
+            userInfoManager.getUserNickName()
+            self.userNickName = userInfoManager.userNickName
+            if self.userNickName == "" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    self.userNickName = userInfoManager.userNickName
+                    print("userInfoManager.userNickName: \(userInfoManager.userNickName)")
+                }
+            }
+        }
     }
 }
 
-struct MainCommentAddView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainCommentAddView()
-    }
-}
+//struct MainCommentAddView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        MainCommentAddView(, currentComments: )
+//    }
+//}

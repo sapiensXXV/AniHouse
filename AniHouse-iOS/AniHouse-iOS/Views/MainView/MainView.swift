@@ -26,6 +26,7 @@ struct MainView: View {
     
     @ObservedObject var model = MainPostViewModel()
     @ObservedObject var storageManager = StorageManager()
+    @ObservedObject var userInfoManager = UserInfoViewModel()
     
     
     init() {
@@ -108,6 +109,7 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 model.getData()
+                
             }
             
             

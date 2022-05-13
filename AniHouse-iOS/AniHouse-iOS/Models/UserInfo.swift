@@ -8,8 +8,8 @@
 import Foundation
 
 struct UserInfo {
-    var email: String = ""
+    var name: String = ""
     var nickName: String = ""
-    var birthday: Date = Date()
-    
+    var email: String = ""
+    var birth: Date = Date()
 }

@@ -122,19 +122,6 @@ class MainPostViewModel: ObservableObject {
                             self.comments.append(comment)
                             print("comment: \(comment)")
                         }
-//                        self.comments = snapshot.documents.map { data in
-//                            var comment =  Comment(id: data.documentID,
-//                                                   email: data["email"] as? String ?? "",
-//                                                   nickName: data["nickName"] as? String ?? "",
-//                                                   content: data["content"] as? String ?? "",
-//                                                   date: data["date"] as? Date ?? Date())
-//                            let commentTimeStamp = data["date"] as? Timestamp
-//                            comment.date = commentTimeStamp?.dateValue() ?? Date()
-//                            print("comment: \(comment)")
-//                            print("comments: \(self.comments)")
-//                            comments.append
-//                            return comment
-//                        }
                     }
                 } else {
                     print(error?.localizedDescription ?? "")
