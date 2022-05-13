@@ -12,8 +12,9 @@ import Firebase
 
 struct MainViewCell: View {
     
-    @ObservedObject var model = MainPostViewModel()
-    @ObservedObject var userInfoModel = UserInfoViewModel()
+    @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
+    @EnvironmentObject var userInfoModel: UserInfoViewModel
+    @EnvironmentObject var storageManager: StorageManager
     
     @State var image: UIImage? = UIImage(named: Constant.ImageName.defaultImage)
     @State var url = ""
@@ -23,12 +24,10 @@ struct MainViewCell: View {
     
     let timer = Timer.publish(every: 1, on: .main, in: .common, options: .none).autoconnect()
     
-    @StateObject var storageManager = StorageManager()
-    
     var post: MainPost
     init(post: MainPost) {
         self.post = post
-        model.getData()
+//        mainFirestoreViewModel.getData()
     }
     
     var body: some View {

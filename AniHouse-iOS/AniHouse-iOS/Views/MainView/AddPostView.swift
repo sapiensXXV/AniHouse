@@ -9,18 +9,14 @@ import SwiftUI
 import Firebase
 
 struct AddPostView: View {
-    @ObservedObject var model = MainPostViewModel()
+    @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
+    @EnvironmentObject var storageManager: StorageManager
+    
     @State private var isShowingPhotoPicker = false
     @State private var uploadImage: UIImage = UIImage(systemName: "photo.on.rectangle")!
     
     @State private var title = ""
     @State private var content = ""
-    
-    @State var categorieName: String = "카테고리"
-    var categories: [String] = ["강아지", "고양이", "파충류", "조류", "어류", "기타"]
-    
-    var storageManager = StorageManager()
-    
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -34,7 +30,6 @@ struct AddPostView: View {
                 TextField("제목을 입력하세요", text: $title)
                     .padding(5)
                     .cornerRadius(15)
-                // 카테고리를 이 아래에 구현.
                 
                 Divider()
                 ZStack(alignment: .topLeading) {
@@ -90,16 +85,14 @@ struct AddPostView: View {
                     // 올바른지 검사하기, 알림창 내보내기
                     postValidationCheck()
                     // 파이어스토어에 저장하기
-                    model.addData(title: title,
+                    mainFirestoreViewModel.addData(title: title,
                                   body: content,
                                   image: uploadImage,
                                   author: user?.email ?? "unknown",
                                   hit: 0,
                                   date: Date())
-                    
-//                    print("model.uploadPostID: \(model.uploadPostId)")
-                    storageManager.uploadImage(image: uploadImage, uploadPostId: model.uploadPostId)
-                    model.getData()
+                    storageManager.uploadImage(image: uploadImage, uploadPostId: mainFirestoreViewModel.uploadPostId)
+                    mainFirestoreViewModel.getData()
                     
                     presentationMode.wrappedValue.dismiss()
                 } label: {

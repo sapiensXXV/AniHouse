@@ -19,8 +19,7 @@ struct SignUpView: View {
     @State private var firstPwd: String = ""
     @State private var secondPwd: String = ""
     
-    @ObservedObject var userManager = UserInfoViewModel()
-    
+    @EnvironmentObject var userManager: UserInfoViewModel
     @EnvironmentObject var viewModel: AppViewModel
     
     @Environment(\.presentationMode) var presentationMode

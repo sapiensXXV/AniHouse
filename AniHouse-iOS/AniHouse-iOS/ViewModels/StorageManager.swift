@@ -32,22 +32,4 @@ class StorageManager: ObservableObject {
             }
         }
     }
-//    func loadImage(imageName: String) {
-//        let ref = Storage.storage().reference(forURL: "gs://anihouse-2b265.appspot.com/MainPostImage/\(imageName).jpg")
-//        var image: UIImage?
-////        var img: UIImage?
-//
-//        ref.downloadURL { url, error in
-//            guard url != nil, error == nil else { return }
-//
-//            print("url: \(url!)")
-//            let data = NSData(contentsOf: url!)
-//            image = UIImage(data: data! as Data)!
-//            self.mainPostImages[imageName] = image
-//            print("mainPostImages[\(imageName)] = \(image!)")
-//        }
-//
-//    }
-    
-
 }

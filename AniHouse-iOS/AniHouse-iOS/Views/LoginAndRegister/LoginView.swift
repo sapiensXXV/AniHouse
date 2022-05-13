@@ -15,6 +15,9 @@ struct LoginView: View {
     @State private var loginCheck = UserDefaults.standard.bool(forKey: "loginCheck")
 
     @EnvironmentObject var viewModel: AppViewModel
+    @EnvironmentObject var mainFireStoreViewModel: MainPostViewModel
+    @EnvironmentObject var storageViewModel: StorageManager
+    @EnvironmentObject var userInfoViewModel: UserInfoViewModel
     
     var body: some View {
 //        NavigationView {
@@ -23,6 +26,9 @@ struct LoginView: View {
 //                MainView()
                 // 로그인 성공하면 바로 TabBarView로 이동
                 TabBarView()
+//                .environmentObject(viewModel)
+//                .envi
+                
                 // 이미 로그인 한 유저의 경우 이곳을 통해 홈 뷰로 이동.
             }
             else {

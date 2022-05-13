@@ -97,7 +97,6 @@ class MainPostViewModel: ObservableObject {
         db.collection("MainPost").document(post.id).setData(["likeUser": currentLikeUsers, "hit": currentLikeUsers.count], merge: true) { error in
             if let e = error { print(e.localizedDescription) }
         }
-        
         self.getData()
     }
     
@@ -111,7 +110,7 @@ class MainPostViewModel: ObservableObject {
                 guard error == nil else { return }
                 if let snapshot = snapshot {
                     DispatchQueue.main.async {
-                        for data in snapshot.documents {
+                        self.comments = snapshot.documents.map { data in
                             var comment =  Comment(id: data.documentID,
                                                    email: data["email"] as? String ?? "",
                                                    nickName: data["nickName"] as? String ?? "",
@@ -119,8 +118,7 @@ class MainPostViewModel: ObservableObject {
                                                    date: data["date"] as? Date ?? Date())
                             let commentTimeStamp = data["date"] as? Timestamp
                             comment.date = commentTimeStamp?.dateValue() ?? Date()
-                            self.comments.append(comment)
-                            print("comment: \(comment)")
+                            return comment
                         }
                     }
                 } else {
@@ -139,7 +137,6 @@ class MainPostViewModel: ObservableObject {
                      "nickName": newComment.nickName,
                      "content": newComment.content,
                      "date": newComment.date]) { error in
-            print(error?.localizedDescription)
         }
         Task {
             try? await getComment(collectionName: collectionName, documentId: documentId)
@@ -149,9 +146,9 @@ class MainPostViewModel: ObservableObject {
     
     func deleteComment(collectionName: String, documentId: String, commentId: String) {
         let db = Firestore.firestore()
+        print("deleteCommet-commentId: \(commentId)")
         db.collection(collectionName).document(documentId)
             .collection("comment").document(commentId).delete { error in
-            print(error?.localizedDescription)
         }
         Task {
             try? await getComment(collectionName: collectionName, documentId: documentId)
