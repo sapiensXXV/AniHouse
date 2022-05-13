@@ -31,6 +31,8 @@ struct SelectedFreeBoardView: View {
     @State var currentComments: [Comment] = [Comment]()
     
     @State var formatter: DateFormatter = DateFormatter()
+    
+    @State var showingCommentAlert = false
 
     var body: some View {
         ScrollView {
@@ -161,18 +163,46 @@ struct SelectedFreeBoardView: View {
 //                    }
 //                }
 
-                    ForEach(self.currentComments) { comment in
+                ForEach(self.currentComments.indices, id: \.self.hashValue) { idx in
                         VStack(alignment: .leading) {
                             HStack {
-                                Text(comment.nickName)
+                                Text(currentComments[idx].nickName)
                                     .fontWeight(.semibold)
+                                    .fixedSize(horizontal: false, vertical: true)
                                 Spacer()
-                                Text(self.formatter.string(from: comment.date))
-                                    .font(.system(size: 13))
-                                    .foregroundColor(.secondary)
-
+                                Button(action: {
+                                    showingCommentAlert = true
+                                }, label: {
+                                    Image(systemName: "trash")
+                                        .resizable()
+                                        .frame(width: 15, height: 15)
+                                        .foregroundColor(.red)
+                                        .alert("삭제하시겠습니까?", isPresented: $showingCommentAlert) {
+                                            Button("삭제", role: .destructive) {
+                                                let db = Firestore.firestore()
+                                                db.collection("FreeBoard").document(String(selectedData.priority)).collection("comment").document(currentComments[idx].id).delete() { err in
+                                                    if let err = err {
+                                                        print("Error removing document: \(err)")
+                                                    } else {
+                                                        print("##########")
+                                                        print(currentComments[idx].content)
+                                                        print("Document successfully removed!")
+                                                        currentComments.remove(at: idx)
+                                                    }
+                                                }
+                                            }
+                                            Button("취소", role: .cancel) {
+                                                
+                                            }
+                                        }
+                                })
                             }
-                            Text(comment.content)
+                            Text(currentComments[idx].content)
+                            // 댓글의 내용이 전부 보여야 하기 때문
+                                .fixedSize(horizontal: false, vertical: true)
+                            Text(self.formatter.string(from: currentComments[idx].date))
+                                .font(.system(size: 13))
+                                .foregroundColor(.secondary)
                         }
                         .padding(.leading,5)
                         .padding(.trailing,5)
