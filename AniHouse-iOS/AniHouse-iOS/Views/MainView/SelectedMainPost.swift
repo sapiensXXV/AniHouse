@@ -122,7 +122,6 @@ struct SelectedMainPost: View {
                                 print("user!.email! = \(user!.email!)")
                                 print("currentComment[\(idx)].id = \(mainFirestoreViewModel.comments[idx].id)")
                                 print(user!.email! == mainFirestoreViewModel.comments[idx].email)
-                                userInfoManager.getUserNickName(email: user!.email!)
                             }
                         
                     }
