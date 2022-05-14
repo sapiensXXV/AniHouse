@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct TabBarView: View {
-    let viewModel = AppViewModel()
+    @StateObject var viewModel = AppViewModel()
+    @StateObject var mainFirestoreViewModel = MainPostViewModel()
+    @StateObject var storageViewModel = StorageManager()
+    @StateObject var userInfoViewModel = UserInfoViewModel()
+    
+    
     var body: some View {
         TabView {
             MainView()
@@ -27,9 +32,13 @@ struct TabBarView: View {
                     Image(systemName: "gear")
                     Text("설정")
                 }
-            
         }
+        .environmentObject(viewModel)
+        .environmentObject(mainFirestoreViewModel)
+        .environmentObject(storageViewModel)
+        .environmentObject(userInfoViewModel)
         .accentColor(Color.blue)
+        
     }
 }
 

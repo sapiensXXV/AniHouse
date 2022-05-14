@@ -11,8 +11,9 @@ import Firebase
 
 struct MainCommentAddView: View {
     
-    @ObservedObject var storeManager = MainPostViewModel()
-    @ObservedObject var userInfoManager = UserInfoViewModel()
+    @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
+    @EnvironmentObject var userInfoManager: UserInfoViewModel
+    
     @State var userNickName: String = ""
     @State var currentPost: MainPost = MainPost()
     @State var commentContent: String = ""
@@ -31,14 +32,14 @@ struct MainCommentAddView: View {
                 let newComment = Comment(email: (user?.email)!,
                                          nickName: self.userNickName,
                                          content: self.commentContent,
-                                        date: Date())
-                storeManager.addComment(collectionName: "MainPost",
+                                         date: Date())
+                mainFirestoreViewModel.addComment(collectionName: "MainPost",
                                         documentId: currentPost.id,
                                         newComment: newComment)
-                storeManager.getComment(collectionName: "MainPsot", documentId: currentPost.id)
                 withAnimation {
-                    self.currentComments.append(newComment)
+                    mainFirestoreViewModel.getComment(collectionName: "MainPost", documentId: currentPost.id)
                 }
+
                 print("comment add button pressed")
                 commentContent = ""
             } label: {
@@ -55,6 +56,7 @@ struct MainCommentAddView: View {
         .background(Color(Constant.ButtonColor.lightGray))
         .cornerRadius(6)
         .onAppear {
+            
             userInfoManager.getUserNickName()
             self.userNickName = userInfoManager.userNickName
             if self.userNickName == "" {

@@ -12,7 +12,9 @@ import Firebase
 struct AniHouse_iOSApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject var MainFirestoreManager = MainPostViewModel()
+    @StateObject var mainFirestoreViewModel = MainPostViewModel()
+    @StateObject var storageViewModel = StorageManager()
+    @StateObject var userInfoViewModel = UserInfoViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -20,7 +22,9 @@ struct AniHouse_iOSApp: App {
             let viewModel = AppViewModel()
             LoginView()
                 .environmentObject(viewModel)
-                .environmentObject(MainFirestoreManager)
+                .environmentObject(mainFirestoreViewModel)
+                .environmentObject(storageViewModel)
+                .environmentObject(userInfoViewModel)
         }
     }
 }

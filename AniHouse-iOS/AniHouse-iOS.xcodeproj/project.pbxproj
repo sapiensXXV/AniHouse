@@ -148,11 +148,11 @@
 		BB2C6A002819C16300D1FA2B /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				BBAF79DC282D10F000F75E29 /* Comment */,
-				BBD6FB03281A89F300BCA90F /* MainViewCell.swift */,
 				BBD6FB0B281A983300BCA90F /* MainView.swift */,
+				BBD6FB03281A89F300BCA90F /* MainViewCell.swift */,
 				BBD6FB0D281AC23C00BCA90F /* AddPostView.swift */,
 				BB63308F282666F5009A0BC4 /* SelectedMainPost.swift */,
+				BBAF79DC282D10F000F75E29 /* Comment */,
 			);
 			path = MainView;
 			sourceTree = "<group>";

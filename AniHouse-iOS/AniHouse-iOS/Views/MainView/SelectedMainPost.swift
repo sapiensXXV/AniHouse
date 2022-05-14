@@ -11,11 +11,12 @@ import SDWebImageSwiftUI
 
 struct SelectedMainPost: View {
     
-    @ObservedObject var model = MainPostViewModel()
-    @ObservedObject var userInfoManager = UserInfoViewModel()
+    @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
+    @EnvironmentObject var userInfoManager: UserInfoViewModel
     
     @State var post: MainPost = MainPost() // 게시글 객체를 넘겨받음.
     @State var hitValue: Int = 0 // 현재 좋아요 개수
+    
     @State private var animate = false // 애니매이션 동작여부
     @State var isLiked: Bool = false // 현재 유저가 좋아요를 체크했는지 여부
     @State var dateString: String = ""
@@ -52,17 +53,17 @@ struct SelectedMainPost: View {
                             //action
                             if isLiked {
                                 /// 게시글의 좋아요를 누른 상태일 때 Like를 지운다.
-                                DispatchQueue.main.async {
-                                    model.deleteLike(post: self.post, currentUser: self.user?.email ?? "")
-                                }
+//                                DispatchQueue.main.async {
+                                mainFirestoreViewModel.deleteLike(post: self.post, currentUser: self.user?.email ?? "")
+//                                }
                                 self.isLiked.toggle()
                                 hitValue -= 1
                             } else {
                                 /// 좋아요를 누르지 않은 상태일 때
-                                DispatchQueue.main.async {
-                                    model.addLike(post: self.post, currentUser: self.user?.email ?? "")
+//                                DispatchQueue.main.async {
+                                mainFirestoreViewModel.addLike(post: self.post, currentUser: self.user?.email ?? "")
                                     
-                                }
+//                                }
                                 self.isLiked.toggle()
                                 hitValue += 1
                             }
@@ -102,11 +103,20 @@ struct SelectedMainPost: View {
                         .padding(.horizontal, 5)
                         .padding(.vertical, 5)
 //                    MainCommentAddView(currentPost: self.post)
-                    ForEach(self.currentComments) { comment in
-                        MainCommentView(nickName: comment.nickName,
-                                        content: comment.content,
-                                        date: comment.date)
+                    ForEach(self.mainFirestoreViewModel.comments.indices, id: \.self.hashValue) { idx in
+                        MainCommentView(currentCommentId: mainFirestoreViewModel.comments[idx].id,
+                                        nickName: mainFirestoreViewModel.comments[idx].nickName,
+                                        content: mainFirestoreViewModel.comments[idx].content,
+                                        date: mainFirestoreViewModel.comments[idx].date,
+                                        isCommentUser: user!.email! == mainFirestoreViewModel.comments[idx].email,
+                                        documentId: self.post.id)
                             .padding(.horizontal, 3)
+                            .onAppear {
+                                
+                                print("user!.email! = \(user!.email!)")
+                                print("currentComment[\(idx)].id = \(mainFirestoreViewModel.comments[idx].id)")
+                                print(user!.email! == mainFirestoreViewModel.comments[idx].email)
+                            }
                         
                     }
                     Spacer()
@@ -134,22 +144,22 @@ struct SelectedMainPost: View {
                 }
             }
             .onAppear {
-                model.getComment(collectionName: "MainPost", documentId: self.post.id)
-                print("model.comments: \(model.comments)")
-                for comment in model.comments {
+                mainFirestoreViewModel.getComment(collectionName: "MainPost", documentId: self.post.id)
+                print("model.comments: \(mainFirestoreViewModel.comments)")
+                for comment in mainFirestoreViewModel.comments {
                     self.currentComments.append(comment)
                 }
-                if model.comments.isEmpty {
-                    self.currentComments.removeAll()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        model.getComment(collectionName: "MainPost", documentId: self.post.id)
-                        for comment in model.comments {
-                            self.currentComments.append(comment)
-                        }
-                        print("비어있어서 다시 수행했어요^^")
-                        print("self.currentComments: \(self.currentComments)")
-                    }
-                }
+//                if mainFirestoreViewModel.comments.isEmpty {
+//                    self.currentComments.removeAll()
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                        mainFirestoreViewModel.getComment(collectionName: "MainPost", documentId: self.post.id)
+//                        for comment in mainFirestoreViewModel.comments {
+//                            self.currentComments.append(comment)
+//                        }
+//                        print("비어있어서 다시 수행했어요^^")
+//                        print("self.currentComments: \(self.currentComments)")
+//                    }
+//                }
                 
             }
             MainCommentAddView(currentPost: self.post, currentComments: self.$currentComments)
