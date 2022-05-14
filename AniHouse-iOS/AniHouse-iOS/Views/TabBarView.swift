@@ -38,6 +38,9 @@ struct TabBarView: View {
         .environmentObject(storageViewModel)
         .environmentObject(userInfoViewModel)
         .accentColor(Color.blue)
+        .onAppear {
+            userInfoViewModel.getUserNickName()
+        }
         
     }
 }

@@ -24,6 +24,10 @@ struct SelectedMainPost: View {
     @State var currentComments: [Comment] = [Comment]()
     @State var userNickName: String = ""
     
+    //알림여부
+    @State var showPostDeleteButton: Bool = false
+    @State var showDeleteAlert: Bool = false
+    
     @State var formatter: DateFormatter = DateFormatter()
     
     private let animationDuration: Double = 0.1
@@ -149,29 +153,39 @@ struct SelectedMainPost: View {
                 for comment in mainFirestoreViewModel.comments {
                     self.currentComments.append(comment)
                 }
-//                if mainFirestoreViewModel.comments.isEmpty {
-//                    self.currentComments.removeAll()
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        mainFirestoreViewModel.getComment(collectionName: "MainPost", documentId: self.post.id)
-//                        for comment in mainFirestoreViewModel.comments {
-//                            self.currentComments.append(comment)
-//                        }
-//                        print("비어있어서 다시 수행했어요^^")
-//                        print("self.currentComments: \(self.currentComments)")
-//                    }
-//                }
+                if user!.email! == post.author {
+                    self.showPostDeleteButton = true
+                }
                 
             }
             MainCommentAddView(currentPost: self.post, currentComments: self.$currentComments)
-        }
-        
+        } // VStack
         .navigationTitle("\(post.title)")
         .navigationBarTitleDisplayMode(.inline)
-        
-        
-        
+        .toolbar {
+            //MARK: - 게시글 삭제기능
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button {
+                    // 삭제 @State값을 토글한다.
+                    self.showDeleteAlert.toggle()
+                    print("게시글 삭제 버튼 pressed")
+                } label: {
+                    Image(systemName: showPostDeleteButton ? "trash" : "")
+                        .foregroundColor(.red)
+                        
+                }
+                .alert(isPresented: self.$showDeleteAlert) {
+                    Alert(title: Text("게시글을 삭제하시겠습니까?"),
+                          message: Text("삭제한 게시글은 복구할 수 없습니다."),
+                          primaryButton: .destructive(Text("삭제"), action: {
+                        mainFirestoreViewModel.deletePost(postId: self.post.id)
+                    }),
+                          secondaryButton: .cancel(Text("취소")))
+                }
+                
+            }
+        }
     }
-    
 }
 
 struct SelectedMainPost_Previews: PreviewProvider {

@@ -78,8 +78,6 @@ struct MainView: View {
                 mainFirestoreViewModel.getData()
                 
             }
-            
-            
         }
         
         

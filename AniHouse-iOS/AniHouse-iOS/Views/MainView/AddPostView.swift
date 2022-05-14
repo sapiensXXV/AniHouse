@@ -17,6 +17,7 @@ struct AddPostView: View {
     
     @State private var title = ""
     @State private var content = ""
+    @State private var showDeniedAlert: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -83,28 +84,50 @@ struct AddPostView: View {
                 
                 Button {
                     // 올바른지 검사하기, 알림창 내보내기
-                    postValidationCheck()
-                    // 파이어스토어에 저장하기
-                    mainFirestoreViewModel.addData(title: title,
-                                  body: content,
-                                  image: uploadImage,
-                                  author: user?.email ?? "unknown",
-                                  hit: 0,
-                                  date: Date())
-                    storageManager.uploadImage(image: uploadImage, uploadPostId: mainFirestoreViewModel.uploadPostId)
-                    mainFirestoreViewModel.getData()
-                    
-                    presentationMode.wrappedValue.dismiss()
+                    if !postValidationCheck() { self.showDeniedAlert.toggle() }
+                    else {
+                        // 파이어스토어에 저장하기
+                        mainFirestoreViewModel.addData(title: title,
+                                      body: content,
+                                      image: uploadImage,
+                                      author: user?.email ?? "unknown",
+                                      hit: 0,
+                                      date: Date())
+                        storageManager.uploadImage(image: uploadImage, uploadPostId: mainFirestoreViewModel.uploadPostId)
+                        mainFirestoreViewModel.getData()
+                        
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 } label: {
                     Text("저장")
+                }
+                .alert(isPresented: self.$showDeniedAlert) {
+                    var alertTitle: String = ""
+                    var alertMessage: Text? = nil
+                    if self.title == "" {
+                        alertTitle = "제목을 입력해주세요"
+                    } else if self.content.count < 5 {
+                        alertTitle = "본문은 5글자 이상 입력해주세요"
+                        alertMessage = Text("현재 \(self.content.count)글자")
+                    } else if isEqualImage(img1: UIImage(systemName: "photo.on.rectangle")!, img2: self.uploadImage) {
+                        alertTitle = "이미지를 업로드 해주세요"
+                    }
+                    return Alert(title: Text(alertTitle), message: alertMessage, dismissButton: .default(Text("알겠습니다")))
                 }
             }
         }
     }
     
     // 새로 생성할 MainPost 객체의 내용이 올바른지 검사한다.
-    func postValidationCheck() {
-        
+    func postValidationCheck() -> Bool {
+        if self.title == "" || self.content == "" || isEqualImage(img1: UIImage(systemName: "photo.on.rectangle")!, img2: self.uploadImage) {
+            return false
+        }
+        return true
+    }
+    
+    func isEqualImage(img1: UIImage, img2: UIImage) -> Bool {
+        img1 === img2 || img1.pngData() == img2.pngData()
     }
 }
 

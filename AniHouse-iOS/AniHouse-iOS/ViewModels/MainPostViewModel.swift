@@ -48,10 +48,6 @@ class MainPostViewModel: ObservableObject {
         }
         
     }
-        
-    func getPostId() {
-        
-    }
     
     //MARK: - 데이터 쓰기
     func addData(title: String, body: String, image: UIImage, author: String, hit: Int, date: Date) {
@@ -69,6 +65,13 @@ class MainPostViewModel: ObservableObject {
             guard error == nil else { return }
         }
         self.uploadPostId = id
+        self.getData()
+    }
+    
+    func deletePost(postId: String) {
+        print("MainPostViewModel - deletePost(\(postId))")
+        let db = Firestore.firestore()
+        db.collection("MainPost").document(postId).delete()
         self.getData()
     }
     

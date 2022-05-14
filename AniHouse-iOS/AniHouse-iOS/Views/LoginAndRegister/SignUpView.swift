@@ -41,7 +41,8 @@ struct SignUpView: View {
                     
                     Section(header: Text("계정정보")) {
                         TextField("이메일", text: $email)
-                            .disableAutocorrection(true)
+//                            .disableAutocorrection(true)
+                            
                         SecureField("패스워드", text: $firstPwd)
                         SecureField("패스워드를 다시 입력하세요", text: $secondPwd)
                     }

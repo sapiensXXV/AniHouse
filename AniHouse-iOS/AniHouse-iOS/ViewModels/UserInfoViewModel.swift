@@ -29,13 +29,14 @@ class UserInfoViewModel: ObservableObject {
     }
     
     func getUserNickName() {
-        print("getUserInfo() - \(user!.email)")
-        let db = Firestore.firestore()
-        let email = user!.email // 현재 유저의 이메일
         
-        db.collection("userInfo").document(email!).getDocument(source: .cache) { document, error in
+        let db = Firestore.firestore()
+        let email = user!.email! // 현재 유저의 이메일
+        print("getUserInfo() - [\(email)]")
+        
+        db.collection("userInfo").document(email).getDocument(source: .cache) { document, error in
             if let document = document {
-                print(email!)
+                print(email)
                 self.userNickName = document.get("nickName") as! String
                 print("getnickName: \(self.userNickName)")
             } else {

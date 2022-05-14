@@ -239,10 +239,10 @@
 			isa = PBXGroup;
 			children = (
 				BBA11DC927EF708A004F0327 /* AppViewModel.swift */,
+				BBDDF99F2822CF1900B3001A /* MainPostViewModel.swift */,
 				BB78602B27E0EFB300CFC94A /* ContentView.swift */,
 				9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */,
 				BB19783728252CD9002B5B60 /* StorageManager.swift */,
-				BBDDF99F2822CF1900B3001A /* MainPostViewModel.swift */,
 				BBAF79DF282D833200F75E29 /* UserInfoViewModel.swift */,
 			);
 			path = ViewModels;
