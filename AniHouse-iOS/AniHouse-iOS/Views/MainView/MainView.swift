@@ -76,6 +76,7 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 mainFirestoreViewModel.getData()
+                userInfoManager.getUserNickName()
                 
             }
         }

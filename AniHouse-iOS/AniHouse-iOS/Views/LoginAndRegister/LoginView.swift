@@ -20,21 +20,22 @@ struct LoginView: View {
     @EnvironmentObject var userInfoViewModel: UserInfoViewModel
     
     var body: some View {
-//        NavigationView {
+        //        NavigationView {
         if UserDefaults.standard.bool(forKey: "loginCheck") {
-                let _ = print("viewModel.signedIn: \(viewModel.signedIn)")
-//                MainView()
-                // 로그인 성공하면 바로 TabBarView로 이동
-                TabBarView()
+            let _ = print("viewModel.signedIn: \(viewModel.signedIn)")
+            // 로그인 성공하면 바로 TabBarView로 이동
+            TabBarView()
 //                .environmentObject(viewModel)
-//                .envi
-                
-                // 이미 로그인 한 유저의 경우 이곳을 통해 홈 뷰로 이동.
-            }
-            else {
-                SignInView()
-            }
-//        }
+//                .environmentObject(mainFireStoreViewModel)
+//                .environmentObject(storageViewModel)
+//                .environmentObject(userInfoViewModel)
+            
+            // 이미 로그인 한 유저의 경우 이곳을 통해 홈 뷰로 이동.
+        }
+        else {
+            SignInView()
+        }
+        //        }
     }
 }
 

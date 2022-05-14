@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @StateObject var viewModel = AppViewModel()
-    @StateObject var mainFirestoreViewModel = MainPostViewModel()
-    @StateObject var storageViewModel = StorageManager()
-    @StateObject var userInfoViewModel = UserInfoViewModel()
+    @EnvironmentObject var viewModel: AppViewModel
+    @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
+    @EnvironmentObject var storageViewModel: StorageManager
+    @EnvironmentObject var userInfoViewModel: UserInfoViewModel
     
     
     var body: some View {
@@ -33,13 +33,13 @@ struct TabBarView: View {
                     Text("설정")
                 }
         }
-        .environmentObject(viewModel)
-        .environmentObject(mainFirestoreViewModel)
-        .environmentObject(storageViewModel)
-        .environmentObject(userInfoViewModel)
+//        .environmentObject(viewModel)
+//        .environmentObject(mainFirestoreViewModel)
+//        .environmentObject(storageViewModel)
+//        .environmentObject(userInfoViewModel)
         .accentColor(Color.blue)
         .onAppear {
-            userInfoViewModel.getUserNickName()
+//            userInfoViewModel.getUserNickName()
         }
         
     }
