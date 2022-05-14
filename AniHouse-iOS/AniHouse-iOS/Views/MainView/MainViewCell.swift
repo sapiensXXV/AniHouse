@@ -82,8 +82,8 @@ struct MainViewCell: View {
             
         }
         .padding(0)
-        .background(Color("MainViewCellColor"))
-        .cornerRadius(15)
+        .background(Color(Constant.CustomColor.muchLightBrown))
+        .cornerRadius(10)
 //        .shadow(color: .gray, radius: 2, x: 0, y: 0)
         .onAppear {
             loadMainImage(imageName: post.id)
@@ -93,6 +93,7 @@ struct MainViewCell: View {
                 }
             }
         }
+        
     }
     
     func loadMainImage(imageName: String) {

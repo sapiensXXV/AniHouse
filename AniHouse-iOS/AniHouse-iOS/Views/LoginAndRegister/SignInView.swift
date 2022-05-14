@@ -17,6 +17,7 @@ struct SignInView: View {
 
     
     @EnvironmentObject var viewModel: AppViewModel
+    @EnvironmentObject var userInfoViewModel: UserInfoViewModel
     
     var body: some View {
         NavigationView {

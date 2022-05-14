@@ -13,8 +13,8 @@ import Firebase
 
 class UserInfoViewModel: ObservableObject {
     
-    let user = Auth.auth().currentUser
-    @Published var userNickName: String = ""
+    var user = Auth.auth().currentUser
+    @Published var userNickName: String = "userNickname"
     @Published var userInfo: [UserInfo] = [UserInfo]()
     
     func addUser(name: String, nickName: String, email: String, birth: Date) {
@@ -28,17 +28,19 @@ class UserInfoViewModel: ObservableObject {
         }
     }
     
-    func getUserNickName() {
-        
+    func getUserNickName(email: String) {
+        if user == nil {
+            print("유저가 없어요")
+        }
+        print("getUserNickName 닉네임 찾기: [\(email)]")
+//        print("getUserInfo() - \(user?.email!)")
         let db = Firestore.firestore()
-        let email = user!.email! // 현재 유저의 이메일
-        print("getUserInfo() - [\(email)]")
         
-        db.collection("userInfo").document(email).getDocument(source: .cache) { document, error in
+        db.collection("userInfo").document(email).getDocument { document, error in
             if let document = document {
-                print(email)
                 self.userNickName = document.get("nickName") as! String
                 print("getnickName: \(self.userNickName)")
+                print("닉네임을 찾았어요!")
             } else {
                 print("닉네임을 가져오는데 실패했어요")
             }

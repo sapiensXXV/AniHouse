@@ -11,6 +11,7 @@ import Firebase
 
 struct MainCommentAddView: View {
     
+    @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
     @EnvironmentObject var userInfoManager: UserInfoViewModel
     
@@ -56,8 +57,6 @@ struct MainCommentAddView: View {
         .background(Color(Constant.ButtonColor.lightGray))
         .cornerRadius(6)
         .onAppear {
-            
-            userInfoManager.getUserNickName()
             self.userNickName = userInfoManager.userNickName
             if self.userNickName == "" {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {

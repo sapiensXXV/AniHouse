@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import Firebase
 import FirebaseStorage
 
 enum LayoutType: CaseIterable {
@@ -21,12 +23,15 @@ struct MainView: View {
     
     @State var selectedLayoutType: LayoutType = .all
     @State var url = ""
+    @State var isRepeatForUserInfo: Bool = true
     var image: UIImage? = UIImage(named: Constant.ImageName.defaultImage)
     let defaultImage: UIImage = UIImage(named: Constant.ImageName.defaultImage)!
     
+    @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
     @EnvironmentObject var storageManager: StorageManager
     @EnvironmentObject var userInfoManager: UserInfoViewModel
+    
     
     
     var columns = [
@@ -36,9 +41,9 @@ struct MainView: View {
     
     var body: some View {
         
-        
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
+                
                 VStack {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 20) {
@@ -48,9 +53,9 @@ struct MainView: View {
                                     SelectedMainPost(post: dataItem)
                                 } label: {
                                     MainViewCell(post: dataItem)
-//                                        .padding(.horizontal, 5)
+                                    //                                        .padding(.horizontal, 5)
                                 }
-
+                                
                             })
                         }
                     } // ScrollView
@@ -61,28 +66,35 @@ struct MainView: View {
                     AddPostView()
                 } label: {
                     Circle()
-                        .foregroundColor(Color(Constant.ButtonColor.addButton))
+                        .foregroundColor(Color(Constant.CustomColor.strongBrown))
                         .frame(width: 50, height: 50)
                         .padding()
                         .overlay {
                             Image(systemName: "plus")
                                 .foregroundColor(Color.white)
-                                .font(.system(size: 35))
+                                .font(.system(size: 30))
                         }
                 }
-
+                
             } // ZStack
             .navigationTitle("🐶 우리 가족 소개하기")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
+                Auth.auth().addStateDidChangeListener { auth, user in
+                    if let user = user {
+                        print("유저의 정보를 찾았습니다.")
+                        print(user.email)
+                        self.userInfoManager.getUserNickName(email: user.email!)
+                    } else {
+                        print("기다리고 있어요...")
+                    }
+                }
                 mainFirestoreViewModel.getData()
-                userInfoManager.getUserNickName()
-                
             }
+            .background(
+                Color(Constant.CustomColor.lightBrown)
+            )
         }
-        
-        
-        
     }
 }
 

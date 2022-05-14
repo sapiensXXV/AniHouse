@@ -39,6 +39,11 @@ struct TabBarView: View {
 //        .environmentObject(userInfoViewModel)
         .accentColor(Color.blue)
         .onAppear {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                print("닉네임 다시찾ㄱ")
+//                userInfoViewModel.getUserNickName()
+//                
+//            }
 //            userInfoViewModel.getUserNickName()
         }
         

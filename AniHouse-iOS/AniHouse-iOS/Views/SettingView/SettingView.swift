@@ -80,11 +80,14 @@ struct SettingView: View {
                 }
                 .listStyle(.grouped)
             }
+            .background(Color(Constant.CustomColor.lightBrown))
             .navigationTitle(Text("⚙️ 설정"))
             .navigationBarTitleDisplayMode(.inline)
         } // NavigationView
         .onAppear {
-            userInfoManager.getUserNickName()
+//            if Auth.auth().currentUser != nil {
+//                userInfoManager.getUserNickName()
+//            }
         }
         
     }

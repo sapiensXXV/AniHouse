@@ -24,6 +24,10 @@ struct AddPostView: View {
     let user = Auth.auth().currentUser
     @State var postInfo: MainPost = MainPost() // 값들을 저장할 MainPost
     
+    init() {
+        UITextView.appearance().backgroundColor = .clear
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -37,6 +41,7 @@ struct AddPostView: View {
                     // 본문내용을 입력하는 부분
                     TextEditor(text: $content)
                         .frame(minWidth: nil, idealWidth: .infinity, maxWidth: nil, minHeight: 300, idealHeight: 400, maxHeight: 450)
+//                        .background(Color(Constant.CustomColor.lightBrown))
                     
                     if content.isEmpty {
                         Text("내용을 입력하세요")
@@ -67,14 +72,25 @@ struct AddPostView: View {
             } //VStack
             
         }
+        
         .navigationTitle("🐱 글쓰기")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .padding(.horizontal, 10)
+        .background(Color(Constant.CustomColor.lightBrown).edgesIgnoringSafeArea(.all))
         .sheet(isPresented: $isShowingPhotoPicker, content: {
             //content
             PhotoPicker(bindedImage: $uploadImage)
         })
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                }
+
+            }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
                     hideKeyboard()

@@ -10,13 +10,11 @@ import SwiftUI
 import FirebaseAuth
 
 class AppViewModel: ObservableObject {
-    
-    let auth = Auth.auth()
-    
+
     @Published var signedIn = false
     
 //    @Published var now = DispatchTime.now()
-    
+    let auth = Auth.auth()
     var isSignedIn: Bool {
         return auth.currentUser != nil // true라면 가입되어 있는 유저
     }
@@ -62,4 +60,5 @@ class AppViewModel: ObservableObject {
         
         self.signedIn = false
     }
+    
 }

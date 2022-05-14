@@ -12,6 +12,7 @@ class Constant {
         static var defaultUserImage: String = "default user image"
         static var defaultImage: String = "default image"
         static var defaultaddImage: String = "add-image"
+        static var background: String = "background"
     }
     class ButtonColor {
         static var addButton: String = "add-button"
@@ -19,6 +20,11 @@ class Constant {
     }
     class CustomColor {
         static var muchLightGray: String = "much Light Gray"
+        static var mainPostCellColor: String = "MainPostCellColor"
+        static var muchLightBrown: String = "much light brown"
+        static var lightBrown: String = "light brown"
+        static var normalBrown: String = "normal brown"
+        static var strongBrown: String = "strong brown"
     }
     class MainViewPostModel {
         

@@ -14,6 +14,8 @@ struct SelectedMainPost: View {
     @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
     @EnvironmentObject var userInfoManager: UserInfoViewModel
     
+    @Environment(\.presentationMode) var presentationMode
+    
     @State var post: MainPost = MainPost() // 게시글 객체를 넘겨받음.
     @State var hitValue: Int = 0 // 현재 좋아요 개수
     
@@ -120,6 +122,7 @@ struct SelectedMainPost: View {
                                 print("user!.email! = \(user!.email!)")
                                 print("currentComment[\(idx)].id = \(mainFirestoreViewModel.comments[idx].id)")
                                 print(user!.email! == mainFirestoreViewModel.comments[idx].email)
+                                userInfoManager.getUserNickName(email: user!.email!)
                             }
                         
                     }
@@ -145,6 +148,7 @@ struct SelectedMainPost: View {
                     self.formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
                     print("post.date = \(post.date)")
                     dateString = self.formatter.string(from: self.post.date)
+
                 }
             }
             .onAppear {
@@ -162,8 +166,17 @@ struct SelectedMainPost: View {
         } // VStack
         .navigationTitle("\(post.title)")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             //MARK: - 게시글 삭제기능
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                }
+
+            }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
                     // 삭제 @State값을 토글한다.
@@ -185,6 +198,7 @@ struct SelectedMainPost: View {
                 
             }
         }
+        .background(Color(Constant.CustomColor.lightBrown))
     }
 }
 

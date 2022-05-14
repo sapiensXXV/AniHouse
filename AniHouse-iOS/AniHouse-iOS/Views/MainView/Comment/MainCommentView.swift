@@ -80,7 +80,7 @@ struct MainCommentView: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 3)
-        .background(Color(Constant.CustomColor.muchLightGray))
+        .background(Color(Constant.CustomColor.muchLightBrown))
         .cornerRadius(5)
         .onAppear {
             self.formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"

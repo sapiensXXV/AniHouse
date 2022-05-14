@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
@@ -19,6 +20,7 @@ struct FreeBoardView: View {
     @State private var isPresented = true
     
     let user = Auth.auth().currentUser
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -56,8 +58,7 @@ struct FreeBoardView: View {
                                 .opacity(0.0)
                                 .buttonStyle(PlainButtonStyle())
                                 ZStack {
-                                    Color.white
-                                        .cornerRadius(12)
+                                    
                                     VStack(alignment: .leading) {
                                         HStack {
                                             Text("\(data.title)")
@@ -84,6 +85,7 @@ struct FreeBoardView: View {
                                 .buttonStyle(PlainButtonStyle())
                                 
                             }
+                            .background(Color(Constant.CustomColor.lightBrown))
                             .listRowSeparator(.hidden)
                             
                         }
@@ -130,6 +132,7 @@ struct FreeBoardView: View {
                             
                         }
                     }
+                    .background(Color(Constant.CustomColor.lightBrown))
                     .listStyle(PlainListStyle())
                     .onAppear() {
                         isPresented = true
@@ -150,11 +153,14 @@ struct FreeBoardView: View {
                             }
                         }
                         
+                        UITableView.appearance().backgroundColor = .clear
+                        UITableViewCell.appearance().backgroundColor = .clear
                     }
                 }
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            .background(Color(Constant.CustomColor.lightBrown))
         }
         .overlay(
             alertView
@@ -177,6 +183,7 @@ struct FreeBoardView: View {
                 }
                 .frame(width: 100, height: 20)
                 .padding()
+                .background(Color(Constant.CustomColor.normalBrown))
             }
                 .foregroundColor(.black)
                 .background(Color("board-add-button"))

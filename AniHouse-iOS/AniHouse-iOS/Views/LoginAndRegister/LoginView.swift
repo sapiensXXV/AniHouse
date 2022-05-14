@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Lottie
+import Firebase
+import FirebaseAuth
 
 struct LoginView: View {
     @State var userId: String = ""
@@ -20,6 +22,7 @@ struct LoginView: View {
     @EnvironmentObject var userInfoViewModel: UserInfoViewModel
     
     var body: some View {
+        
         //        NavigationView {
         if UserDefaults.standard.bool(forKey: "loginCheck") {
             let _ = print("viewModel.signedIn: \(viewModel.signedIn)")
@@ -37,6 +40,7 @@ struct LoginView: View {
         }
         //        }
     }
+
 }
 
 
