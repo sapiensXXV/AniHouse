@@ -32,8 +32,7 @@ struct SelectedFreeBoardView: View {
     
     @State var formatter: DateFormatter = DateFormatter()
     
-    @State var showingCommentAlert = false
-
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -139,83 +138,39 @@ struct SelectedFreeBoardView: View {
                 
                 // 구분선
                 Divider()
-                            
-    //            FreeAddCommentView(selectedData: selectedData)
-//                ZStack {
-//                    List(self.currentComments) { data in
-//                        VStack(alignment: .leading) {
-//                            HStack {
-//                                Text(data.nickName)
-//                                    .fontWeight(.semibold)
-//                                Spacer()
-//                                Text(self.formatter.string(from: data.date))
-//                                    .font(.system(size: 13))
-//                                    .foregroundColor(.secondary)
-//
-//                            }
-//                            Text(data.content)
-//                        }
-//                        .padding(.leading,5)
-//                        .padding(.trailing,5)
-//                        .padding(.bottom, 5)
-//
-//
-//                    }
-//                }
-
+                
+                //            FreeAddCommentView(selectedData: selectedData)
+                //                ZStack {
+                //                    List(self.currentComments) { data in
+                //                        VStack(alignment: .leading) {
+                //                            HStack {
+                //                                Text(data.nickName)
+                //                                    .fontWeight(.semibold)
+                //                                Spacer()
+                //                                Text(self.formatter.string(from: data.date))
+                //                                    .font(.system(size: 13))
+                //                                    .foregroundColor(.secondary)
+                //
+                //                            }
+                //                            Text(data.content)
+                //                        }
+                //                        .padding(.leading,5)
+                //                        .padding(.trailing,5)
+                //                        .padding(.bottom, 5)
+                //
+                //
+                //                    }
+                //                }
+                
                 ForEach(self.currentComments.indices, id: \.self.hashValue) { idx in
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(currentComments[idx].nickName)
-                                    .fontWeight(.semibold)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                Spacer()
-                                Button(action: {
-                                    showingCommentAlert = true
-                                }, label: {
-                                    Image(systemName: "trash")
-                                        .resizable()
-                                        .frame(width: 15, height: 15)
-                                        .foregroundColor(.red)
-                                        .alert("삭제하시겠습니까?", isPresented: $showingCommentAlert) {
-                                            Button("삭제", role: .destructive) {
-                                                let db = Firestore.firestore()
-                                                db.collection("FreeBoard").document(String(selectedData.priority)).collection("comment").document(currentComments[idx].id).delete() { err in
-                                                    if let err = err {
-                                                        print("Error removing document: \(err)")
-                                                    } else {
-                                                        print("##########")
-                                                        print(currentComments[idx].content)
-                                                        print("Document successfully removed!")
-                                                        currentComments.remove(at: idx)
-                                                    }
-                                                }
-                                            }
-                                            Button("취소", role: .cancel) {
-                                                
-                                            }
-                                        }
-                                })
-                            }
-                            Text(currentComments[idx].content)
-                            // 댓글의 내용이 전부 보여야 하기 때문
-                                .fixedSize(horizontal: false, vertical: true)
-                            Text(self.formatter.string(from: currentComments[idx].date))
-                                .font(.system(size: 13))
-                                .foregroundColor(.secondary)
-                        }
-                        .padding(.leading,5)
-                        .padding(.trailing,5)
-                        .padding(.bottom, 5)
-                    }
-
-
+                    FreeCommentView(nickName: currentComments[idx].nickName, content: currentComments[idx].content, date: currentComments[idx].date, id: currentComments[idx].id, idx: idx, email: currentComments[idx].email, selectedData: selectedData)
+                }
+                
+                
                 
                 Spacer()
             }
             .onAppear {
-                self.formatter = DateFormatter()
-                self.formatter.dateFormat = "yy/MM/dd HH:mm"
                 model.getComment(collectionName: "FreeBoard", documentId: self.selectedData.priority)
                 print("model.comments: \(model.comments)")
                 for comment in model.comments {
@@ -273,13 +228,13 @@ struct SelectedFreeBoardView: View {
                 Image(systemName: "paperplane")
             })
         }
-//        .padding(.leading, 10)
-//        .padding(.trailing, 10)
+        //        .padding(.leading, 10)
+        //        .padding(.trailing, 10)
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(12)
-//        .frame(maxWidth: .infinity)
-//        .padding(.bottom, 10)
+        //        .frame(maxWidth: .infinity)
+        //        .padding(.bottom, 10)
     }
     @ViewBuilder
     private var editView: some View {
