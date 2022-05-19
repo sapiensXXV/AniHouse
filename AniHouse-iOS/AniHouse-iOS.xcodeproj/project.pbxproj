@@ -10,6 +10,7 @@
 		41D3DE59E22B0651D09C9DAA /* Pods_AniHouse_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E6B5AAA8EE21EAF0DFE01A /* Pods_AniHouse_iOS.framework */; };
 		9124DE0D2822DBF90094D790 /* a신디나루B.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9124DE0C2822DBF90094D790 /* a신디나루B.otf */; };
 		9124DE0F2822DC010094D790 /* a신디나루M.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9124DE0E2822DC010094D790 /* a신디나루M.otf */; };
+		917BC4C0282E566B00C9D0EE /* FreeCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BC4BF282E566B00C9D0EE /* FreeCommentView.swift */; };
 		9185C56727F8357C0009B93F /* FreeBoardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56627F8357C0009B93F /* FreeBoardContent.swift */; };
 		9185C56927F835ED0009B93F /* FreeBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */; };
 		91D6BD60282D1E0A00A6168C /* FreeAddCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */; };
@@ -57,6 +58,7 @@
 		9124DE0C2822DBF90094D790 /* a신디나루B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a신디나루B.otf"; sourceTree = "<group>"; };
 		9124DE0E2822DC010094D790 /* a신디나루M.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a신디나루M.otf"; sourceTree = "<group>"; };
 		9124DE102822DE570094D790 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		917BC4BF282E566B00C9D0EE /* FreeCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeCommentView.swift; sourceTree = "<group>"; };
 		9185C56627F8357C0009B93F /* FreeBoardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FreeBoardContent.swift; path = "AniHouse-iOS/FreeBoardContent.swift"; sourceTree = SOURCE_ROOT; };
 		9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeBoardViewModel.swift; sourceTree = "<group>"; };
 		91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAddCommentView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				BB2C6A122819C19F00D1FA2B /* ReviseFreeBoardView.swift */,
 				BB2C6A102819C19F00D1FA2B /* SelectedFreeBoardView.swift */,
 				91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */,
+				917BC4BF282E566B00C9D0EE /* FreeCommentView.swift */,
 			);
 			path = FreeBoard;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				91D6BD60282D1E0A00A6168C /* FreeAddCommentView.swift in Sources */,
 				BBD6FB0E281AC23C00BCA90F /* AddPostView.swift in Sources */,
 				BBD6FB2A281AF5EE00BCA90F /* PhotoPicker.swift in Sources */,
+				917BC4C0282E566B00C9D0EE /* FreeCommentView.swift in Sources */,
 				BB2C6A162819C19F00D1FA2B /* ReviseFreeBoardView.swift in Sources */,
 				BBDA79DA28300C5000EF5DA2 /* PrivacyStatementView.swift in Sources */,
 			);
