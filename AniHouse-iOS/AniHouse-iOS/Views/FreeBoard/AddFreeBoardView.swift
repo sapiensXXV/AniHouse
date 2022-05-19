@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
-import FirebaseAuth
+import Firebase
 
 struct AddFreeBoardView: View {
     @State private var boardTitle = ""
     @State private var boardBody = ""
     @State private var showingAlert = false
     @State private var showingFailureAlert = false
-    @ObservedObject var appViewModel = AppViewModel()
-    @State private var priority = UserDefaults.standard.integer(forKey: "priority")
+
+    @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
+    @EnvironmentObject var storageManager: StorageManager
+
     @Environment(\.presentationMode) var presentationMode
     
     let user = Auth.auth().currentUser
@@ -52,11 +53,14 @@ struct AddFreeBoardView: View {
                     showingAlert = true
                     
                     // 시간에 따라 작성된 게시글 우선순위를 둠
-                    self.priority += 1
-                    UserDefaults.standard.set(self.priority, forKey: "priority")
-                    let db = Firestore.firestore()
-                    db.collection("FreeBoard").document("\(user?.email ?? "nil")\(self.priority)").setData(["title":boardTitle,"body":boardBody, "priority":"\(user?.email ?? "nil")\(priority)", "author":user?.email ?? "nil", "hit":0, "hitCheck": false])
-                    // 작성하였으므로 내용 삭제
+                    // 파이어스토어에 저장하기
+                    freeFirestoreViewModel.addData(title: boardTitle,
+                                  body: boardBody,
+                                  author: user?.email ?? "unknown",
+                                  hit: 0,
+                                  date: Date())
+                    freeFirestoreViewModel.getData()
+
                     boardTitle = ""
                     boardBody = ""
                                         

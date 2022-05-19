@@ -13,17 +13,27 @@ struct FreeCommentView: View {
     var nickName: String?
     var content: String?
     var date: Date?
-    var id: String // 삭제하고 싶은 댓글의 id를 알기 위해서
-    var idx: Int
-    var email: String
+    var currentCommentId: String = ""
     @State var dateString: String = ""
     @State var formatter = DateFormatter()
+    var isCommentUser = false
+    var documentId: String = ""
     @State var showingCommentAlert = false
-    @State var selectedData: FreeBoardContent
 //    @Binding var currentComments: [Comment]
     @State var isVisible: Bool = false
 
-    let user = Auth.auth().currentUser
+    @State var showDeleteAlert: Bool = false
+    @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
+    @EnvironmentObject var userInfoManager: UserInfoViewModel
+
+    init(currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String) {
+        self.currentCommentId = currentCommentId
+        self.nickName = nickName
+        self.content = content
+        self.date = date
+        self.isCommentUser = isCommentUser
+        self.documentId = documentId
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,41 +43,20 @@ struct FreeCommentView: View {
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 Button(action: {
-                    showingCommentAlert = true
+                    self.showDeleteAlert.toggle()
                 }, label: {
-                    Image(systemName: "trash")
+                    Image(systemName: isCommentUser ? "trash" : "")
                         .resizable()
                         .frame(width: 15, height: 15)
                         .foregroundColor(.red)
-                        .alert("삭제하시겠습니까?", isPresented: $showingCommentAlert) {
-                            Button("삭제", role: .destructive) {
-                                let db = Firestore.firestore()
-                                db.collection("FreeBoard").document(String(selectedData.priority)).collection("comment").document(id).delete() { err in
-                                    if let err = err {
-                                        print("Error removing document: \(err)")
-                                    } else {
-                                        print("Document successfully removed!")
-                                        // 아이패드에 적어놓은 오류 2가지 여전히 존재
-                                        // 애초에 addComment를 할 때 document()를 하는 것이 아니라 document의 이름을 정해놓자.
-//                                        currentComments.remove(at: idx)
-                                    }
+                        .alert(isPresented: self.$showDeleteAlert) {
+                            Alert(title: Text("댓글을 삭제하시겠습니까?"), message: Text("삭제한 댓글은 복구할 수 없습니다."), primaryButton: .destructive(Text("삭제"), action: {
+                                withAnimation {
+                                    freeFirestoreViewModel.deleteComment(collectionName: "FreeBoard", documentId: documentId, commentId: currentCommentId)
                                 }
-                                print("현재 선택한 댓글 id: \(id)")
-                            }
-                            Button("취소", role: .cancel) {
-                            }
+                            }), secondaryButton: .cancel(Text("취소")))
                         }
                 })
-                .opacity(isVisible ? 1 : 0)
-            }
-            // 본인이 작성한 댓글만 삭제할 수 있어야 하므로
-            // 현재 로그인한 계정과 작성한 댓글의 계정이 동일한지 판단
-            .onAppear {
-                if user?.email! == email {
-                        isVisible = true
-                } else {
-                    isVisible = false
-                }
             }
             Text(content!)
             // 댓글의 내용이 전부 보여야 하기 때문

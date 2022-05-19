@@ -15,6 +15,7 @@ struct AniHouse_iOSApp: App {
     @StateObject var mainFirestoreViewModel = MainPostViewModel()
     @StateObject var storageViewModel = StorageManager()
     @StateObject var userInfoViewModel = UserInfoViewModel()
+    @StateObject var freeFirestoreViewModel = FreeBoardViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -25,6 +26,7 @@ struct AniHouse_iOSApp: App {
                 .environmentObject(mainFirestoreViewModel)
                 .environmentObject(storageViewModel)
                 .environmentObject(userInfoViewModel)
+                .environmentObject(freeFirestoreViewModel)
         }
     }
 }

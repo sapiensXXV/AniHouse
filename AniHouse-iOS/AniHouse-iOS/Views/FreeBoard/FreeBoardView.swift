@@ -13,13 +13,14 @@ import FirebaseAuth
 struct FreeBoardView: View {
     @State private var title = ""
     @State private var showModal = false
-    @ObservedObject private var viewModel = FreeBoardViewModel()
-    @Binding var selectedData: FreeBoardContent
     @State private var search = false
     @State private var searchTitle = ""
     @State private var isPresented = true
-    
-    let user = Auth.auth().currentUser
+
+    @EnvironmentObject var viewModel: AppViewModel
+    @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
+    @EnvironmentObject var storageManager: StorageManager
+    @EnvironmentObject var userInfoManager: UserInfoViewModel
     
     var body: some View {
         NavigationView {
@@ -27,7 +28,6 @@ struct FreeBoardView: View {
                 ZStack {
                     HStack {
                         TextField("게시글 제목을 검색하세요", text: $title)
-                            .font(Font.custom("KoreanSDNR-B", size: 18))
                             .padding()
                             .background(Color(.systemGray6))
                             .cornerRadius(12)
@@ -47,120 +47,109 @@ struct FreeBoardView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 
-                ZStack {
-                    List(viewModel.freeBoardContents, id: \.priority) { data in
-                        // 게시글 제목 검색 기능
-                        if search == true && data.title.contains(searchTitle) {
-                            ZStack {
-                                NavigationLink(destination: SelectedFreeBoardView(selectedData: data, showingOverlay: $isPresented)) {
-                                    EmptyView()
-                                }
-                                .opacity(0.0)
-                                .buttonStyle(PlainButtonStyle())
-                                ZStack {
-                                    
-                                    VStack(alignment: .leading) {
-                                        HStack {
-                                            Text("\(data.title)")
-                                                .font(Font.custom("KoreanSDNR-B", size: 18))
-                                                .lineLimit(1)
-                                            Spacer()
-                                            Image(systemName: "heart.fill")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(width: 11, height: 11)
-                                                .foregroundColor(.red)
-                                            Text("\(data.hit)")
-                                                .font(Font.custom("KoreanSDNR-M", size: 13))
+                // List는 ScrollView 안써도 스크롤 생기면서 모든 게시글이 보이는데
+                // ForEach는 ScrollView 써야지만 스크롤 생기면서 모든 게시글이 보인다.
+                ScrollView {
+                    ForEach(freeFirestoreViewModel.freeBoardContents) { data in
+                            // 게시글 제목 검색 기능
+                            if search == true && data.title.contains(searchTitle) {
+                                HStack {
+                                    Spacer()
+                                    NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
+                                        VStack(alignment: .leading) {
+                                            HStack {
+                                                //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
+                                                Text("\(data.title)")
+                                                //                                                .font(.system(size: 25))
+                                                    .font(.system(size: 16))
+                                                    .fontWeight(.black)
+                                                    .lineLimit(1)
+                                                Spacer()
+                                                Image(systemName: "heart.fill")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 11, height: 11)
+                                                    .foregroundColor(.red)
+                                                Text("\(data.hit)")
+                                                    .font(.system(size: 13))
+                                                    .lineLimit(1)
+                                            }
+                                            Text("\(data.body)")
+                                                .font(.system(size: 13))
                                                 .lineLimit(1)
                                         }
-                                        Text("\(data.body)")
-                                            .font(Font.custom("KoreanSDNR-M", size: 13))
-                                            .lineLimit(1)
+                                        .padding()
                                     }
-                                    .padding()
+                                    .foregroundColor(Color.black)
+                                    .background(Color.white)
+                                    .cornerRadius(12)
+                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                    Spacer()
                                 }
-                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                                 .listRowSeparator(.hidden)
-                                .buttonStyle(PlainButtonStyle())
-                                
                             }
-                            .background(Color(Constant.CustomColor.lightBrown))
-                            .listRowSeparator(.hidden)
-                            
-                        }
-                        else if search == false || searchTitle == "" {
-                            ZStack {
-                                NavigationLink(destination: SelectedFreeBoardView(selectedData: data, showingOverlay: $isPresented)) {
-                                    EmptyView()
-                                }
-                                // arrow 없애기 위해
-                                .opacity(0.0)
-                                .buttonStyle(PlainButtonStyle())
-                                ZStack {
-                                    Color.white
-                                        .cornerRadius(12)
-                                    VStack(alignment: .leading) {
-                                        HStack {
-                                            //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
-                                            Text("\(data.title)")
-                                            //                                                .font(.system(size: 25))
-                                                .font(Font.custom("KoreanSDNR-B", size: 18))
-                                                .lineLimit(1)
-                                            Spacer()
-                                            Image(systemName: "heart.fill")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(width: 11, height: 11)
-                                                .foregroundColor(.red)
-                                            Text("\(data.hit)")
-                                                .font(Font.custom("KoreanSDNR-M", size: 13))
+                            else if search == false || searchTitle == "" {
+                                HStack {
+                                    Spacer()
+                                    NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
+                                        VStack(alignment: .leading) {
+                                            HStack {
+                                                //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
+                                                Text("\(data.title)")
+                                                //                                                .font(.system(size: 25))
+                                                    .font(.system(size: 16))
+                                                    .fontWeight(.black)
+                                                    .lineLimit(1)
+                                                Spacer()
+                                                Image(systemName: "heart.fill")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 11, height: 11)
+                                                    .foregroundColor(.red)
+                                                Text("\(data.hit)")
+                                                    .font(.system(size: 13))
+                                                    .lineLimit(1)
+                                            }
+                                            Text("\(data.body)")
+                                                .font(.system(size: 13))
                                                 .lineLimit(1)
                                         }
-                                        Text("\(data.body)")
-                                            .font(Font.custom("KoreanSDNR-M", size: 13))
-                                            .lineLimit(1)
+                                        .padding()
                                     }
-                                    .padding()
+                                    .foregroundColor(Color.black)
+                                    .background(Color.white)
+                                    .cornerRadius(12)
+                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                    Spacer()
                                 }
-                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                                .listRowSeparator(.hidden)  // 분리선 없애기 위해
-                                .buttonStyle(PlainButtonStyle())
+                                .listRowSeparator(.hidden)
                                 
                             }
-                            .listRowSeparator(.hidden)
-                            
                         }
-                    }
-                    .background(Color(Constant.CustomColor.lightBrown))
-                    .listStyle(PlainListStyle())
-                    .onAppear() {
-                        isPresented = true
-                        self.viewModel.fetchData()
-                        // FreeBoardView가 나타날 때 실행할 action
-                        // HitList document 생성
-                        // current user ID 이름으로 생성
-                        // 이미 존재하다면 생성하지 않고 그렇지 않을 경우 생성
-                        let db = Firestore.firestore()
-                        let docRef = db.collection("HitList").document("\(user?.email ?? "nil")")
-                        docRef.getDocument { (document, error) in
-                            if let document = document, document.exists {
-                                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                                print("Document data: \(dataDescription)")
-                            } else {
-                                db.collection("HitList").document("\(user?.email ?? "nil")").setData(["user":"nil"])
-                                print("Document does not exist")
-                            }
-                        }
-                        
-                        UITableView.appearance().backgroundColor = .clear
-                        UITableViewCell.appearance().backgroundColor = .clear
-                    }
+                        .background(Color(Constant.CustomColor.lightBrown))
+                        .listStyle(PlainListStyle())
                 }
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .background(Color(Constant.CustomColor.lightBrown))
+            .onAppear {
+                isPresented = true
+                Auth.auth().addStateDidChangeListener { auth, user in
+                    if let user = user {
+                        print("유저의 정보를 찾았습니다.")
+                        print(user.email)
+                        self.userInfoManager.getUserNickName(email: user.email!)
+                    } else {
+                        print("기다리고 있어요...")
+                    }
+                }
+                freeFirestoreViewModel.getData()
+
+                
+//                            UITableView.appearance().backgroundColor = .clear
+//                            UITableViewCell.appearance().backgroundColor = .clear
+            }
         }
         .overlay(
             alertView
@@ -179,7 +168,6 @@ struct FreeBoardView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 20, height: 20)
                     Text("글 쓰기")
-                        .font(Font.custom("KoreanSDNR-B", size: 15))
                 }
                 .frame(width: 100, height: 20)
                 .padding()
@@ -199,7 +187,7 @@ struct FreeBoardView: View {
 
 struct FreeBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: "", author: "", hit:0, hitCheck: false)))
+        FreeBoardView()
     }
 }
 

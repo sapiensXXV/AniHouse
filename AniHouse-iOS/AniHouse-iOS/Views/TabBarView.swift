@@ -21,7 +21,7 @@ struct TabBarView: View {
                     Image(systemName: "house.fill")
                     Text("홈")
                 }
-            FreeBoardView(selectedData: .constant(.init(title: "", body: "", priority: "", author: "", hit:0, hitCheck: false))).environmentObject(viewModel)
+            FreeBoardView()
                 .tabItem {
                     Image(systemName: "text.alignleft")
                         .foregroundColor(Color.blue)

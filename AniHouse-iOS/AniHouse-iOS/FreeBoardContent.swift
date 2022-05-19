@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
-struct FreeBoardContent {
-    var title: String
-    var body: String
-    var priority: String
-    var author: String
-    var hit: Int
-    var hitCheck: Bool
+struct FreeBoardContent: Identifiable {
+    var id: String = ""
+    var title: String = ""
+    var body: String = ""
+    var author: String = ""
+    var hit: Int = 0
+    var hitCheck: Bool = false
+    var likeUsers: [String] = []
+    var date: Date = Date()
 }
