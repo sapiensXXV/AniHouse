@@ -19,13 +19,13 @@ struct FreeCommentView: View {
     var isCommentUser = false
     var documentId: String = ""
     @State var showingCommentAlert = false
-//    @Binding var currentComments: [Comment]
+    //    @Binding var currentComments: [Comment]
     @State var isVisible: Bool = false
-
+    
     @State var showDeleteAlert: Bool = false
     @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
     @EnvironmentObject var userInfoManager: UserInfoViewModel
-
+    
     init(currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String) {
         self.currentCommentId = currentCommentId
         self.nickName = nickName
@@ -34,7 +34,7 @@ struct FreeCommentView: View {
         self.isCommentUser = isCommentUser
         self.documentId = documentId
     }
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
