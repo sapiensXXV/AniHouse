@@ -13,10 +13,10 @@ struct AddFreeBoardView: View {
     @State private var boardBody = ""
     @State private var showingAlert = false
     @State private var showingFailureAlert = false
-
+    
     @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
     @EnvironmentObject var storageManager: StorageManager
-
+    
     @Environment(\.presentationMode) var presentationMode
     
     let user = Auth.auth().currentUser
@@ -55,15 +55,15 @@ struct AddFreeBoardView: View {
                     // 시간에 따라 작성된 게시글 우선순위를 둠
                     // 파이어스토어에 저장하기
                     freeFirestoreViewModel.addData(title: boardTitle,
-                                  body: boardBody,
-                                  author: user?.email ?? "unknown",
-                                  hit: 0,
-                                  date: Date())
+                                                   body: boardBody,
+                                                   author: user?.email ?? "unknown",
+                                                   hit: 0,
+                                                   date: Date())
                     freeFirestoreViewModel.getData()
-
+                    
                     boardTitle = ""
                     boardBody = ""
-                                        
+                    
                     
                     presentationMode.wrappedValue.dismiss()
                 }

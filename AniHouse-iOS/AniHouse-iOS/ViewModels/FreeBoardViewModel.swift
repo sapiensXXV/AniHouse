@@ -14,7 +14,7 @@ class FreeBoardViewModel: ObservableObject {
     @Published var comments: [Comment] = []
     @Published var currentPostId: String = ""
     @Published var uploadPostId: String = ""
-
+    
     //MARK: - 데이터 읽기
     func getData() {
         let db = Firestore.firestore()
@@ -25,16 +25,16 @@ class FreeBoardViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.freeBoardContents = snapshot.documents.map { data in
                         var freeBoardContent =  FreeBoardContent(id: data.documentID,
-                                             title: data["title"] as? String ?? "",
-                                             body: data["body"] as? String ?? "",
-                                             author: data["author"] as? String ?? "",
-                                             hit: data["hit"] as? Int ?? 0,
-                                             likeUsers: data["likeUser"] as? [String] ?? [],
-                                             date: data["date"] as? Date ?? Date())
+                                                                 title: data["title"] as? String ?? "",
+                                                                 body: data["body"] as? String ?? "",
+                                                                 author: data["author"] as? String ?? "",
+                                                                 hit: data["hit"] as? Int ?? 0,
+                                                                 likeUsers: data["likeUser"] as? [String] ?? [],
+                                                                 date: data["date"] as? Date ?? Date())
                         self.currentPostId = data.documentID
                         let postTimeStamp = data["date"] as? Timestamp
                         freeBoardContent.date = postTimeStamp?.dateValue() ?? Date()
-//                        print("posts: \(self.posts)")
+                        //                        print("posts: \(self.posts)")
                         return freeBoardContent
                     }
                 }
@@ -72,6 +72,12 @@ class FreeBoardViewModel: ObservableObject {
         self.getData()
     }
     
+    func editPost(postId: String, title: String, body: String, date: Date) {
+        print("FreeBoardViewModel - editPost()")
+        let db = Firestore.firestore()
+        db.collection("FreeBoard").document(postId).updateData(["title": title, "body": body, "date": date])
+        self.getData()
+    }
     
     /// post: 현재 접근한 글
     /// currentUser: 글의 좋아요 유저 목록에서 추가할 유저의 이메일
@@ -82,7 +88,7 @@ class FreeBoardViewModel: ObservableObject {
         if(!currentLikeUsers.contains(currentUser)) {
             currentLikeUsers.append(currentUser)
         }
-//        let currentHit = post.hit + 1
+        //        let currentHit = post.hit + 1
         db.collection("FreeBoard").document(post.id).setData(["likeUser": currentLikeUsers, "hit": currentLikeUsers.count], merge: true) { error in
             if let e = error { print(e.localizedDescription) }
         }
@@ -149,35 +155,35 @@ class FreeBoardViewModel: ObservableObject {
         print("deleteComment-commentId: \(commentId)")
         db.collection(collectionName).document(documentId)
             .collection("comment").document(commentId).delete { error in
-        }
+            }
         Task {
             try? await getComment(collectionName: collectionName, documentId: documentId)
         }
     }
-
     
-//    private var db = Firestore.firestore()
-//
-//    func fetchData() {
-//        db.collection("FreeBoard").addSnapshotListener { (querySnapshot, error) in
-//            guard let documents = querySnapshot?.documents else {
-//                print("No documents")
-//                return
-//            }
-//
-//            self.freeBoardContents = documents.map { (QueryDocumentSnapshot) -> FreeBoardContent in
-//                let data = QueryDocumentSnapshot.data()
-//
-//                let title = data["title"] as? String ?? ""
-//                let body = data["body"] as? String ?? ""
-//                let priority = data["priority"] as? String ?? ""
-//                let author = data["author"] as? String ?? ""
-//                let hit = data["hit"] as? Int ?? 0
-//                let hitCheck = data["hitCheck"] as? Bool ?? false
-//
-//                let freeBoardContent = FreeBoardContent(title: title, body: body, priority: priority, author: author, hit: hit, hitCheck: hitCheck)
-//                return freeBoardContent
-//            }
-//        }
-//    }
+    
+    //    private var db = Firestore.firestore()
+    //
+    //    func fetchData() {
+    //        db.collection("FreeBoard").addSnapshotListener { (querySnapshot, error) in
+    //            guard let documents = querySnapshot?.documents else {
+    //                print("No documents")
+    //                return
+    //            }
+    //
+    //            self.freeBoardContents = documents.map { (QueryDocumentSnapshot) -> FreeBoardContent in
+    //                let data = QueryDocumentSnapshot.data()
+    //
+    //                let title = data["title"] as? String ?? ""
+    //                let body = data["body"] as? String ?? ""
+    //                let priority = data["priority"] as? String ?? ""
+    //                let author = data["author"] as? String ?? ""
+    //                let hit = data["hit"] as? Int ?? 0
+    //                let hitCheck = data["hitCheck"] as? Bool ?? false
+    //
+    //                let freeBoardContent = FreeBoardContent(title: title, body: body, priority: priority, author: author, hit: hit, hitCheck: hitCheck)
+    //                return freeBoardContent
+    //            }
+    //        }
+    //    }
 }

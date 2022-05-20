@@ -31,12 +31,12 @@ struct FreeAddCommentView: View {
                                          content: self.commentContent,
                                          date: Date())
                 freeFirestoreViewModel.addComment(collectionName: "FreeBoard",
-                                        documentId: currentPost.id,
-                                        newComment: newComment)
+                                                  documentId: currentPost.id,
+                                                  newComment: newComment)
                 withAnimation {
                     freeFirestoreViewModel.getComment(collectionName: "FreeBoard", documentId: currentPost.id)
                 }
-
+                
                 print("comment add button pressed")
                 commentContent = ""
             }, label: {
@@ -46,8 +46,8 @@ struct FreeAddCommentView: View {
         .frame(maxWidth: .infinity)
         .padding()
         .background(.white)
-                .cornerRadius(12)
-                .onAppear {
+        .cornerRadius(12)
+        .onAppear {
             self.userNickName = userInfoManager.userNickName
             if self.userNickName == "" {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
@@ -56,7 +56,7 @@ struct FreeAddCommentView: View {
                 }
             }
         }
-
+        
         
     }
 }

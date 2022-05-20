@@ -16,7 +16,7 @@ struct FreeBoardView: View {
     @State private var search = false
     @State private var searchTitle = ""
     @State private var isPresented = true
-
+    
     @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
     @EnvironmentObject var storageManager: StorageManager
@@ -51,83 +51,83 @@ struct FreeBoardView: View {
                 // ForEach는 ScrollView 써야지만 스크롤 생기면서 모든 게시글이 보인다.
                 ScrollView {
                     ForEach(freeFirestoreViewModel.freeBoardContents) { data in
-                            // 게시글 제목 검색 기능
-                            if search == true && data.title.contains(searchTitle) {
-                                HStack {
-                                    Spacer()
-                                    NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
-                                        VStack(alignment: .leading) {
-                                            HStack {
-                                                //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
-                                                Text("\(data.title)")
-                                                //                                                .font(.system(size: 25))
-                                                    .font(.system(size: 16))
-                                                    .fontWeight(.black)
-                                                    .lineLimit(1)
-                                                Spacer()
-                                                Image(systemName: "heart.fill")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 11, height: 11)
-                                                    .foregroundColor(.red)
-                                                Text("\(data.hit)")
-                                                    .font(.system(size: 13))
-                                                    .lineLimit(1)
-                                            }
-                                            Text("\(data.body)")
+                        // 게시글 제목 검색 기능
+                        if search == true && data.title.contains(searchTitle) {
+                            HStack {
+                                Spacer()
+                                NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
+                                            Text("\(data.title)")
+                                            //                                                .font(.system(size: 25))
+                                                .font(.system(size: 16))
+                                                .fontWeight(.black)
+                                                .lineLimit(1)
+                                            Spacer()
+                                            Image(systemName: "heart.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 11, height: 11)
+                                                .foregroundColor(.red)
+                                            Text("\(data.hit)")
                                                 .font(.system(size: 13))
                                                 .lineLimit(1)
                                         }
-                                        .padding()
+                                        Text("\(data.body)")
+                                            .font(.system(size: 13))
+                                            .lineLimit(1)
                                     }
-                                    .foregroundColor(Color.black)
-                                    .background(Color.white)
-                                    .cornerRadius(12)
-                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                                    Spacer()
+                                    .padding()
                                 }
-                                .listRowSeparator(.hidden)
+                                .foregroundColor(Color.black)
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                Spacer()
                             }
-                            else if search == false || searchTitle == "" {
-                                HStack {
-                                    Spacer()
-                                    NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
-                                        VStack(alignment: .leading) {
-                                            HStack {
-                                                //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
-                                                Text("\(data.title)")
-                                                //                                                .font(.system(size: 25))
-                                                    .font(.system(size: 16))
-                                                    .fontWeight(.black)
-                                                    .lineLimit(1)
-                                                Spacer()
-                                                Image(systemName: "heart.fill")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 11, height: 11)
-                                                    .foregroundColor(.red)
-                                                Text("\(data.hit)")
-                                                    .font(.system(size: 13))
-                                                    .lineLimit(1)
-                                            }
-                                            Text("\(data.body)")
-                                                .font(.system(size: 13))
-                                                .lineLimit(1)
-                                        }
-                                        .padding()
-                                    }
-                                    .foregroundColor(Color.black)
-                                    .background(Color.white)
-                                    .cornerRadius(12)
-                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                                    Spacer()
-                                }
-                                .listRowSeparator(.hidden)
-                                
-                            }
+                            .listRowSeparator(.hidden)
                         }
-                        .background(Color(Constant.CustomColor.lightBrown))
-                        .listStyle(PlainListStyle())
+                        else if search == false || searchTitle == "" {
+                            HStack {
+                                Spacer()
+                                NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
+                                            Text("\(data.title)")
+                                            //                                                .font(.system(size: 25))
+                                                .font(.system(size: 16))
+                                                .fontWeight(.black)
+                                                .lineLimit(1)
+                                            Spacer()
+                                            Image(systemName: "heart.fill")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 11, height: 11)
+                                                .foregroundColor(.red)
+                                            Text("\(data.hit)")
+                                                .font(.system(size: 13))
+                                                .lineLimit(1)
+                                        }
+                                        Text("\(data.body)")
+                                            .font(.system(size: 13))
+                                            .lineLimit(1)
+                                    }
+                                    .padding()
+                                }
+                                .foregroundColor(Color.black)
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                Spacer()
+                            }
+                            .listRowSeparator(.hidden)
+                            
+                        }
+                    }
+                    .background(Color(Constant.CustomColor.lightBrown))
+                    .listStyle(PlainListStyle())
                 }
             }
             .navigationBarTitle("")
@@ -145,10 +145,10 @@ struct FreeBoardView: View {
                     }
                 }
                 freeFirestoreViewModel.getData()
-
                 
-//                            UITableView.appearance().backgroundColor = .clear
-//                            UITableViewCell.appearance().backgroundColor = .clear
+                
+                //                            UITableView.appearance().backgroundColor = .clear
+                //                            UITableViewCell.appearance().backgroundColor = .clear
             }
         }
         .overlay(
@@ -173,10 +173,10 @@ struct FreeBoardView: View {
                 .padding()
                 .background(Color(Constant.CustomColor.normalBrown))
             }
-                .foregroundColor(.black)
-                .background(Color("board-add-button"))
-                .cornerRadius(.infinity)
-                .padding(5)
+            .foregroundColor(.black)
+            .background(Color("board-add-button"))
+            .cornerRadius(.infinity)
+            .padding(5)
             // 게시글 추가 Modal View
             .sheet(isPresented: self.$showModal) {
                 AddFreeBoardView()
