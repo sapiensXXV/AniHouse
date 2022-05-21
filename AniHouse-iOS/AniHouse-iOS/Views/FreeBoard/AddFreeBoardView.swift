@@ -22,55 +22,71 @@ struct AddFreeBoardView: View {
     let user = Auth.auth().currentUser
     
     var body: some View {
-        Form {
-            Section(header: Text("게시글 제목").fontWeight(.heavy)) {
-                TextField("제목을 입력하세요", text: $boardTitle)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-            }
+        VStack(alignment: .leading) {
+            // 제목을 입력하는 부분
+            TextField("제목을 입력하세요", text: $boardTitle)
+                .font(.system(size: 20, weight: .heavy, design: .default))
+                .padding(5)
+                .cornerRadius(15)
+                .disableAutocorrection(true)
+                .autocapitalization(.none)
             
-            Section(header: Text("게시글 내용")) {
+            Divider()
+            ZStack(alignment: .topLeading) {
+                // 본문내용을 입력하는 부분
                 TextEditor(text: $boardBody)
-                    .frame(height: 300)
-                    .foregroundColor(Color.black)
+                    .font(.system(size: 16))
+                    .frame(minWidth: nil, idealWidth: .infinity, maxWidth: nil, minHeight: 300, idealHeight: 400, maxHeight: 450)
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
-            }
-            // alert을 같은 view에 넣으면 정상적으로 처리가 안되므로 여기에 alert을 추가함
-            .alert(isPresented: $showingFailureAlert) {
-                Alert(title: Text("모든 항목을 작성해주세요"), message: nil, dismissButton: .default(Text("확인")))
-            }
-            
-            Button(action: {
-                // 제목 혹은 내용을 작성하지 않았을 경우
-                if boardTitle == "" || boardBody == "" {
-                    showingFailureAlert = true
-                    showingAlert = false
+                //                        .background(Color(Constant.CustomColor.lightBrown))
+                
+                if boardBody.isEmpty {
+                    Text("내용을 입력하세요")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color.secondary)
+                        .padding(5)
                 }
-                // 모두 작성한 경우
-                else {
-                    showingFailureAlert = false
-                    showingAlert = true
-                    
-                    // 시간에 따라 작성된 게시글 우선순위를 둠
-                    // 파이어스토어에 저장하기
-                    freeFirestoreViewModel.addData(title: boardTitle,
-                                                   body: boardBody,
-                                                   author: user?.email ?? "unknown",
-                                                   hit: 0,
-                                                   date: Date())
-                    freeFirestoreViewModel.getData()
-                    
-                    boardTitle = ""
-                    boardBody = ""
-                    
-                    
-                    presentationMode.wrappedValue.dismiss()
-                }
-            }) {
-                Text("게시글 올리기")
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
             }
+            Spacer()
+        }
+        .background(Color(Constant.CustomColor.lightBrown).edgesIgnoringSafeArea(.all))
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(action: {
+                    // 제목 혹은 내용을 작성하지 않았을 경우
+                    if boardTitle == "" || boardBody == "" {
+                        showingFailureAlert = true
+                    }
+                    // 모두 작성한 경우
+                    else {
+                        showingFailureAlert = false
+                        
+                        // 시간에 따라 작성된 게시글 우선순위를 둠
+                        // 파이어스토어에 저장하기
+                        freeFirestoreViewModel.addData(title: boardTitle,
+                                                       body: boardBody,
+                                                       author: user?.email ?? "unknown",
+                                                       hit: 0,
+                                                       date: Date())
+                        freeFirestoreViewModel.getData()
+                        
+                        boardTitle = ""
+                        boardBody = ""
+                        
+                        
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }, label: {
+                    Text("저장")
+                })
+
+            }
+        }
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .alert(isPresented: $showingFailureAlert) {
+            Alert(title: Text("모든 항목을 작성해주세요"), message: nil, dismissButton: .default(Text("확인")))
         }
     }
 }

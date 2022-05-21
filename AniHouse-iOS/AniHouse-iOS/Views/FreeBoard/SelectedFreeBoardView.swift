@@ -98,7 +98,6 @@ struct SelectedFreeBoardView: View {
                     .font(.system(size: 16))
                 
             }
-            .padding()
             .onAppear {
                 self.hitValue = post.hit
                 if post.likeUsers.contains(user?.email ?? "") {
@@ -216,8 +215,8 @@ struct SelectedFreeBoardView: View {
         //        .padding(.leading, 10)
         //        .padding(.trailing, 10)
         .padding()
-        .background(Color(.systemGray6))
         .cornerRadius(12)
+        .background(Color(Constant.CustomColor.lightBrown).edgesIgnoringSafeArea(.all))
         //        .frame(maxWidth: .infinity)
         //        .padding(.bottom, 10)
         

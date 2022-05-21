@@ -24,6 +24,9 @@ struct ReviseFreeBoardView: View {
                 .font(.system(size: 20, weight: .heavy, design: .default))
                 .padding(5)
                 .cornerRadius(15)
+                .disableAutocorrection(true)
+                .autocapitalization(.none)
+
             
             Divider()
             ZStack(alignment: .topLeading) {
@@ -31,6 +34,8 @@ struct ReviseFreeBoardView: View {
                 TextEditor(text: $post.body)
                     .font(.system(size: 16))
                     .frame(minWidth: nil, idealWidth: .infinity, maxWidth: nil, minHeight: 300, idealHeight: 400, maxHeight: 450)
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
                 //                        .background(Color(Constant.CustomColor.lightBrown))
                 
                 if post.body.isEmpty {
@@ -42,6 +47,7 @@ struct ReviseFreeBoardView: View {
             }
             Spacer()
         }
+        .background(Color(Constant.CustomColor.lightBrown).edgesIgnoringSafeArea(.all))
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button(action: {
