@@ -57,6 +57,7 @@ struct FreeCommentView: View {
                             }), secondaryButton: .cancel(Text("취소")))
                         }
                 })
+                .disabled(isCommentUser ? false : true)
             }
             Text(content!)
             // 댓글의 내용이 전부 보여야 하기 때문
