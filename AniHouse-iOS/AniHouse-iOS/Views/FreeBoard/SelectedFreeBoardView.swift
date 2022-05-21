@@ -173,6 +173,7 @@ struct SelectedFreeBoardView: View {
                             EmptyView()
                         }
                     }
+                    .disabled(showPostDeleteButton ? false : true)
                     .menuStyle(.automatic)
                     .alert(isPresented: self.$showDeleteAlert) {
                         Alert(title: Text("게시글을 삭제하시겠습니까?"),
@@ -184,7 +185,6 @@ struct SelectedFreeBoardView: View {
                     }
                 }
             }
-            .disabled(showPostDeleteButton ? false : true)
 
             //            .overlay (
             //                editView
