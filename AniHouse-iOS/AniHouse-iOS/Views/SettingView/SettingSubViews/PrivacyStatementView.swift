@@ -46,6 +46,7 @@ struct PrivacyStatementView: View {
             }
             .listStyle(.grouped)
         }
+        .background(Color(Constant.CustomColor.lightBrown))
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

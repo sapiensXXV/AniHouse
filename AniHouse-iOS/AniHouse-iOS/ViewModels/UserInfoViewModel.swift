@@ -13,7 +13,7 @@ import Firebase
 
 class UserInfoViewModel: ObservableObject {
     
-    var user = Auth.auth().currentUser
+    @Published var user = Auth.auth().currentUser
     @Published var userNickName: String = "userNickname"
     @Published var userInfo: [UserInfo] = [UserInfo]()
     

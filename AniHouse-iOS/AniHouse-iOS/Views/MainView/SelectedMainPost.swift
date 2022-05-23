@@ -37,7 +37,6 @@ struct SelectedMainPost: View {
         self.isLiked ? 0.7 : 1.3
     }
     
-    let user = Auth.auth().currentUser // 현재 유저객체
     @State var url = ""
     
     var body: some View {
@@ -60,14 +59,14 @@ struct SelectedMainPost: View {
                             if isLiked {
                                 /// 게시글의 좋아요를 누른 상태일 때 Like를 지운다.
 //                                DispatchQueue.main.async {
-                                mainFirestoreViewModel.deleteLike(post: self.post, currentUser: self.user?.email ?? "")
+                                mainFirestoreViewModel.deleteLike(post: self.post, currentUser: self.userInfoManager.user?.email ?? "")
 //                                }
                                 self.isLiked.toggle()
                                 hitValue -= 1
                             } else {
                                 /// 좋아요를 누르지 않은 상태일 때
 //                                DispatchQueue.main.async {
-                                mainFirestoreViewModel.addLike(post: self.post, currentUser: self.user?.email ?? "")
+                                mainFirestoreViewModel.addLike(post: self.post, currentUser: self.userInfoManager.user?.email ?? "")
                                     
 //                                }
                                 self.isLiked.toggle()
@@ -114,14 +113,14 @@ struct SelectedMainPost: View {
                                         nickName: mainFirestoreViewModel.comments[idx].nickName,
                                         content: mainFirestoreViewModel.comments[idx].content,
                                         date: mainFirestoreViewModel.comments[idx].date,
-                                        isCommentUser: user!.email! == mainFirestoreViewModel.comments[idx].email,
+                                        isCommentUser: userInfoManager.user?.email == mainFirestoreViewModel.comments[idx].email,
                                         documentId: self.post.id)
                             .padding(.horizontal, 3)
                             .onAppear {
                                 
-                                print("user!.email! = \(user!.email!)")
+                                print("user!.email! = \(userInfoManager.user?.email)")
                                 print("currentComment[\(idx)].id = \(mainFirestoreViewModel.comments[idx].id)")
-                                print(user!.email! == mainFirestoreViewModel.comments[idx].email)
+                                print(userInfoManager.user?.email == mainFirestoreViewModel.comments[idx].email)
                             }
                         
                     }
@@ -137,7 +136,7 @@ struct SelectedMainPost: View {
                         self.url = "\(url!)"
                     }
                     self.hitValue = post.hit
-                    if post.likeUsers.contains(user?.email ?? "") {
+                    if post.likeUsers.contains(userInfoManager.user?.email ?? "") {
                         isLiked = true
                     } else {
                         isLiked = false
@@ -156,7 +155,7 @@ struct SelectedMainPost: View {
                 for comment in mainFirestoreViewModel.comments {
                     self.currentComments.append(comment)
                 }
-                if user!.email! == post.author {
+                if userInfoManager.user?.email == post.author {
                     self.showPostDeleteButton = true
                 }
                 
