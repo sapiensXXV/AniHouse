@@ -34,8 +34,6 @@ struct ShowPostDidWrite: View {
                         }
                     }
                 }
-            }
-            List {
                 Section("자유게시판") {
                     ForEach(self.freeBoardViewModel.userFreePost.indices, id: \.self.hashValue) { idx in
                         NavigationLink {
