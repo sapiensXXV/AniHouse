@@ -39,7 +39,6 @@ struct MainViewCell: View {
                            minHeight: 170, idealHeight: 175, maxHeight: 180)
                     .cornerRadius(10)
                     .scaledToFill()
-//                    .scaledToFit()
                     .padding(1)
             }
             else {

@@ -29,10 +29,23 @@ struct SettingView: View {
                         .scaledToFit()
                         .frame(width: 140, height: 140)
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("\(userInfoManager.userNickName)")
-                            .fontWeight(.semibold)
-                            .font(.system(size: 20))
-                            .padding(.top, 25)
+                        HStack {
+                            Text("\(userInfoManager.userNickName)")
+                                .fontWeight(.semibold)
+                                .font(.system(size: 20))
+                                .padding(.top, 25)
+                            Spacer()
+                            NavigationLink {
+                                //destination
+                                // 내 정보 바꾸기 링크
+                                
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                                    .padding(.trailing, 10)
+                                    .padding(.top, 25)
+                            }
+
+                        }
                         Text("포메를 두마리 키우고 있는 사람입니다! 잘부탁드려요🥰")
                             .foregroundColor(.secondary)
                             .font(.system(size: 14))
@@ -61,6 +74,14 @@ struct SettingView: View {
                     }
                     
                     Section("기타") {
+                        NavigationLink {
+                            ShowPostDidWrite()
+                        } label: {
+                            Text("내가 쓴 게시글 보기")
+                                .foregroundColor(.black)
+                        }
+
+
                         
                         Button {
                             self.showLogoutAlert.toggle()

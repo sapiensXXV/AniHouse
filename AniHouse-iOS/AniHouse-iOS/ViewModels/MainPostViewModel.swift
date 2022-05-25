@@ -16,6 +16,8 @@ class MainPostViewModel: ObservableObject {
     @Published var currentPostId: String = ""
     @Published var uploadPostId: String = ""
     
+    @Published var userMainPost: [MainPost] = [MainPost]()
+    
 //    private var dummyComment = Comment(id: "comment id", author: "author", content: "body", date: Date())
     
     //MARK: - 데이터 읽기
@@ -158,5 +160,32 @@ class MainPostViewModel: ObservableObject {
         }
     }
     
-    
+    //MARK: - 현재 유저가 작성한 게시글 불러오기
+    func getCurrentUserMainPost(email: String) {
+        print("getCurrentUserPost-email: \(email)")
+        let db = Firestore.firestore()
+        db.collection("MainPost")
+            .whereField("author", isEqualTo: email)
+//            .order(by: "date", descending: true)
+            .getDocuments { snapshot, error in
+                guard error == nil else { return }
+                if let snapshot = snapshot {
+                    DispatchQueue.main.async {
+                        self.userMainPost = snapshot.documents.map { data in
+                            var post =  MainPost(id: data.documentID,
+                                                 title: data["title"] as? String ?? "",
+                                                 body: data["body"] as? String ?? "",
+                                                 author: data["author"] as? String ?? "",
+                                                 hit: data["hit"] as? Int ?? 0,
+                                                 likeUsers: data["likeUser"] as? [String] ?? [],
+                                                 date: data["date"] as? Date ?? Date())
+                            self.currentPostId = data.documentID
+                            let postTimeStamp = data["date"] as? Timestamp
+                            post.date = postTimeStamp?.dateValue() ?? Date()
+                            return post
+                        }
+                    }
+                }
+            }
+    }
 }

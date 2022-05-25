@@ -84,6 +84,7 @@ struct MainView: View {
                     if let user = user {
                         print("유저의 정보를 찾았습니다.")
                         print(user.email)
+                        self.userInfoManager.user = user
                         self.userInfoManager.getUserNickName(email: user.email!)
                     } else {
                         print("기다리고 있어요...")
