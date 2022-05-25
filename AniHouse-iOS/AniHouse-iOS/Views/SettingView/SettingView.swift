@@ -45,7 +45,7 @@ struct SettingView: View {
                         Button(action: actionSheet) {
                             Text("친구에게 추천하기")
                                 .foregroundColor(.black)
-                                    }
+                        }
                         Text("평가하기")
                         Text("문의하기")
                         NavigationLink {
@@ -88,16 +88,19 @@ struct SettingView: View {
             .navigationBarTitleDisplayMode(.inline)
         } // NavigationView
         .onAppear {
-//            if Auth.auth().currentUser != nil {
-//                userInfoManager.getUserNickName()
-//            }
+            //            if Auth.auth().currentUser != nil {
+            //                userInfoManager.getUserNickName()
+            //            }
         }
         
     }
     func actionSheet() {
         guard let urlShare = URL(string: "https://developer.apple.com/xcode/swiftui/") else { return }
-                let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
-                UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+        let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        windowScene?.keyWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
+
     }
 }
 
