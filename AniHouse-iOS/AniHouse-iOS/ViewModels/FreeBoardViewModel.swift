@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class FreeBoardViewModel: ObservableObject {
     @Published var freeBoardContents: [FreeBoardContent] = [FreeBoardContent]()
+    @Published var userFreePost: [FreeBoardContent] = [FreeBoardContent]()
     @Published var comments: [Comment] = []
     @Published var currentPostId: String = ""
     @Published var uploadPostId: String = ""
@@ -44,6 +45,39 @@ class FreeBoardViewModel: ObservableObject {
             }
         }
         
+    }
+    
+    // 유저가 쓴 자유게시판의 글만을 가져와서 userFreePost 배열에 저장한다.
+    func getCurrentUserFreePost(email: String) {
+        let db = Firestore.firestore()
+        
+        db.collection("FreeBoard")
+            .whereField("author", isEqualTo: email)
+//            .order(by: "date", descending: true)
+            .getDocuments { snapshot, error in
+            guard error == nil else { return }
+            if let snapshot = snapshot {
+                DispatchQueue.main.async {
+                    self.userFreePost = snapshot.documents.map { data in
+                        var freeBoardContent =  FreeBoardContent(id: data.documentID,
+                                                                 title: data["title"] as? String ?? "",
+                                                                 body: data["body"] as? String ?? "",
+                                                                 author: data["author"] as? String ?? "",
+                                                                 hit: data["hit"] as? Int ?? 0,
+                                                                 likeUsers: data["likeUser"] as? [String] ?? [],
+                                                                 date: data["date"] as? Date ?? Date())
+                        self.currentPostId = data.documentID
+                        let postTimeStamp = data["date"] as? Timestamp
+                        freeBoardContent.date = postTimeStamp?.dateValue() ?? Date()
+                        //                        print("posts: \(self.posts)")
+                        return freeBoardContent
+                    }
+                }
+            } else {
+                // error
+                // snapshot이 없음.
+            }
+        }
     }
     
     //MARK: - 데이터 쓰기
