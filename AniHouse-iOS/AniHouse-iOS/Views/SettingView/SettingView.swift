@@ -11,6 +11,7 @@ import FirebaseAuth
 struct SettingView: View {
     @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var userInfoManager: UserInfoViewModel
+    @EnvironmentObject var storageManager: StorageManager
     
     // UserDefault를 사용하여 자동 로그인 구현
     @State private var loginCheck = UserDefaults.standard.bool(forKey: "loginCheck")
@@ -18,16 +19,34 @@ struct SettingView: View {
     @State private var isVibrationOn: Bool = true
     @State private var showLogoutAlert: Bool = false
     
+
+    
     var body: some View {
         
         NavigationView {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
-                    Image(Constant.ImageName.defaultUserImage)
-                        .resizable()
-                        .clipShape(Circle())
-                        .scaledToFit()
-                        .frame(width: 140, height: 140)
+                    ZStack(alignment: .bottomTrailing) {
+                        Image(uiImage: self.storageManager.profileImage)
+                            .resizable()
+                            .clipShape(Circle())
+                            .scaledToFill()
+                            .frame(width: 140, height: 140)
+
+//                            .onTapGesture {
+//                                isShowingPhotoPicker.toggle()
+//                            }
+//                            .alert(isPresented: $showUpdateProfileImageAlert) {
+//                                Alert(title: Text("프로필 사진 지정"), message: Text("선택한 이미지를 프로필사진으로 지정하시겠습니까?"),
+//                                      primaryButton: .default(Text("예"), action: {
+//                                    //이미지를 파이어 스토리지에 저장한다.
+//                                    print("저장할게요~")
+//                                }),
+//                                      secondaryButton: .destructive(Text("아니오")))
+//                            }
+                    }
+                    .padding(.leading, 5)
+                    
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
                             Text("\(userInfoManager.userNickName)")
@@ -40,17 +59,19 @@ struct SettingView: View {
                                 // 내 정보 바꾸기 링크
                                 
                             } label: {
-                                Image(systemName: "square.and.pencil")
-                                    .padding(.trailing, 10)
-                                    .padding(.top, 25)
+                                NavigationLink {
+                                    EditProfileView()
+                                } label: {
+                                    Image(systemName: "square.and.pencil")
+                                        .padding(.trailing, 10)
+                                        .padding(.top, 25)
+                                }
                             }
-
                         }
-                        Text("포메를 두마리 키우고 있는 사람입니다! 잘부탁드려요🥰")
+                        Text("\(userInfoManager.userIntroduce)")
                             .foregroundColor(.secondary)
                             .font(.system(size: 14))
                     }
-                    
                     
                 }
                 List {
@@ -107,11 +128,10 @@ struct SettingView: View {
             .background(Color(Constant.CustomColor.lightBrown))
             .navigationTitle(Text("⚙️ 설정"))
             .navigationBarTitleDisplayMode(.inline)
+
         } // NavigationView
         .onAppear {
-            //            if Auth.auth().currentUser != nil {
-            //                userInfoManager.getUserNickName()
-            //            }
+            storageManager.getUserProfileImage(email: userInfoManager.user!.email!)
         }
         
     }
