@@ -21,10 +21,25 @@ struct FreeAddCommentView: View {
     let user = Auth.auth().currentUser // 현재 유저객체
     var body: some View {
         HStack {
-            TextField("", text: $commentContent)
+            TextField("댓글을 남겨보세요", text: $commentContent)
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .frame(width: 270)
+                .onSubmit {
+                    let newComment = Comment(email: (user?.email)!,
+                                             nickName: self.userNickName,
+                                             content: self.commentContent,
+                                             date: Date())
+                    freeFirestoreViewModel.addComment(collectionName: "FreeBoard",
+                                                      documentId: currentPost.id,
+                                                      newComment: newComment)
+                    withAnimation {
+                        freeFirestoreViewModel.getComment(collectionName: "FreeBoard", documentId: currentPost.id)
+                    }
+                    
+                    print("comment add button pressed")
+                    commentContent = ""
+                }
             Button(action: {
                 let newComment = Comment(email: (user?.email)!,
                                          nickName: self.userNickName,

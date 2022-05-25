@@ -96,17 +96,18 @@ struct SelectedMainPost: View {
                     Text("\(post.title)")
                         .font(.system(size: 20))
                         .fontWeight(.semibold)
-                        .padding(5)
+                        .padding([.leading, .trailing])
+                    Text("\(post.author)")
+                        .font(.system(size: 13))
+                        .padding([.leading, .trailing])
                     Text("\(post.body)")
                         .font(.system(size: 16))
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 5)
+                        .padding()
                         .lineSpacing(3)
                     Text(self.dateString)
                         .foregroundColor(.secondary)
                         .font(.system(size: 11))
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 5)
+                        .padding([.leading, .trailing])
 //                    MainCommentAddView(currentPost: self.post)
                     ForEach(self.mainFirestoreViewModel.comments.indices, id: \.self.hashValue) { idx in
                         MainCommentView(currentCommentId: mainFirestoreViewModel.comments[idx].id,
@@ -161,6 +162,7 @@ struct SelectedMainPost: View {
                 
             }
             MainCommentAddView(currentPost: self.post, currentComments: self.$currentComments)
+                .padding([.trailing,.leading, .bottom])
         } // VStack
         .navigationTitle("\(post.title)")
         .navigationBarTitleDisplayMode(.inline)

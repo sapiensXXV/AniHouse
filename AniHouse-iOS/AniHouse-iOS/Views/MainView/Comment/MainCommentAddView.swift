@@ -23,39 +23,48 @@ struct MainCommentAddView: View {
 
     var body: some View {
         HStack {
-            TextField("댓글을 입력하세요", text: $commentContent)
+            TextField("댓글을 남겨보세요", text: $commentContent)
                 .disableAutocorrection(true)
-                .textInputAutocapitalization(.none)
-                .padding()
-            Spacer()
-            Button {
-                
+                .autocapitalization(.none)
+                .frame(width: 270)
+                .onSubmit {
+                    let newComment = Comment(email: (user?.email)!,
+                                             nickName: self.userNickName,
+                                             content: self.commentContent,
+                                             date: Date())
+                    mainFirestoreViewModel.addComment(collectionName: "MainPost",
+                                                      documentId: currentPost.id,
+                                                      newComment: newComment)
+                    withAnimation {
+                        mainFirestoreViewModel.getComment(collectionName: "MainPost", documentId: currentPost.id)
+                    }
+                    
+                    print("comment add button pressed")
+                    commentContent = ""
+
+                }
+            Button(action: {
                 let newComment = Comment(email: (user?.email)!,
                                          nickName: self.userNickName,
                                          content: self.commentContent,
                                          date: Date())
                 mainFirestoreViewModel.addComment(collectionName: "MainPost",
-                                        documentId: currentPost.id,
-                                        newComment: newComment)
+                                                  documentId: currentPost.id,
+                                                  newComment: newComment)
                 withAnimation {
                     mainFirestoreViewModel.getComment(collectionName: "MainPost", documentId: currentPost.id)
                 }
-
+                
                 print("comment add button pressed")
                 commentContent = ""
-            } label: {
-                Text("등록")
-                    .foregroundColor(Color.white)
-                    .padding(11)
-                    .background(Color.blue)
-                    .cornerRadius(6)
-                
-            }
-            .padding(.trailing, 5)
-
+            }, label: {
+                Image(systemName: "paperplane")
+            })
         }
-        .background(Color(Constant.ButtonColor.lightGray))
-        .cornerRadius(6)
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(.white)
+        .cornerRadius(12)
         .onAppear {
             self.userNickName = userInfoManager.userNickName
             if self.userNickName == "" {
@@ -65,6 +74,8 @@ struct MainCommentAddView: View {
                 }
             }
         }
+        
+        
     }
 }
 
