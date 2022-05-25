@@ -34,6 +34,11 @@ struct FreeBoardView: View {
                             .frame(width: 270)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
+                            .onSubmit {
+                                search = true
+                                searchTitle = title
+                                title = ""
+                            }
                         Button(action: {
                             search = true
                             searchTitle = title
@@ -62,6 +67,7 @@ struct FreeBoardView: View {
                                                 //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
                                                 Text("\(data.title)")
                                                 //                                                .font(.system(size: 25))
+                                                    .foregroundColor(Color.black)
                                                     .font(.system(size: 16))
                                                     .fontWeight(.black)
                                                     .lineLimit(1)
@@ -73,15 +79,16 @@ struct FreeBoardView: View {
                                                     .foregroundColor(.red)
                                                 Text("\(data.hit)")
                                                     .font(.system(size: 13))
+                                                    .foregroundColor(Color.black)
                                                     .lineLimit(1)
                                             }
                                             Text("\(data.body)")
                                                 .font(.system(size: 13))
+                                                .foregroundColor(Color.secondary)
                                                 .lineLimit(1)
                                         }
                                         .padding()
                                     }
-                                    .foregroundColor(Color.black)
                                     .background(Color.white)
                                     .cornerRadius(12)
                                     .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
@@ -98,6 +105,7 @@ struct FreeBoardView: View {
                                                 //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
                                                 Text("\(data.title)")
                                                 //                                                .font(.system(size: 25))
+                                                    .foregroundColor(Color.black)
                                                     .font(.system(size: 16))
                                                     .fontWeight(.black)
                                                     .lineLimit(1)
@@ -108,16 +116,17 @@ struct FreeBoardView: View {
                                                     .frame(width: 11, height: 11)
                                                     .foregroundColor(.red)
                                                 Text("\(data.hit)")
+                                                    .foregroundColor(Color.black)
                                                     .font(.system(size: 13))
                                                     .lineLimit(1)
                                             }
                                             Text("\(data.body)")
                                                 .font(.system(size: 13))
+                                                .foregroundColor(Color.secondary)
                                                 .lineLimit(1)
                                         }
                                         .padding()
                                     }
-                                    .foregroundColor(Color.black)
                                     .background(Color.white)
                                     .cornerRadius(12)
                                     .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
@@ -146,7 +155,6 @@ struct FreeBoardView: View {
                         .background(Color(Constant.CustomColor.normalBrown))
                     }
                     .foregroundColor(.black)
-                    .background(Color("board-add-button"))
                     .cornerRadius(.infinity)
                     .padding(5)
                 }

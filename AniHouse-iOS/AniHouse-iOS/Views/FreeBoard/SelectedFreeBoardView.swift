@@ -116,9 +116,12 @@ struct SelectedFreeBoardView: View {
             // 게시글 작성자
             VStack(alignment: .leading) {
                 Text(post.author)
+                    .font(.system(size: 13))
+                Text(self.dateString)
+                    .foregroundColor(.secondary)
                     .font(.system(size: 11))
             }
-            .padding([.leading, .trailing])
+            .padding([.trailing])
             
             // 구분선
             Divider()
@@ -128,7 +131,7 @@ struct SelectedFreeBoardView: View {
                 Text(post.body)
                     .font(.system(size: 16))
             }
-            .padding()
+            .padding([.top, .bottom])
             
             // 구분선
             Divider()
