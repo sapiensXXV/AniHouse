@@ -55,7 +55,7 @@ struct ShowPostDidWrite: View {
         .listStyle(GroupedListStyle())
 //        .background(Color(Constant.CustomColor.normalBrown))
         .navigationTitle("✍️ 내가 쓴 게시글")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
