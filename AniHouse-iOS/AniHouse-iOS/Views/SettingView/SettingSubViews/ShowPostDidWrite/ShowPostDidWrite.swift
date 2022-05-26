@@ -51,8 +51,8 @@ struct ShowPostDidWrite: View {
                     }
                 }
             }
+            .listStyle(InsetGroupedListStyle())
         }
-        .listStyle(GroupedListStyle())
 //        .background(Color(Constant.CustomColor.normalBrown))
         .navigationTitle("✍️ 내가 쓴 게시글")
         .navigationBarTitleDisplayMode(.inline)
@@ -69,11 +69,8 @@ struct ShowPostDidWrite: View {
         }
         .onAppear {
             print("email: \(userInfoViewModel.user!.email!)")
-            mainPostViewModel.getCurrentUserMainPost(email: userInfoViewModel.user!.email!)
-            freeBoardViewModel.getCurrentUserFreePost(email: userInfoViewModel.user!.email!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                print("유저가 작성한 게시글 목록 \n\(mainPostViewModel.userMainPost)")
-            })
+            mainPostViewModel.getCurrentUserMainPost(email: userInfoViewModel.user!.email!) // 유저가 메인 게시판에 쓴 글을 불러온다.
+            freeBoardViewModel.getCurrentUserFreePost(email: userInfoViewModel.user!.email!) // 유저가 자유 게시판에 쓴 글을 불러온다.
         }
     }
 }
