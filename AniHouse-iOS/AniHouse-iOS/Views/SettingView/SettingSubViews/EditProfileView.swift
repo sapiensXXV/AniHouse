@@ -12,7 +12,9 @@ struct EditProfileView: View {
     @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var userInfoManager: UserInfoViewModel
     @EnvironmentObject var storageManager: StorageManager
-    
+    @Environment(\.presentationMode) var presentationMode
+
+
     @State private var profileImage: UIImage = UIImage(named: Constant.ImageName.defaultUserImage)!
     @State private var isShowingPhotoPicker: Bool = false
     @State private var showUpdateProfileAlert: Bool = false
@@ -26,7 +28,7 @@ struct EditProfileView: View {
                     ZStack(alignment: .bottomTrailing) {
                         Image(uiImage: storageManager.profileImage)
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .clipShape(Circle())
                             .frame(width: 230, height: 230)
                         Circle()
@@ -76,6 +78,7 @@ struct EditProfileView: View {
                             print("프로필 정보를 저장합니다.")
                             storageManager.uploadUserProfileImage(email: userInfoManager.user!.email!) // 프로필 이미지 저장
                             userInfoManager.setUserIntroduce(email: userInfoManager.user!.email!, introduce: self.storageManager.introduce)
+                            presentationMode.wrappedValue.dismiss()
                         }),
                               secondaryButton: .destructive(Text("아니오")))
                     }
@@ -88,6 +91,17 @@ struct EditProfileView: View {
                 //content
                 PhotoPicker(bindedImage: $storageManager.profileImage)
             })
+        } // ZStack
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                }
+                
+            }
         }
     }
 }

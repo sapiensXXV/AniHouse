@@ -48,6 +48,8 @@ struct PrivacyStatementView: View {
         }
         .background(Color(Constant.CustomColor.lightBrown))
         .navigationBarBackButtonHidden(true)
+        .navigationTitle("개인정보취급방침")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {

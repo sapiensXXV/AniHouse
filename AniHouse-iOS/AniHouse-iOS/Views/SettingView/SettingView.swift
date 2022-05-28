@@ -30,6 +30,7 @@ struct SettingView: View {
                             .clipShape(Circle())
                             .scaledToFill()
                             .frame(width: 140, height: 140)
+                            .overlay(Circle().stroke(lineWidth: 2))
                     }
                     .padding(.leading, 5)
                     
@@ -99,6 +100,7 @@ struct SettingView: View {
                         .alert(isPresented: self.$showLogoutAlert) {
                             Alert(title: Text("로그아웃 하시겠습니까?"), primaryButton: .destructive(Text("로그아웃"), action: {
                                 self.loginCheck = false
+                                storageManager.profileImage = UIImage(named: Constant.ImageName.defaultUserImage)!
                                 UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
                                 self.viewModel.signOut()
                                 print("로그아웃합니다~")
@@ -112,7 +114,7 @@ struct SettingView: View {
                 .listStyle(.grouped)
             }
             .background(Color(Constant.CustomColor.lightBrown))
-            .navigationTitle(Text("⚙️ 설정"))
+            .navigationTitle(Text("설정"))
             .navigationBarTitleDisplayMode(.inline)
 
         } // NavigationView
