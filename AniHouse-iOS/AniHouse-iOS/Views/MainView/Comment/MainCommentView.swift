@@ -50,12 +50,8 @@ struct MainCommentView: View {
                         .clipShape(Circle())
                         .overlay(
                             Circle()
-<<<<<<< Updated upstream
-                                .stroke(lineWidth: 2)
-                                .foregroundColor(.orange)
-=======
                                 .stroke(lineWidth: 1)
->>>>>>> Stashed changes
+
                         )
                 } else {
                     Image(uiImage: profileImage!)
@@ -66,12 +62,7 @@ struct MainCommentView: View {
                         .clipShape(Circle())
                         .overlay(
                             Circle()
-<<<<<<< Updated upstream
-                                .stroke(lineWidth: 2)
-                                .foregroundColor(.orange)
-=======
                                 .stroke(lineWidth: 1)
->>>>>>> Stashed changes
                         )
                 }
                 

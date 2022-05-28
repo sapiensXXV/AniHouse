@@ -16,6 +16,10 @@ struct SelectedMainPost: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    //작성자의 프로필사진
+    @State var writerProfileImage: UIImage? = nil
+    @State var writerNickName: String? = nil
+    
     @State var post: MainPost = MainPost() // 게시글 객체를 넘겨받음.
     @State var hitValue: Int = 0 // 현재 좋아요 개수
     
@@ -40,13 +44,14 @@ struct SelectedMainPost: View {
     @State var url = ""
     
     var body: some View {
-        VStack {
+        VStack(spacing: 1) {
+
             ScrollView {
                 VStack(alignment: .leading) {
-<<<<<<< Updated upstream
+
                     Spacer().frame(height: 10)
                     Rectangle().frame(height: 0)
-=======
+
 //                    Spacer().frame(height: 3)
                     HStack() {
                         if writerProfileImage == nil {
@@ -54,6 +59,7 @@ struct SelectedMainPost: View {
                                 .resizable()
         //                        .scaledToFit()
                                 .frame(width: 40, height: 40)
+
                                 .background(Color(Constant.CustomColor.muchLightBrown))
                                 .clipShape(Circle())
                                 .overlay(
@@ -82,12 +88,13 @@ struct SelectedMainPost: View {
                     .padding(.leading, 10)
                     .padding(.top, 3)
 //                    Rectangle().frame(height: 0)
->>>>>>> Stashed changes
+
                     if url != "" {
                         AnimatedImage(url: URL(string: url)!)
                             .resizable()
                             .scaledToFill()
-                            .cornerRadius(10)
+                            .cornerRadius(3)
+                            .padding(0)
                     } else {
                         Loader()
                     }
@@ -135,16 +142,15 @@ struct SelectedMainPost: View {
                         .font(.system(size: 20))
                         .fontWeight(.semibold)
                         .padding([.leading, .trailing])
-                    Text("\(post.author)")
-                        .font(.system(size: 13))
-                        .padding([.leading, .trailing])
                     Text("\(post.body)")
                         .font(.system(size: 16))
-                        .padding()
+                        .padding(.top, 3)
+                        .padding(.horizontal)
                         .lineSpacing(3)
                     Text(self.dateString)
                         .foregroundColor(.secondary)
                         .font(.system(size: 11))
+                        .padding(.top, 3)
                         .padding([.leading, .trailing])
                     //                    MainCommentAddView(currentPost: self.post)
                     ForEach(self.mainFirestoreViewModel.comments.indices, id: \.self.hashValue) { idx in
@@ -158,9 +164,9 @@ struct SelectedMainPost: View {
                             .padding(.horizontal, 3)
                             .onAppear {
                                 
-                                print("user!.email! = \(userInfoManager.user?.email!)")
-                                print("currentComment[\(idx)].id = \(mainFirestoreViewModel.comments[idx].id)")
-                                print(userInfoManager.user?.email == mainFirestoreViewModel.comments[idx].email)
+//                                print("user!.email! = \(userInfoManager.user?.email!)")
+//                                print("currentComment[\(idx)].id = \(mainFirestoreViewModel.comments[idx].id)")
+//                                print(userInfoManager.user?.email == mainFirestoreViewModel.comments[idx].email)
                             }
                         
                     }
@@ -184,7 +190,7 @@ struct SelectedMainPost: View {
                     
                     self.formatter = DateFormatter()
                     self.formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
-                    print("post.date = \(post.date)")
+//                    print("post.date = \(post.date)")
                     dateString = self.formatter.string(from: self.post.date)
                     
                 }
@@ -198,10 +204,13 @@ struct SelectedMainPost: View {
                 if userInfoManager.user?.email! == post.author {
                     self.showPostDeleteButton = true
                 }
+                getProfileImage()
+                getWriterNickName()
                 
             }
             MainCommentAddView(currentPost: self.post, currentComments: self.$currentComments)
-                .padding([.trailing,.leading, .bottom])
+                .padding(.horizontal, 5)
+                .padding(.bottom, 5)
         } // VStack
         .navigationTitle("\(post.title)")
         .navigationBarTitleDisplayMode(.inline)
@@ -238,6 +247,31 @@ struct SelectedMainPost: View {
             }
         }
         .background(Color(Constant.CustomColor.lightBrown))
+    }
+    func getProfileImage() {
+        let storage = Storage.storage()
+        let profileImageRef = storage.reference().child("user/profileImage/\(post.author)")
+        profileImageRef.getData(maxSize: 1*1024*1024) { data, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("SelectedMainPost - \(post.author) 의 프로필사진을 찾았습니다!")
+                DispatchQueue.main.async {
+                    self.writerProfileImage = UIImage(data: data!)!
+                }
+                
+            }
+        }
+    }
+    func getWriterNickName() {
+        let db = Firestore.firestore()
+        print("SelectedMainPost - getWriterNickName")
+        db.collection("userInfo").document(post.author).getDocument { snapshot, error in
+            if let snapshot = snapshot {
+                self.writerNickName = snapshot.get("nickName") as? String
+                print("게시글 작성자의 닉네임을 가져왔어요! -> \(writerNickName)")
+            }
+        }
     }
 }
 
