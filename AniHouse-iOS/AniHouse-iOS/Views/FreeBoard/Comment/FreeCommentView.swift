@@ -7,26 +7,33 @@
 
 import SwiftUI
 import FirebaseFirestore
+import FirebaseStorage
 import FirebaseAuth
 
 struct FreeCommentView: View {
+    var email:  String?
     var nickName: String?
     var content: String?
     var date: Date?
     var currentCommentId: String = ""
-    @State var dateString: String = ""
-    @State var formatter = DateFormatter()
+    
     var isCommentUser = false
     var documentId: String = ""
-    @State var showingCommentAlert = false
+    
     //    @Binding var currentComments: [Comment]
     @State var isVisible: Bool = false
-    
+    @State var showingCommentAlert = false
+    @State var dateString: String = ""
+    @State var formatter = DateFormatter()
     @State var showDeleteAlert: Bool = false
+    
+    @State var commentProfileImage: UIImage? = nil
+    
     @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
     @EnvironmentObject var userInfoManager: UserInfoViewModel
     
-    init(currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String) {
+    init(email: String, currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String) {
+        self.email = email
         self.currentCommentId = currentCommentId
         self.nickName = nickName
         self.content = content
@@ -38,9 +45,33 @@ struct FreeCommentView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(nickName!)
-                    .fontWeight(.semibold)
-                    .fixedSize(horizontal: false, vertical: true)
+                if let commentProfileImage = commentProfileImage {
+                    Image(uiImage: commentProfileImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle().stroke(lineWidth: 1)
+                        )
+                } else {
+                    Image(Constant.ImageName.defaultUserImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle().stroke(lineWidth: 1)
+                        )
+                }
+                VStack(alignment: .leading) {
+                    Text(nickName!)
+                        .fontWeight(.semibold)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(dateString)
+                        .font(.system(size: 13))
+                        .foregroundColor(.secondary)
+                }
                 Spacer()
                 Button(action: {
                     self.showDeleteAlert.toggle()
@@ -57,21 +88,38 @@ struct FreeCommentView: View {
                             }), secondaryButton: .cancel(Text("취소")))
                         }
                 })
-                .disabled(isCommentUser ? false : true)
+                    .disabled(isCommentUser ? false : true)
             }
+            .padding([.top, .horizontal], 5)
             Text(content!)
             // 댓글의 내용이 전부 보여야 하기 때문
                 .fixedSize(horizontal: false, vertical: true)
-            Text(dateString)
-                .font(.system(size: 13))
-                .foregroundColor(.secondary)
+                .padding(.horizontal, 5)
         }
         .padding(.leading,5)
         .padding(.trailing,5)
         .padding(.bottom, 5)
+        .background(Color(Constant.CustomColor.muchLightBrown))
+        .cornerRadius(5)
         .onAppear {
             self.formatter.dateFormat = "yy/MM/dd HH:mm"
             self.dateString = formatter.string(from: self.date!)
+            getProfileImage()
+        }
+    }
+    func getProfileImage() {
+        let storage = Storage.storage()
+        let profileImageRef = storage.reference().child("user/profileImage/\(email!)")
+        profileImageRef.getData(maxSize: 1*1024*1024) { data, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("SelectedMainPost - \(email!) 의 프로필사진을 찾았습니다!")
+                DispatchQueue.main.async {
+                    self.commentProfileImage = UIImage(data: data!)!
+                }
+                
+            }
         }
     }
 }

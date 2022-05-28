@@ -43,8 +43,46 @@ struct SelectedMainPost: View {
         VStack {
             ScrollView {
                 VStack(alignment: .leading) {
+<<<<<<< Updated upstream
                     Spacer().frame(height: 10)
                     Rectangle().frame(height: 0)
+=======
+//                    Spacer().frame(height: 3)
+                    HStack() {
+                        if writerProfileImage == nil {
+                            Image(Constant.ImageName.defaultUserImage)
+                                .resizable()
+        //                        .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .background(Color(Constant.CustomColor.muchLightBrown))
+                                .clipShape(Circle())
+                                .overlay(
+                                    Circle().stroke(lineWidth: 1)
+                                )
+                        }
+                        else {
+                            Image(uiImage: writerProfileImage!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                                .overlay(
+                                    Circle().stroke(lineWidth: 1)
+                                )
+                        }
+                        if writerNickName == nil {
+                            Text("nickName")
+                                .fontWeight(.semibold)
+                        } else {
+                            Text(self.writerNickName!)
+                                .fontWeight(.semibold)
+                        }
+                        Spacer()
+                    }
+                    .padding(.leading, 10)
+                    .padding(.top, 3)
+//                    Rectangle().frame(height: 0)
+>>>>>>> Stashed changes
                     if url != "" {
                         AnimatedImage(url: URL(string: url)!)
                             .resizable()

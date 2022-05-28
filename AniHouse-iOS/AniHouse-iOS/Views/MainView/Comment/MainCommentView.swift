@@ -50,8 +50,12 @@ struct MainCommentView: View {
                         .clipShape(Circle())
                         .overlay(
                             Circle()
+<<<<<<< Updated upstream
                                 .stroke(lineWidth: 2)
                                 .foregroundColor(.orange)
+=======
+                                .stroke(lineWidth: 1)
+>>>>>>> Stashed changes
                         )
                 } else {
                     Image(uiImage: profileImage!)
@@ -62,8 +66,12 @@ struct MainCommentView: View {
                         .clipShape(Circle())
                         .overlay(
                             Circle()
+<<<<<<< Updated upstream
                                 .stroke(lineWidth: 2)
                                 .foregroundColor(.orange)
+=======
+                                .stroke(lineWidth: 1)
+>>>>>>> Stashed changes
                         )
                 }
                 
@@ -81,7 +89,7 @@ struct MainCommentView: View {
                 } label: {
                     Image(systemName: isCommentUser ? "trash" : "")
                         .foregroundColor(.red)
-                        .font(.system(size: 20))
+                        .font(.system(size: 15))
                 }
                 .padding(0)
                 .alert(isPresented: self.$showDeleteAlert) {

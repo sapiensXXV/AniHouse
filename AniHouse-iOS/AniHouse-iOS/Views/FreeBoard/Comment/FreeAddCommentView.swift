@@ -17,14 +17,16 @@ struct FreeAddCommentView: View {
     @State var userNickName: String = ""
     @State var currentPost: FreeBoardContent = FreeBoardContent()
     @State var commentContent: String = ""
+    @State var isValidComment: Bool = true
+    
     @Binding var currentComments: [Comment]
     let user = Auth.auth().currentUser // 현재 유저객체
     var body: some View {
         HStack {
-            TextField("댓글을 남겨보세요", text: $commentContent)
+            TextField(isValidComment ? "댓글을 남겨보세요" : "댓글은 한 글자 이상이어야 합니다", text: $commentContent)
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
-                .frame(width: 270)
+                .frame(width: nil)
                 .onSubmit {
                     let newComment = Comment(email: (user?.email)!,
                                              nickName: self.userNickName,
@@ -41,19 +43,26 @@ struct FreeAddCommentView: View {
                     commentContent = ""
                 }
             Button(action: {
-                let newComment = Comment(email: (user?.email)!,
-                                         nickName: self.userNickName,
-                                         content: self.commentContent,
-                                         date: Date())
-                freeFirestoreViewModel.addComment(collectionName: "FreeBoard",
-                                                  documentId: currentPost.id,
-                                                  newComment: newComment)
-                withAnimation {
-                    freeFirestoreViewModel.getComment(collectionName: "FreeBoard", documentId: currentPost.id)
+                if commentContent != "" {
+                    let newComment = Comment(email: (user?.email)!,
+                                             nickName: self.userNickName,
+                                             content: self.commentContent,
+                                             date: Date())
+                    freeFirestoreViewModel.addComment(collectionName: "FreeBoard",
+                                                      documentId: currentPost.id,
+                                                      newComment: newComment)
+                    withAnimation {
+                        freeFirestoreViewModel.getComment(collectionName: "FreeBoard", documentId: currentPost.id)
+                    }
+                    
+                    print("comment add button pressed")
+                    commentContent = ""
+                } else {
+                    isValidComment = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        isValidComment = true
+                    }
                 }
-                
-                print("comment add button pressed")
-                commentContent = ""
             }, label: {
                 Image(systemName: "paperplane")
             })

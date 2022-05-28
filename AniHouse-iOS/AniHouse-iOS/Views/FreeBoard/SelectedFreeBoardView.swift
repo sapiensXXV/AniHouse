@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
+import FirebaseStorage
 import FirebaseAuth
 
 struct SelectedFreeBoardView: View {
@@ -28,13 +29,15 @@ struct SelectedFreeBoardView: View {
     @State var dateString: String = ""
     @State var idGetComment: Bool = false
     @State var currentComments: [Comment] = [Comment]()
-    @State var userNickName: String = ""
+    @State var writerNickName: String? = nil
     
     //알림여부
     @State var showPostDeleteButton: Bool = false
     @State var showDeleteAlert: Bool = false
     
     @State var formatter: DateFormatter = DateFormatter()
+    
+    @State var writerProfileImage: UIImage? = nil
     
     private let animationDuration: Double = 0.1
     private var animationScale: CGFloat {
@@ -45,17 +48,54 @@ struct SelectedFreeBoardView: View {
     @State private var commentField: String = ""
     
     @Binding var showingOverlay: Bool
-
+    
     @State private var isActive = false
     
     var body: some View {
         VStack(alignment: .leading) {
             // 게시글 제목
             HStack {
-                Text(post.title)
-                    .font(.system(size: 20))
-                    .fontWeight(.bold)
-                
+                //MARK: - 게시글 정보, 작성자 정보 출력
+                HStack {
+                    //MARK: - 게시글 작성자 프로필 이미지 출력
+                    
+                    
+                    if let writerProfileImage = writerProfileImage {
+                        Image(uiImage: writerProfileImage)
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle().stroke(lineWidth: 1)
+                            )
+                    } else {
+                        Image(Constant.ImageName.defaultUserImage)
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle().stroke(lineWidth: 1)
+                            )
+                    }
+                    // 게시글 작성자
+                    //MARK: - 게시글 작성자, 날짜 출력
+                    VStack(alignment: .leading) {
+                        if let writerNickName = writerNickName {
+                            Text(writerNickName)
+                                .fontWeight(.semibold)
+                                .font(.system(size: 20))
+                        } else {
+                            Text("nickname")
+                                .font(.system(size: 13))
+                        }
+                        Text(self.dateString)
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 11))
+                    }
+                    .padding([.trailing])
+                }
                 Spacer()
                 
                 // 게시글 좋아요 버튼
@@ -89,10 +129,10 @@ struct SelectedFreeBoardView: View {
                         .padding(.vertical, 5)
                         .padding(.horizontal, 3)
                 })
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(.leading)
-                .scaleEffect(animate ? animationScale : 1)
-                .animation(Animation.easeIn(duration: animationDuration), value: animationScale)
+                    .buttonStyle(BorderlessButtonStyle())
+                    .padding(.leading)
+                    .scaleEffect(animate ? animationScale : 1)
+                    .animation(Animation.easeIn(duration: animationDuration), value: animationScale)
                 
                 Text("\(self.hitValue)")
                     .font(.system(size: 16))
@@ -113,15 +153,7 @@ struct SelectedFreeBoardView: View {
                 
             }
             
-            // 게시글 작성자
-            VStack(alignment: .leading) {
-                Text(post.author)
-                    .font(.system(size: 13))
-                Text(self.dateString)
-                    .foregroundColor(.secondary)
-                    .font(.system(size: 11))
-            }
-            .padding([.trailing])
+            
             
             // 구분선
             Divider()
@@ -138,7 +170,8 @@ struct SelectedFreeBoardView: View {
             
             ScrollView {
                 ForEach(self.freeFirestoreViewModel.comments.indices, id: \.self.hashValue) { idx in
-                    FreeCommentView(currentCommentId: freeFirestoreViewModel.comments[idx].id,
+                    FreeCommentView(email: freeFirestoreViewModel.comments[idx].email,
+                                    currentCommentId: freeFirestoreViewModel.comments[idx].id,
                                     nickName: freeFirestoreViewModel.comments[idx].nickName,
                                     content: freeFirestoreViewModel.comments[idx].content,
                                     date: freeFirestoreViewModel.comments[idx].date,
@@ -188,7 +221,7 @@ struct SelectedFreeBoardView: View {
                     }
                 }
             }
-
+            
             //            .overlay (
             //                editView
             //                ,alignment: .topTrailing
@@ -198,7 +231,7 @@ struct SelectedFreeBoardView: View {
             FreeAddCommentView(currentPost: self.post, currentComments: self.$currentComments)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("")
+        .navigationTitle(post.title)
         .onAppear {
             freeFirestoreViewModel.getComment(collectionName: "FreeBoard", documentId: self.post.id)
             print("model.comments: \(freeFirestoreViewModel.comments)")
@@ -208,6 +241,8 @@ struct SelectedFreeBoardView: View {
             if user!.email! == post.author {
                 self.showPostDeleteButton = true
             }
+            getWriterNickName()
+            getProfileImage()
             
             
         }
@@ -217,7 +252,7 @@ struct SelectedFreeBoardView: View {
         
         //        .padding(.leading, 10)
         //        .padding(.trailing, 10)
-        .padding()
+        .padding(5)
         .cornerRadius(12)
         .background(Color(Constant.CustomColor.lightBrown).edgesIgnoringSafeArea(.all))
         //        .frame(maxWidth: .infinity)
@@ -262,6 +297,31 @@ struct SelectedFreeBoardView: View {
     //            .border(.black)
     //        }
     //    }
+    func getProfileImage() {
+        let storage = Storage.storage()
+        let profileImageRef = storage.reference().child("user/profileImage/\(post.author)")
+        profileImageRef.getData(maxSize: 1*1024*1024) { data, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("SelectedMainPost - \(post.author) 의 프로필사진을 찾았습니다!")
+                DispatchQueue.main.async {
+                    self.writerProfileImage = UIImage(data: data!)!
+                }
+                
+            }
+        }
+    }
+    func getWriterNickName() {
+        let db = Firestore.firestore()
+        print("SelectedMainPost - getWriterNickName")
+        db.collection("userInfo").document(post.author).getDocument { snapshot, error in
+            if let snapshot = snapshot {
+                self.writerNickName = snapshot.get("nickName") as? String
+                print("게시글 작성자의 닉네임을 가져왔어요! -> \(writerNickName)")
+            }
+        }
+    }
     
 }
 //struct SelectedFreeBoardView_Previews: PreviewProvider {
