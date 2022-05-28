@@ -51,7 +51,6 @@ struct MainCommentView: View {
                         .overlay(
                             Circle()
                                 .stroke(lineWidth: 2)
-                                .foregroundColor(.orange)
                         )
                 } else {
                     Image(uiImage: profileImage!)
@@ -63,7 +62,6 @@ struct MainCommentView: View {
                         .overlay(
                             Circle()
                                 .stroke(lineWidth: 2)
-                                .foregroundColor(.orange)
                         )
                 }
                 

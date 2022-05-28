@@ -16,6 +16,7 @@ struct MainViewCell: View {
     @EnvironmentObject var userInfoModel: UserInfoViewModel
     @EnvironmentObject var storageManager: StorageManager
     
+    
     @State var image: UIImage? = UIImage(named: Constant.ImageName.defaultImage)
     @State var url = ""
     var imageName: String = ""
@@ -33,8 +34,10 @@ struct MainViewCell: View {
     var body: some View {
         VStack(alignment: .leading) {
 //            Divider().frame(height: 0)
+
             if url != "" {
                 AnimatedImage(url: URL(string: url)!)
+                    .resizable()
                     .frame(minWidth: 165, idealWidth: 170, maxWidth: 175,
                            minHeight: 165, idealHeight: 170, maxHeight: 175)
                     .cornerRadius(0)
@@ -73,7 +76,8 @@ struct MainViewCell: View {
                 Text(post.body)
                     .font(.system(size: 13))
                     .foregroundColor(Color.secondary)
-                    .lineLimit(3) // 세줄로 제한
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2) // 두 줄로 제한
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 3)
@@ -91,6 +95,7 @@ struct MainViewCell: View {
                     loadMainImage(imageName: post.id)
                 }
             }
+            
         }
         
     }
