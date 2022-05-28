@@ -19,8 +19,6 @@ struct SettingView: View {
     @State private var isVibrationOn: Bool = true
     @State private var showLogoutAlert: Bool = false
     
-
-    
     var body: some View {
         
         NavigationView {
@@ -32,18 +30,6 @@ struct SettingView: View {
                             .clipShape(Circle())
                             .scaledToFill()
                             .frame(width: 140, height: 140)
-
-//                            .onTapGesture {
-//                                isShowingPhotoPicker.toggle()
-//                            }
-//                            .alert(isPresented: $showUpdateProfileImageAlert) {
-//                                Alert(title: Text("프로필 사진 지정"), message: Text("선택한 이미지를 프로필사진으로 지정하시겠습니까?"),
-//                                      primaryButton: .default(Text("예"), action: {
-//                                    //이미지를 파이어 스토리지에 저장한다.
-//                                    print("저장할게요~")
-//                                }),
-//                                      secondaryButton: .destructive(Text("아니오")))
-//                            }
                     }
                     .padding(.leading, 5)
                     

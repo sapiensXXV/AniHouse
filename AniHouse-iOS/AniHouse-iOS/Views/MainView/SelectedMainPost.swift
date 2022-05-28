@@ -58,17 +58,17 @@ struct SelectedMainPost: View {
                             //action
                             if isLiked {
                                 /// 게시글의 좋아요를 누른 상태일 때 Like를 지운다.
-//                                DispatchQueue.main.async {
+                                //                                DispatchQueue.main.async {
                                 mainFirestoreViewModel.deleteLike(post: self.post, currentUser: self.userInfoManager.user?.email! ?? "")
-//                                }
+                                //                                }
                                 self.isLiked.toggle()
                                 hitValue -= 1
                             } else {
                                 /// 좋아요를 누르지 않은 상태일 때
-//                                DispatchQueue.main.async {
+                                //                                DispatchQueue.main.async {
                                 mainFirestoreViewModel.addLike(post: self.post, currentUser: self.userInfoManager.user?.email! ?? "")
-                                    
-//                                }
+                                
+                                //                                }
                                 self.isLiked.toggle()
                                 hitValue += 1
                             }
@@ -108,9 +108,10 @@ struct SelectedMainPost: View {
                         .foregroundColor(.secondary)
                         .font(.system(size: 11))
                         .padding([.leading, .trailing])
-//                    MainCommentAddView(currentPost: self.post)
+                    //                    MainCommentAddView(currentPost: self.post)
                     ForEach(self.mainFirestoreViewModel.comments.indices, id: \.self.hashValue) { idx in
-                        MainCommentView(currentCommentId: mainFirestoreViewModel.comments[idx].id,
+                        MainCommentView(email: mainFirestoreViewModel.comments[idx].email,
+                                        currentCommentId: mainFirestoreViewModel.comments[idx].id,
                                         nickName: mainFirestoreViewModel.comments[idx].nickName,
                                         content: mainFirestoreViewModel.comments[idx].content,
                                         date: mainFirestoreViewModel.comments[idx].date,
@@ -147,7 +148,7 @@ struct SelectedMainPost: View {
                     self.formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
                     print("post.date = \(post.date)")
                     dateString = self.formatter.string(from: self.post.date)
-
+                    
                 }
             }
             .onAppear {
@@ -175,7 +176,7 @@ struct SelectedMainPost: View {
                 } label: {
                     Image(systemName: "chevron.backward")
                 }
-
+                
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
@@ -185,7 +186,7 @@ struct SelectedMainPost: View {
                 } label: {
                     Image(systemName: showPostDeleteButton ? "trash" : "")
                         .foregroundColor(.red)
-                        
+                    
                 }
                 .alert(isPresented: self.$showDeleteAlert) {
                     Alert(title: Text("게시글을 삭제하시겠습니까?"),
