@@ -50,7 +50,8 @@ struct MainCommentView: View {
                         .clipShape(Circle())
                         .overlay(
                             Circle()
-                                .stroke(lineWidth: 2)
+                                .stroke(lineWidth: 1)
+
                         )
                 } else {
                     Image(uiImage: profileImage!)
@@ -61,7 +62,7 @@ struct MainCommentView: View {
                         .clipShape(Circle())
                         .overlay(
                             Circle()
-                                .stroke(lineWidth: 2)
+                                .stroke(lineWidth: 1)
                         )
                 }
                 
@@ -79,7 +80,7 @@ struct MainCommentView: View {
                 } label: {
                     Image(systemName: isCommentUser ? "trash" : "")
                         .foregroundColor(.red)
-                        .font(.system(size: 20))
+                        .font(.system(size: 15))
                 }
                 .padding(0)
                 .alert(isPresented: self.$showDeleteAlert) {

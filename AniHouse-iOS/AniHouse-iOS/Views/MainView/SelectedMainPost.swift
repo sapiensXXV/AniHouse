@@ -48,13 +48,18 @@ struct SelectedMainPost: View {
 
             ScrollView {
                 VStack(alignment: .leading) {
+
+                    Spacer().frame(height: 10)
+                    Rectangle().frame(height: 0)
+
 //                    Spacer().frame(height: 3)
                     HStack() {
                         if writerProfileImage == nil {
-                            Image(systemName: "person")
+                            Image(Constant.ImageName.defaultUserImage)
                                 .resizable()
         //                        .scaledToFit()
-                                .frame(width: 36, height: 36)
+                                .frame(width: 40, height: 40)
+
                                 .background(Color(Constant.CustomColor.muchLightBrown))
                                 .clipShape(Circle())
                                 .overlay(
@@ -65,7 +70,7 @@ struct SelectedMainPost: View {
                             Image(uiImage: writerProfileImage!)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 36, height: 36)
+                                .frame(width: 40, height: 40)
                                 .clipShape(Circle())
                                 .overlay(
                                     Circle().stroke(lineWidth: 1)
@@ -83,6 +88,7 @@ struct SelectedMainPost: View {
                     .padding(.leading, 10)
                     .padding(.top, 3)
 //                    Rectangle().frame(height: 0)
+
                     if url != "" {
                         AnimatedImage(url: URL(string: url)!)
                             .resizable()

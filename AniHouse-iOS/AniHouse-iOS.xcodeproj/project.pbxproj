@@ -196,8 +196,7 @@
 				BB2C6A112819C19F00D1FA2B /* FreeBoardView.swift */,
 				BB2C6A122819C19F00D1FA2B /* ReviseFreeBoardView.swift */,
 				BB2C6A102819C19F00D1FA2B /* SelectedFreeBoardView.swift */,
-				91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */,
-				917BC4BF282E566B00C9D0EE /* FreeCommentView.swift */,
+				BB7C8F0A28426D45004E2FA2 /* Comment */,
 			);
 			path = FreeBoard;
 			sourceTree = "<group>";
@@ -256,6 +255,15 @@
 				BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BB7C8F0A28426D45004E2FA2 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */,
+				917BC4BF282E566B00C9D0EE /* FreeCommentView.swift */,
+			);
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		BB8F33E727EC99060021A6EB /* ViewModels */ = {
