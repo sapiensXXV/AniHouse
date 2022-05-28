@@ -12,6 +12,7 @@ class StorageManager: ObservableObject {
 
     let storage = Storage.storage()
     var imageURL = URL(string: "")
+    var commentImage: UIImage = UIImage(systemName: "person")!
     @Published var mainPostImages = [String: UIImage]()
     @Published var profileImage: UIImage = UIImage(named: Constant.ImageName.defaultUserImage)!
     @Published var introduce: String = "자기소개 입니다."
@@ -59,16 +60,8 @@ class StorageManager: ObservableObject {
             }
         }
     }
-//    func loadMainImage(imageName: String) {
-//        let storage = Storage.storage().reference()
-//        storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
-//            if err != nil {
-//                print((err?.localizedDescription)!)
-//                return
-//            }
-//            self.url = "\(url!)"
-//        }
-//    }
+    
+
     func uploadUserProfileImage(email: String) {
         print("StorageManager - uploadUserProfileImage()")
         let storageRef = storage.reference().child("user/profileImage/\(email)")
@@ -85,5 +78,6 @@ class StorageManager: ObservableObject {
             }
         }
     }
+    
     
 }

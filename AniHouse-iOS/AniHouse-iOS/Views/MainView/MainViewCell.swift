@@ -32,14 +32,14 @@ struct MainViewCell: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Rectangle().frame(height: 0)
+//            Divider().frame(height: 0)
             if url != "" {
                 AnimatedImage(url: URL(string: url)!)
-                    .frame(minWidth: 170, idealWidth: 175, maxWidth: 180,
-                           minHeight: 170, idealHeight: 175, maxHeight: 180)
-                    .cornerRadius(10)
+                    .frame(minWidth: 165, idealWidth: 170, maxWidth: 175,
+                           minHeight: 165, idealHeight: 170, maxHeight: 175)
+                    .cornerRadius(0)
                     .scaledToFill()
-                    .padding(1)
+                    .padding(0)
             }
             else {
                 VStack {
@@ -69,14 +69,14 @@ struct MainViewCell: View {
                     .fontWeight(.black)
                     .lineLimit(1) // 한줄로 제한
                     
-                Spacer().frame(height:3)
+                Spacer().frame(height:1)
                 Text(post.body)
                     .font(.system(size: 13))
                     .foregroundColor(Color.secondary)
                     .lineLimit(3) // 세줄로 제한
             }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
                 
             
         }

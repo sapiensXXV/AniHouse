@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Comment: Identifiable {
     var id: String = ""

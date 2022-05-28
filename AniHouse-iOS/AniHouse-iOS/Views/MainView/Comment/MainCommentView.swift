@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseStorage
 
 struct MainCommentView: View {
     
@@ -13,6 +14,9 @@ struct MainCommentView: View {
     @EnvironmentObject var userInfoManager: UserInfoViewModel
     
     
+    @State var profileImage: UIImage? = nil
+    
+    var email: String?
     var nickName: String?
     var content: String?
     var date: Date?
@@ -24,7 +28,8 @@ struct MainCommentView: View {
     
     @State var showDeleteAlert: Bool = false
     
-    init(currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String) {
+    init(email: String, currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String) {
+        self.email = email
         self.currentCommentId = currentCommentId
         self.nickName = nickName
         self.content = content
@@ -38,15 +43,30 @@ struct MainCommentView: View {
             Rectangle().frame(height: 0)
             HStack{
                 
-                Image(systemName: "person")
-                    .foregroundColor(.black)
-                    .frame(width: 40, height: 40)
-                    .clipShape(Circle())
-                    .overlay(
-                        Circle()
-                            .stroke(lineWidth: 2)
-                            .foregroundColor(.orange)
-                    )
+                if profileImage == nil {
+                    Image(systemName: "person")
+                        .foregroundColor(.black)
+                        .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle()
+                                .stroke(lineWidth: 2)
+                                .foregroundColor(.orange)
+                        )
+                } else {
+                    Image(uiImage: profileImage!)
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor(.black)
+                        .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle()
+                                .stroke(lineWidth: 2)
+                                .foregroundColor(.orange)
+                        )
+                }
+                
                 VStack(alignment: .leading) {
                     Text(nickName!)
                         .fontWeight(.semibold)
@@ -86,22 +106,35 @@ struct MainCommentView: View {
             self.formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
             self.dateString = formatter.string(from: self.date!)
             print("asdf: \(self.isCommentUser)")
-            //                print("currentComment.email = \(currentComment.email)")
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7, execute: {
-//                print("userInfoManager.user!.email = \(userInfoManager.user!.email!)")
-//                print("currentComment.email = \(currentComment.email)")
-//                if userInfoManager.user!.email == currentComment.email {
-//                    self.isCommentUser = true
-//                }
-//            })
             print("MainCommentView - currentComment.id = \(currentCommentId)")
+            getProfileImage()
+            
             
         }
     }
+    
+    func getProfileImage() {
+        let storage = Storage.storage()
+        let profileImageRef = storage.reference().child("user/profileImage/\(email!)")
+        profileImageRef.getData(maxSize: 1*1024*1024) { data, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("\(email!) 의 프로필사진을 찾았습니다!")
+                DispatchQueue.main.async {
+                    self.profileImage = UIImage(data: data!)!
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 }
 
 struct MainCommentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainCommentView(currentCommentId: "", nickName: "소재훈", content: "댓글입니다~~", date: Date(), isCommentUser: false, documentId: "")
+        MainCommentView(email: "", currentCommentId: "", nickName: "소재훈", content: "댓글입니다~~", date: Date(), isCommentUser: false, documentId: "")
     }
 }

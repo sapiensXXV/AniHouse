@@ -13,6 +13,7 @@ class MainPostViewModel: ObservableObject {
     
     @Published var posts: [MainPost] = [MainPost]()
     @Published var comments: [Comment] = []
+//    @Published var commentProfileImages: [UIImage] = []
     @Published var currentPostId: String = ""
     @Published var uploadPostId: String = ""
     

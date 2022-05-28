@@ -34,6 +34,7 @@
 		BB78602E27E0EFB400CFC94A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78602D27E0EFB400CFC94A /* Assets.xcassets */; };
 		BB78603127E0EFB400CFC94A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */; };
 		BB78603827E0F10500CFC94A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB78603727E0F10500CFC94A /* GoogleService-Info.plist */; };
+		BB7C8F092841EAA0004E2FA2 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7C8F082841EAA0004E2FA2 /* CommentViewModel.swift */; };
 		BB942D74282C075B002C47DC /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB942D73282C075B002C47DC /* UserInfo.swift */; };
 		BBA11DC027EEFCDB004F0327 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA11DBF27EEFCDB004F0327 /* LottieView.swift */; };
 		BBA11DCA27EF708A004F0327 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA11DC927EF708A004F0327 /* AppViewModel.swift */; };
@@ -86,6 +87,7 @@
 		BB78602D27E0EFB400CFC94A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB78603027E0EFB400CFC94A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BB78603727E0F10500CFC94A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BB7C8F082841EAA0004E2FA2 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		BB942D73282C075B002C47DC /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		BBA11DBF27EEFCDB004F0327 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		BBA11DC927EF708A004F0327 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */,
 				BB19783728252CD9002B5B60 /* StorageManager.swift */,
 				BBAF79DF282D833200F75E29 /* UserInfoViewModel.swift */,
+				BB7C8F082841EAA0004E2FA2 /* CommentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				BB2C6A092819C18C00D1FA2B /* RegisterView.swift in Sources */,
 				BBDDF9A02822CF1900B3001A /* MainPostViewModel.swift in Sources */,
 				BB2C6A072819C18C00D1FA2B /* SignInView.swift in Sources */,
+				BB7C8F092841EAA0004E2FA2 /* CommentViewModel.swift in Sources */,
 				BB942D74282C075B002C47DC /* UserInfo.swift in Sources */,
 				BB2C6A192819C1C200D1FA2B /* SettingView.swift in Sources */,
 				BB19783828252CD9002B5B60 /* StorageManager.swift in Sources */,
@@ -605,7 +609,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"AniHouse-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = TZGL6R438Y;
+				DEVELOPMENT_TEAM = 92B5D498S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "AniHouse-iOS/Info.plist";
@@ -638,7 +642,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"AniHouse-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = TZGL6R438Y;
+				DEVELOPMENT_TEAM = 92B5D498S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "AniHouse-iOS/Info.plist";
