@@ -1,4 +1,5 @@
-<img src = "https://user-images.githubusercontent.com/76734067/170884551-ad000dc4-265f-4ee0-99b6-985bbda78bd7.png">
+<img src = "https://user-images.githubusercontent.com/76734067/170886150-2482745b-906f-4e69-a075-28844ce87c59.png">
+
 > 우리 가족을 자랑하는 반려동물 커뮤니티 서비스 🐶
 
 <br />
@@ -6,7 +7,8 @@
 ## 💭 About
 > 반려동물을 처음 기를때 어려움이 있지 않았나요?
 >
-> 이제는 걱정하지 마세요 
+> 이제는 걱정하지 마세요 반려동물과 함께했던 경험이 있던분들이<br>
+> 함께 해줄거에요
 
 
 # AniHouse
