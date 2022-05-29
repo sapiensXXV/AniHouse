@@ -101,6 +101,7 @@ struct SettingView: View {
                             Alert(title: Text("로그아웃 하시겠습니까?"), primaryButton: .destructive(Text("로그아웃"), action: {
                                 self.loginCheck = false
                                 storageManager.profileImage = UIImage(named: Constant.ImageName.defaultUserImage)!
+                                storageManager.introduce = ""
                                 UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
                                 self.viewModel.signOut()
                                 print("로그아웃합니다~")

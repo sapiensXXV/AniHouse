@@ -32,22 +32,22 @@ struct MainCommentAddView: View {
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .frame(width: nil)
-                .onSubmit {
-                    let newComment = Comment(email: (user?.email)!,
-                                             nickName: self.userNickName,
-                                             content: self.commentContent,
-                                             date: Date())
-                    mainFirestoreViewModel.addComment(collectionName: "MainPost",
-                                                      documentId: currentPost.id,
-                                                      newComment: newComment)
-                    withAnimation {
-                        mainFirestoreViewModel.getComment(collectionName: "MainPost", documentId: currentPost.id)
-                    }
-                    
-                    print("comment add button pressed")
-                    commentContent = ""
-                    
-                }
+//                .onSubmit {
+//                    let newComment = Comment(email: (user?.email)!,
+//                                             nickName: self.userNickName,
+//                                             content: self.commentContent,
+//                                             date: Date())
+//                    mainFirestoreViewModel.addComment(collectionName: "MainPost",
+//                                                      documentId: currentPost.id,
+//                                                      newComment: newComment)
+//                    withAnimation {
+//                        mainFirestoreViewModel.getComment(collectionName: "MainPost", documentId: currentPost.id)
+//                    }
+//
+//                    print("comment add button pressed")
+//                    commentContent = ""
+//
+//                }
             Button(action: {
                 if commentContent != "" {
                     let newComment = Comment(email: (user?.email)!,

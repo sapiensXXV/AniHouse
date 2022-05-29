@@ -77,6 +77,7 @@ struct EditProfileView: View {
                             // 여기서 스토리지에 이미지를, 스토어에 자기소개 정보를 저장한다.
                             print("프로필 정보를 저장합니다.")
                             storageManager.uploadUserProfileImage(email: userInfoManager.user!.email!) // 프로필 이미지 저장
+                            storageManager.getUserProfileImage(email: userInfoManager.user!.email!)
                             userInfoManager.setUserIntroduce(email: userInfoManager.user!.email!, introduce: self.storageManager.introduce)
                             presentationMode.wrappedValue.dismiss()
                         }),

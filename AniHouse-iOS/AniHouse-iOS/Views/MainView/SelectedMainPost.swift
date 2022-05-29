@@ -137,11 +137,11 @@ struct SelectedMainPost: View {
                             .padding(.leading, 3)
                         Spacer()
                     }
-                    
-                    Text("\(post.title)")
-                        .font(.system(size: 20))
-                        .fontWeight(.semibold)
-                        .padding([.leading, .trailing])
+//                    
+//                    Text("\(post.title)")
+//                        .font(.system(size: 20))
+//                        .fontWeight(.semibold)
+//                        .padding([.leading, .trailing])
                     Text("\(post.body)")
                         .font(.system(size: 16))
                         .padding(.top, 3)

@@ -1,3 +1,14 @@
+<img src = "https://user-images.githubusercontent.com/76734067/170884551-ad000dc4-265f-4ee0-99b6-985bbda78bd7.png">
+> 우리 가족을 자랑하는 반려동물 커뮤니티 서비스 🐶
+
+<br />
+
+## 💭 About
+> 반려동물을 처음 기를때 어려움이 있지 않았나요?
+>
+> 이제는 걱정하지 마세요 
+
+
 # AniHouse
 숭실대학교 2022-2 전공종합설계 iOS앱
 

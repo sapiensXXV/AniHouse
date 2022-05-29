@@ -86,12 +86,13 @@ struct MainView: View {
                         print(user.email)
                         self.userInfoManager.user = user
                         self.userInfoManager.getUserInfo(email: user.email!)
+                        storageManager.getUserProfileImage(email: userInfoManager.user!.email!)
                     } else {
                         print("기다리고 있어요...")
                     }
                 }
                 mainFirestoreViewModel.getData()
-                storageManager.getUserProfileImage(email: userInfoManager.user!.email!)
+                
             }
             .background(
                 Color(Constant.CustomColor.lightBrown)
