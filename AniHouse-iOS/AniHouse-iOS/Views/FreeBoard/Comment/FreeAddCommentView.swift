@@ -27,21 +27,6 @@ struct FreeAddCommentView: View {
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .frame(width: nil)
-                .onSubmit {
-                    let newComment = Comment(email: (user?.email)!,
-                                             nickName: self.userNickName,
-                                             content: self.commentContent,
-                                             date: Date())
-                    freeFirestoreViewModel.addComment(collectionName: "FreeBoard",
-                                                      documentId: currentPost.id,
-                                                      newComment: newComment)
-                    withAnimation {
-                        freeFirestoreViewModel.getComment(collectionName: "FreeBoard", documentId: currentPost.id)
-                    }
-                    
-                    print("comment add button pressed")
-                    commentContent = ""
-                }
             Button(action: {
                 if commentContent != "" {
                     let newComment = Comment(email: (user?.email)!,

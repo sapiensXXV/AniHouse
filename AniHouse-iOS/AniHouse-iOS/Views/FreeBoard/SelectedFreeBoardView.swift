@@ -221,11 +221,6 @@ struct SelectedFreeBoardView: View {
                     }
                 }
             }
-            
-            //            .overlay (
-            //                editView
-            //                ,alignment: .topTrailing
-            //            )
             Divider()
             Spacer()
             FreeAddCommentView(currentPost: self.post, currentComments: self.$currentComments)
@@ -249,54 +244,12 @@ struct SelectedFreeBoardView: View {
         .onAppear {
             showingOverlay = false
         }
-        
-        //        .padding(.leading, 10)
-        //        .padding(.trailing, 10)
         .padding(5)
         .cornerRadius(12)
         .background(Color(Constant.CustomColor.lightBrown).edgesIgnoringSafeArea(.all))
-        //        .frame(maxWidth: .infinity)
-        //        .padding(.bottom, 10)
-        
+
     }
-    
-    //    @ViewBuilder
-    //    private var editView: some View {
-    //        if isPresented {
-    //            VStack {
-    //                Button(action: {
-    //                    showingAlert = true
-    //                }, label: {
-    //                    Text("게시글 삭제")
-    //                        .alert("삭제하시겠습니까?", isPresented: $showingAlert) {
-    //                            Button("삭제", role: .destructive) {
-    //                                freeFirestoreViewModel.deletePost(postId: self.post.id)
-    //                            }
-    //                            Button("취소", role: .cancel) {
-    //
-    //                            }
-    //                        }
-    //                })
-    //                .buttonStyle(BorderlessButtonStyle())
-    //                .padding(.bottom, 3)
-    //                .foregroundColor(.black)
-    //                Button(action: {
-    //                    presentationMode.wrappedValue.dismiss()
-    //                    showModal = true
-    //                }, label: {
-    //                    Text("게시글 수정")
-    //                })
-    //                .buttonStyle(BorderlessButtonStyle())
-    //                .foregroundColor(.black)
-    //                .sheet(isPresented: self.$showModal) {
-    //                    ReviseFreeBoardView(selectedData: selectedData)
-    //                }
-    //            }
-    //            .padding(.trailing)
-    //            .background(Color.white)
-    //            .border(.black)
-    //        }
-    //    }
+
     func getProfileImage() {
         let storage = Storage.storage()
         let profileImageRef = storage.reference().child("user/profileImage/\(post.author)")
