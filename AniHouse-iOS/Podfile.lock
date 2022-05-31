@@ -437,24 +437,12 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.0.0)
-  - Realm (10.24.1):
-    - Realm/Headers (= 10.24.1)
-  - Realm/Headers (10.24.1)
-  - RealmSwift (10.24.1):
-    - Realm (= 10.24.1)
-  - SDWebImage (5.12.5):
-    - SDWebImage/Core (= 5.12.5)
-  - SDWebImage/Core (5.12.5)
-  - SDWebImageSwiftUI (2.0.2):
-    - SDWebImage (~> 5.10)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - Firebase/Storage
   - lottie-ios
-  - RealmSwift (~> 10)
-  - SDWebImageSwiftUI
 
 SPEC REPOS:
   trunk:
@@ -475,10 +463,6 @@ SPEC REPOS:
     - lottie-ios
     - nanopb
     - PromisesObjC
-    - Realm
-    - RealmSwift
-    - SDWebImage
-    - SDWebImageSwiftUI
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -498,11 +482,7 @@ SPEC CHECKSUMS:
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
-  Realm: f9bc5a212a9ab084b4ed90cda1c28d835a38a06b
-  RealmSwift: 0b03bb38001bee4280dcc27709e6b33f438cfad1
-  SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
-  SDWebImageSwiftUI: 8a3923c95108312b03a599ec1498754af55a6819
 
-PODFILE CHECKSUM: 1b4b3a10af97d88823bcd50c14740fb02dd3589b
+PODFILE CHECKSUM: 1bf03463be1fa980dda21dd1c93cac298f7f2b8e
 
 COCOAPODS: 1.11.2

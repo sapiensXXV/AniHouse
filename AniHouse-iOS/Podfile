@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '15.0'
 
 target 'AniHouse-iOS' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -8,11 +8,8 @@ target 'AniHouse-iOS' do
   # Pods for AniHouse-iOS
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
-  pod 'RealmSwift', '~>10'
   pod 'lottie-ios'
   pod 'Firebase/Storage'
-  
-  pod 'SDWebImageSwiftUI'
 
   # 필요없는 경고 제거
   inhibit_all_warnings!

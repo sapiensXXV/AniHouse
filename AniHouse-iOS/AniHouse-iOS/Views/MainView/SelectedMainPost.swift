@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Firebase
-import SDWebImageSwiftUI
 
 struct SelectedMainPost: View {
     
@@ -19,6 +18,8 @@ struct SelectedMainPost: View {
     //작성자의 프로필사진
     @State var writerProfileImage: UIImage? = nil
     @State var writerNickName: String? = nil
+    
+    @State var image: UIImage? = nil
     
     @State var post: MainPost = MainPost() // 게시글 객체를 넘겨받음.
     @State var hitValue: Int = 0 // 현재 좋아요 개수
@@ -88,15 +89,17 @@ struct SelectedMainPost: View {
                     .padding(.leading, 10)
                     .padding(.top, 3)
 //                    Rectangle().frame(height: 0)
-
-                    if url != "" {
-                        AnimatedImage(url: URL(string: url)!)
+//MARK: - 수정
+                    if let image = image {
+                        Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
                             .cornerRadius(3)
-                            .padding(0)
                     } else {
-                        Loader()
+                        Image(Constant.ImageName.defaultImage)
+                            .resizable()
+                            .scaledToFill()
+                            .cornerRadius(3)
                     }
                     HStack {
                         Button {
@@ -137,11 +140,6 @@ struct SelectedMainPost: View {
                             .padding(.leading, 3)
                         Spacer()
                     }
-//                    
-//                    Text("\(post.title)")
-//                        .font(.system(size: 20))
-//                        .fontWeight(.semibold)
-//                        .padding([.leading, .trailing])
                     Text("\(post.body)")
                         .font(.system(size: 16))
                         .padding(.top, 3)
@@ -173,14 +171,6 @@ struct SelectedMainPost: View {
                     Spacer()
                 }
                 .onAppear {
-                    let storage = Storage.storage().reference()
-                    storage.child("MainPostImage/\(post.id).jpg").downloadURL { url, err in
-                        if err != nil {
-                            print((err?.localizedDescription)!)
-                            return
-                        }
-                        self.url = "\(url!)"
-                    }
                     self.hitValue = post.hit
                     if post.likeUsers.contains(userInfoManager.user?.email! ?? "") {
                         isLiked = true
@@ -206,6 +196,7 @@ struct SelectedMainPost: View {
                 }
                 getProfileImage()
                 getWriterNickName()
+                loadMainImage(imageName: self.post.id)
                 
             }
             MainCommentAddView(currentPost: self.post, currentComments: self.$currentComments)
@@ -248,6 +239,22 @@ struct SelectedMainPost: View {
         }
         .background(Color(Constant.CustomColor.lightBrown))
     }
+    
+    func loadMainImage(imageName: String) {
+        let storage = Storage.storage()
+        let mainImageRef = storage.reference().child("MainPostImage/\(imageName).jpg")
+        mainImageRef.getData(maxSize: 1*1024*1024) { data, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("메인 사진을 찾았습니다.")
+                DispatchQueue.main.async {
+                    self.image = UIImage(data: data!)
+                }
+            }
+        }
+    }
+    
     func getProfileImage() {
         let storage = Storage.storage()
         let profileImageRef = storage.reference().child("user/profileImage/\(post.author)")

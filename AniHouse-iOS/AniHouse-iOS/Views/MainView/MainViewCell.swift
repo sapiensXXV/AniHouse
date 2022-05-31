@@ -7,7 +7,6 @@
 
 import SwiftUI
 import UIKit
-import SDWebImageSwiftUI
 import Firebase
 
 struct MainViewCell: View {
@@ -17,7 +16,7 @@ struct MainViewCell: View {
     @EnvironmentObject var storageManager: StorageManager
     
     
-    @State var image: UIImage? = UIImage(named: Constant.ImageName.defaultImage)
+    @State var image: UIImage? = nil
     @State var url = ""
     var imageName: String = ""
     var title: String = "타이틀"
@@ -35,21 +34,23 @@ struct MainViewCell: View {
         VStack(alignment: .leading) {
 //            Divider().frame(height: 0)
 
-            if url != "" {
-                AnimatedImage(url: URL(string: url)!)
+
+            if let image = image {
+                Image(uiImage: image)
                     .resizable()
                     .frame(minWidth: 165, idealWidth: 170, maxWidth: 175,
                            minHeight: 165, idealHeight: 170, maxHeight: 175)
                     .cornerRadius(0)
                     .scaledToFill()
                     .padding(0)
-            }
-            else {
-                VStack {
-                    Rectangle().frame(height: 0)
-                    Loader()
-                        .frame(width: 20, height: 20)
-                }
+            } else {
+                Image(Constant.ImageName.defaultImage)
+                    .resizable()
+                    .frame(minWidth: 165, idealWidth: 170, maxWidth: 175,
+                           minHeight: 165, idealHeight: 170, maxHeight: 175)
+                    .cornerRadius(0)
+                    .scaledToFill()
+                    .padding(0)
             }
             VStack(alignment: .leading)
             {
@@ -99,33 +100,23 @@ struct MainViewCell: View {
         }
         
     }
-    
     func loadMainImage(imageName: String) {
-        let storage = Storage.storage().reference()
-        storage.child("MainPostImage/\(imageName).jpg").downloadURL { url, err in
-            if err != nil {
-                print((err?.localizedDescription)!)
-                return
+        let storage = Storage.storage()
+        let mainImageRef = storage.reference().child("MainPostImage/\(imageName).jpg")
+        mainImageRef.getData(maxSize: 1*1024*1024) { data, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("메인 사진을 찾았습니다.")
+                DispatchQueue.main.async {
+                    self.image = UIImage(data: data!)
+                }
             }
-            self.url = "\(url!)"
         }
     }
     
 }
 
-
-
-struct Loader: UIViewRepresentable {
-    func makeUIView(context: UIViewRepresentableContext<Loader>) -> UIActivityIndicatorView {
-        let indicator = UIActivityIndicatorView(style: .large)
-        indicator.startAnimating()
-        return indicator
-    }
-    
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<Loader>) {
-        
-    }
-}
 
 struct MainViewCell_Previews: PreviewProvider {
     static var previews: some View {
