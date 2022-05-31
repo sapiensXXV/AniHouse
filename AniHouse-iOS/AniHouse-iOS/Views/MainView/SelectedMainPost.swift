@@ -34,6 +34,7 @@ struct SelectedMainPost: View {
     //알림여부
     @State var showPostDeleteButton: Bool = false
     @State var showDeleteAlert: Bool = false
+    @State var showReportAlert: Bool = false
     
     @State var formatter: DateFormatter = DateFormatter()
     
@@ -218,13 +219,21 @@ struct SelectedMainPost: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
+                    self.showReportAlert.toggle()
+                } label: {
+                    Image(systemName: "flag")
+                }
+                .alert(isPresented: self.$showReportAlert) {
+                    Alert(title: Text("신고"), message: Text("신고 알림"), dismissButton: .cancel(Text("네")))
+                }
+
+                Button {
                     // 삭제 @State값을 토글한다.
                     self.showDeleteAlert.toggle()
                     print("게시글 삭제 버튼 pressed")
                 } label: {
                     Image(systemName: showPostDeleteButton ? "trash" : "")
                         .foregroundColor(.red)
-                    
                 }
                 .alert(isPresented: self.$showDeleteAlert) {
                     Alert(title: Text("게시글을 삭제하시겠습니까?"),

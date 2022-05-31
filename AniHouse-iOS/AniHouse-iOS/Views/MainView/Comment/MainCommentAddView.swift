@@ -20,6 +20,7 @@ struct MainCommentAddView: View {
     @State var commentContent: String = ""
     
     @State var isValidComment = true
+    @State var showForbidAlert = false
     
     //    @State var showValidCommentAlert = false
     
@@ -33,7 +34,8 @@ struct MainCommentAddView: View {
                 .autocapitalization(.none)
                 .frame(width: nil)
             Button(action: {
-                if commentContent != "" {
+                if commentContainForbidWord() { showForbidAlert.toggle() }
+                else if commentContent != "" {
                     let newComment = Comment(email: (user?.email)!,
                                              nickName: self.userNickName,
                                              content: self.commentContent,
@@ -57,6 +59,9 @@ struct MainCommentAddView: View {
             }, label: {
                 Image(systemName: "paperplane")
             })
+                .alert(isPresented: $showForbidAlert) {
+                    Alert(title: Text("상처주는 표현이 포함되어 있지 않나요?"), message: Text("부적절한 표현이 감지됩니다. 반복 등록시 이용이 제한될 수 있습니다."), dismissButton: .destructive(Text("알겠습니다")))
+                }
         }
         .frame(maxWidth: .infinity)
         .padding()
@@ -73,6 +78,15 @@ struct MainCommentAddView: View {
         }
         
         
+    }
+    
+    func commentContainForbidWord() -> Bool {
+        for word in Constant.forbidWord {
+            if commentContent.contains(word) {
+                return true
+            }
+        }
+        return false
     }
 }
 

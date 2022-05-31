@@ -18,6 +18,7 @@ struct SettingView: View {
     @State private var isSoundOn: Bool = true
     @State private var isVibrationOn: Bool = true
     @State private var showLogoutAlert: Bool = false
+    @State private var showLaterAlert: Bool = false
     
     var body: some View {
         
@@ -63,17 +64,30 @@ struct SettingView: View {
                 }
                 List {
                     Section("놀러오세요 동물의 집 1.0") {
-                        Button(action: actionSheet) {
-                            Text("친구에게 추천하기")
-                                .foregroundColor(.black)
-                        }
+//                        Button(action: actionSheet) {
+//                            Text("친구에게 추천하기")
+//                                .foregroundColor(.black)
+//                        }
+                        Text("친구에게 추천하기")
+                            .onTapGesture {
+                                self.showLaterAlert.toggle()
+                            }
                         Text("평가하기")
+                            .onTapGesture {
+                                self.showLaterAlert.toggle()
+                            }
                         Text("문의하기")
+                            .onTapGesture {
+                                self.showLaterAlert.toggle()
+                            }
                         NavigationLink {
                             PrivacyStatementView()
                         } label: {
                             Text("개인정보취급방침").foregroundColor(.black)
                         }
+                    }
+                    .alert(isPresented: $showLaterAlert) {
+                        Alert(title: Text("추후에 개발할 예정입니다."), message: Text("빨리 업데이트 하겠습니다."), dismissButton: .default(Text("네")))
                     }
                     Section("알람") {
                         Toggle("사운드", isOn: self.$isSoundOn)

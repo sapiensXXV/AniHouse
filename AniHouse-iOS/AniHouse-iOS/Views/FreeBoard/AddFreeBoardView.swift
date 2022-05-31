@@ -13,6 +13,7 @@ struct AddFreeBoardView: View {
     @State private var boardBody = ""
     @State private var showingAlert = false
     @State private var showingFailureAlert = false
+    @State private var usingForbidWord = false
     
     @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
     @EnvironmentObject var storageManager: StorageManager
@@ -58,6 +59,10 @@ struct AddFreeBoardView: View {
                     if boardTitle == "" || boardBody == "" {
                         showingFailureAlert = true
                     }
+                    else if freeContainForbidWord() {
+                        showingFailureAlert = true
+                        usingForbidWord.toggle()
+                    }
                     // 모두 작성한 경우
                     else {
                         showingFailureAlert = false
@@ -86,8 +91,21 @@ struct AddFreeBoardView: View {
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .alert(isPresented: $showingFailureAlert) {
-            Alert(title: Text("모든 항목을 작성해주세요"), message: nil, dismissButton: .default(Text("확인")))
+            if usingForbidWord {
+                return Alert(title: Text("상처주는 표현이 포함되어 있지 않나요?"), message: Text("부적절한 표현이 감지됩니다. 반복 등록시 이용이 제한될 수 있습니다."), dismissButton: .destructive(Text("알겠습니다")))
+            } else {
+                 return Alert(title: Text("모든 항목을 작성해주세요"), message: nil, dismissButton: .default(Text("확인")))
+            }
+            
         }
+    }
+    func freeContainForbidWord() -> Bool {
+        for word in Constant.forbidWord {
+            if boardTitle.contains(word) || boardBody.contains(word) {
+                return true
+            }
+        }
+        return false
     }
 }
 

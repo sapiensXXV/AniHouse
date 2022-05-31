@@ -18,6 +18,7 @@ struct FreeAddCommentView: View {
     @State var currentPost: FreeBoardContent = FreeBoardContent()
     @State var commentContent: String = ""
     @State var isValidComment: Bool = true
+    @State var showForbidWordAlert: Bool = false
     
     @Binding var currentComments: [Comment]
     let user = Auth.auth().currentUser // 현재 유저객체
@@ -28,7 +29,10 @@ struct FreeAddCommentView: View {
                 .autocapitalization(.none)
                 .frame(width: nil)
             Button(action: {
-                if commentContent != "" {
+                if isForbidWordComment() {
+                    showForbidWordAlert.toggle()
+                }
+                else if commentContent != "" {
                     let newComment = Comment(email: (user?.email)!,
                                              nickName: self.userNickName,
                                              content: self.commentContent,
@@ -51,6 +55,9 @@ struct FreeAddCommentView: View {
             }, label: {
                 Image(systemName: "paperplane")
             })
+                .alert(isPresented: $showForbidWordAlert) {
+                    Alert(title: Text("상처주는 표현이 포함되어 있지 않나요?"), message: Text("부적절한 표현이 감지됩니다. 반복 등록시 이용이 제한될 수 있습니다."), dismissButton: .destructive(Text("알겠습니다")))
+                }
         }
         .frame(maxWidth: .infinity)
         .padding()
@@ -67,6 +74,12 @@ struct FreeAddCommentView: View {
         }
         
         
+    }
+    func isForbidWordComment() -> Bool {
+        for word in Constant.forbidWord {
+            if commentContent.contains(word) { return true }
+        }
+        return false
     }
 }
 

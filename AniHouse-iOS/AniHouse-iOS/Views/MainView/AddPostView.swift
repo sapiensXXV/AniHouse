@@ -18,6 +18,7 @@ struct AddPostView: View {
     @State private var title = ""
     @State private var content = ""
     @State private var showDeniedAlert: Bool = false
+    @State private var showForbidAlert: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -100,7 +101,12 @@ struct AddPostView: View {
                 
                 Button {
                     // 올바른지 검사하기, 알림창 내보내기
+                    
                     if !postValidationCheck() { self.showDeniedAlert.toggle() }
+                    else if postContainForbidWord() {
+                        self.showDeniedAlert.toggle()
+                        self.showForbidAlert.toggle()
+                    }
                     else {
                         // 파이어스토어에 저장하기
                         mainFirestoreViewModel.addData(title: title,
@@ -127,9 +133,12 @@ struct AddPostView: View {
                         alertMessage = Text("현재 \(self.content.count)글자")
                     } else if isEqualImage(img1: UIImage(systemName: "photo.on.rectangle")!, img2: self.uploadImage) {
                         alertTitle = "이미지를 업로드 해주세요"
+                    } else if showForbidAlert {
+                        return Alert(title: Text("상처주는 표현이 포함되어 있지 않나요?"), message: Text("부적절한 표현이 감지됩니다. 반복 등록시 이용이 제한될 수 있습니다."), dismissButton: .destructive(Text("알겠습니다")))
                     }
                     return Alert(title: Text(alertTitle), message: alertMessage, dismissButton: .default(Text("알겠습니다")))
                 }
+
             }
         }
     }
@@ -140,6 +149,16 @@ struct AddPostView: View {
             return false
         }
         return true
+    }
+    
+    func postContainForbidWord() -> Bool {
+        for forbidWord in Constant.forbidWord {
+            if self.title.contains(forbidWord) || self.content.contains(forbidWord) {
+                print("잡았다 요놈~~")
+                return true
+            }
+        }
+        return false
     }
     
     func isEqualImage(img1: UIImage, img2: UIImage) -> Bool {
