@@ -31,7 +31,7 @@ struct FreeBoardView: View {
                             .padding()
                             .background(Color(.systemGray6))
                             .cornerRadius(12)
-                            .frame(width: 270)
+                            .frame(width: nil)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
                             .onSubmit {
@@ -49,6 +49,7 @@ struct FreeBoardView: View {
                         }
                         .padding()
                     }
+                    .padding(.horizontal, 5)
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 
@@ -180,6 +181,7 @@ struct FreeBoardView: View {
                 //                            UITableViewCell.appearance().backgroundColor = .clear
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -149,6 +149,7 @@ struct SettingView: View {
             .navigationBarTitleDisplayMode(.inline)
             
         } // NavigationView
+        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             storageManager.getUserProfileImage(email: userInfoManager.user!.email!)
         }
