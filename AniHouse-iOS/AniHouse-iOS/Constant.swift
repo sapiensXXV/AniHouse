@@ -15,6 +15,7 @@ class Constant {
         static var defaultImage: String = "default image"
         static var defaultaddImage: String = "add-image"
         static var background: String = "background"
+        static var dots: String = "dots"
     }
     class ButtonColor {
         static var addButton: String = "add-button"

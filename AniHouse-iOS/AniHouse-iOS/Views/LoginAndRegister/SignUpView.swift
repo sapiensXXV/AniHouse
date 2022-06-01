@@ -13,7 +13,6 @@ struct SignUpView: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var nickName: String = ""
-    @State private var birthDate: Date = Date()
     
     @State private var email: String = ""
     @State private var firstPwd: String = ""
@@ -36,7 +35,6 @@ struct SignUpView: View {
                         TextField("성", text: $firstName)
                         TextField("이름", text: $lastName)
                         TextField("닉네임", text: $nickName)
-                        DatePicker("생년월일", selection: $birthDate, displayedComponents: .date)
                     }
                     
                     Section(header: Text("계정정보")) {
@@ -63,8 +61,7 @@ struct SignUpView: View {
                             }
                             userManager.addUser(name: firstName+lastName,
                                                 nickName: nickName,
-                                                email: email.lowercased(),
-                                                birth: birthDate)
+                                                email: email.lowercased())
                             viewModel.signUp(email: email.lowercased(), password: firstPwd.lowercased())
                             // 회원가입 완료 시, 뒤로 돌아가기 위해서 즉, SignInView로 돌아가기 위함
                             self.presentationMode.wrappedValue.dismiss()

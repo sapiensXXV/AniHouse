@@ -33,6 +33,7 @@ struct SelectedMainPost: View {
     
     //알림여부
     @State var showPostDeleteButton: Bool = false
+    @State var showAlert: Bool = false
     @State var showDeleteAlert: Bool = false
     @State var showReportAlert: Bool = false
     
@@ -47,21 +48,21 @@ struct SelectedMainPost: View {
     
     var body: some View {
         VStack(spacing: 1) {
-
+            
             ScrollView {
                 VStack(alignment: .leading) {
-
+                    
                     Spacer().frame(height: 10)
                     Rectangle().frame(height: 0)
-
-//                    Spacer().frame(height: 3)
+                    
+                    //                    Spacer().frame(height: 3)
                     HStack() {
                         if writerProfileImage == nil {
                             Image(Constant.ImageName.defaultUserImage)
                                 .resizable()
-        //                        .scaledToFit()
+                            //                        .scaledToFit()
                                 .frame(width: 40, height: 40)
-
+                            
                                 .background(Color(Constant.CustomColor.muchLightBrown))
                                 .clipShape(Circle())
                                 .overlay(
@@ -89,8 +90,8 @@ struct SelectedMainPost: View {
                     }
                     .padding(.leading, 10)
                     .padding(.top, 3)
-//                    Rectangle().frame(height: 0)
-//MARK: - 수정
+                    //                    Rectangle().frame(height: 0)
+                    //MARK: - 수정
                     if let image = image {
                         Image(uiImage: image)
                             .resizable()
@@ -163,9 +164,9 @@ struct SelectedMainPost: View {
                             .padding(.horizontal, 3)
                             .onAppear {
                                 
-//                                print("user!.email! = \(userInfoManager.user?.email!)")
-//                                print("currentComment[\(idx)].id = \(mainFirestoreViewModel.comments[idx].id)")
-//                                print(userInfoManager.user?.email == mainFirestoreViewModel.comments[idx].email)
+                                //                                print("user!.email! = \(userInfoManager.user?.email!)")
+                                //                                print("currentComment[\(idx)].id = \(mainFirestoreViewModel.comments[idx].id)")
+                                //                                print(userInfoManager.user?.email == mainFirestoreViewModel.comments[idx].email)
                             }
                         
                     }
@@ -181,7 +182,7 @@ struct SelectedMainPost: View {
                     
                     self.formatter = DateFormatter()
                     self.formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
-//                    print("post.date = \(post.date)")
+                    //                    print("post.date = \(post.date)")
                     dateString = self.formatter.string(from: self.post.date)
                     
                 }
@@ -218,33 +219,54 @@ struct SelectedMainPost: View {
                 
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button {
-                    self.showReportAlert.toggle()
+                Menu {
+                    if self.showPostDeleteButton {
+                        Button {
+                            // 삭제 @State값을 토글한다.
+                            self.showAlert.toggle()
+                            self.showDeleteAlert.toggle()
+                            print("게시글 삭제 버튼 pressed")
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                            Text("삭제하기")
+                                .foregroundColor(.red)
+                        }
+                    } else {
+                        Button {
+                            self.showAlert.toggle()
+                            self.showReportAlert.toggle()
+                            print("신고누름")
+                        } label: {
+                            HStack {
+                                Image(systemName: "flag")
+                                Text("신고하기")
+                            }
+                        }
+                    }
+                    
                 } label: {
-                    Image(systemName: "flag")
+                    Image(Constant.ImageName.dots)
+                        .resizable()
+                        .frame(width: 20, height: 20)
                 }
-                .alert(isPresented: self.$showReportAlert) {
-                    Alert(title: Text("신고"), message: Text("신고 알림"), dismissButton: .cancel(Text("네")))
-                }
-
-                Button {
-                    // 삭제 @State값을 토글한다.
-                    self.showDeleteAlert.toggle()
-                    print("게시글 삭제 버튼 pressed")
-                } label: {
-                    Image(systemName: showPostDeleteButton ? "trash" : "")
-                        .foregroundColor(.red)
-                }
-                .alert(isPresented: self.$showDeleteAlert) {
-                    Alert(title: Text("게시글을 삭제하시겠습니까?"),
-                          message: Text("삭제한 게시글은 복구할 수 없습니다."),
-                          primaryButton: .destructive(Text("삭제"), action: {
-                        mainFirestoreViewModel.deletePost(postId: self.post.id)
-                    }),
-                          secondaryButton: .cancel(Text("취소")))
-                }
+                .menuStyle(.automatic)
+                .alert(isPresented: $showAlert) {
+                    if showReportAlert {
+                        return Alert(title: Text("신고"), message: Text("부적절한 내용 발견시 삭제조치됩니다"), primaryButton: .default(Text("신고하기"), action: {
+                            mainFirestoreViewModel.reportMainPost(postId: post.id)
+                        }), secondaryButton: .destructive(Text("취소")))
+                    }
+                    
+                    return Alert(title: Text("게시글을 삭제하시겠습니까?"),
+                                 message: Text("삭제한 게시글은 복구할 수 없습니다."),
+                                 primaryButton: .destructive(Text("삭제"), action: {
+                               mainFirestoreViewModel.deletePost(postId: self.post.id)
+                           }),
+                                 secondaryButton: .cancel(Text("취소")))
                 
-            }
+                }
+            } // ToolBarItemGroup
         }
         .background(Color(Constant.CustomColor.lightBrown))
     }
