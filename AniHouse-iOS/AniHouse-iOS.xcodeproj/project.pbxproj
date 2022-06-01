@@ -192,8 +192,8 @@
 		BB2C6A022819C17800D1FA2B /* FreeBoard */ = {
 			isa = PBXGroup;
 			children = (
-				BB2C6A0F2819C19F00D1FA2B /* AddFreeBoardView.swift */,
 				BB2C6A112819C19F00D1FA2B /* FreeBoardView.swift */,
+				BB2C6A0F2819C19F00D1FA2B /* AddFreeBoardView.swift */,
 				BB2C6A122819C19F00D1FA2B /* ReviseFreeBoardView.swift */,
 				BB2C6A102819C19F00D1FA2B /* SelectedFreeBoardView.swift */,
 				BB7C8F0A28426D45004E2FA2 /* Comment */,
@@ -634,7 +634,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.januaryOne.AniHouse-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -701,7 +701,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.januaryOne.AniHouse-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";

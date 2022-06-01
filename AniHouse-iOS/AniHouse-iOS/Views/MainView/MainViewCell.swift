@@ -33,21 +33,17 @@ struct MainViewCell: View {
     var body: some View {
         VStack(alignment: .leading) {
 //            Divider().frame(height: 0)
-
-
             if let image = image {
                 Image(uiImage: image)
                     .resizable()
-                    .frame(minWidth: 165, idealWidth: 170, maxWidth: 175,
-                           minHeight: 165, idealHeight: 170, maxHeight: 175)
+                    .frame(width: nil)
                     .cornerRadius(0)
                     .scaledToFill()
                     .padding(0)
             } else {
                 Image(Constant.ImageName.defaultImage)
                     .resizable()
-                    .frame(minWidth: 165, idealWidth: 170, maxWidth: 175,
-                           minHeight: 165, idealHeight: 170, maxHeight: 175)
+                    .frame(width: nil)
                     .cornerRadius(0)
                     .scaledToFill()
                     .padding(0)

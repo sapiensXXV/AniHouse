@@ -97,6 +97,7 @@ struct SignInView: View {
                 }
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
 
     }
 }

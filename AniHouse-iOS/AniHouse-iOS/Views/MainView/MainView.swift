@@ -35,8 +35,8 @@ struct MainView: View {
     
     
     var columns = [
-        GridItem(.flexible(minimum: 120, maximum: 160), spacing: 20, alignment: nil),
-        GridItem(.flexible(minimum: 120, maximum: 160), spacing: 20, alignment: nil)
+        GridItem(.flexible(minimum: 120, maximum: 1000), spacing: 0, alignment: nil),
+        GridItem(.flexible(minimum: 120, maximum: 1000), spacing: 0, alignment: nil)
     ]
     
     var body: some View {
@@ -53,6 +53,7 @@ struct MainView: View {
                                     SelectedMainPost(post: dataItem)
                                 } label: {
                                     MainViewCell(post: dataItem)
+                                        .padding(.horizontal, 10)
                                     //                                        .padding(.horizontal, 5)
                                 }
                                 
@@ -98,6 +99,7 @@ struct MainView: View {
                 Color(Constant.CustomColor.lightBrown)
             )
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
