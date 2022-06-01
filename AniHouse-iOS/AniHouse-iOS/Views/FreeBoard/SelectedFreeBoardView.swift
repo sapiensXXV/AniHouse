@@ -33,7 +33,10 @@ struct SelectedFreeBoardView: View {
     
     //알림여부
     @State var showPostDeleteButton: Bool = false
+    @State var showAlert: Bool = false
     @State var showDeleteAlert: Bool = false
+    @State var showReportAlert: Bool = false
+    
     
     @State var formatter: DateFormatter = DateFormatter()
     
@@ -186,38 +189,55 @@ struct SelectedFreeBoardView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Menu {
-                        Button(action: {
-                            print("게시글 수정 버튼 pressed")
-                            self.isActive = true
-                        }, label: {
-                            Label("수정하기", systemImage: "square.and.pencil")
-                        })
-                        Button(action: {
-                            // 삭제 @State값을 토글한다.
-                            self.showDeleteAlert.toggle()
-                            print("게시글 삭제 버튼 pressed")
-                        }, label: {
-                            Label("삭제하기", systemImage: "trash")
-                        })
+                        if showPostDeleteButton {
+                            Button(action: {
+                                print("게시글 수정 버튼 pressed")
+                                self.isActive = true
+                            }, label: {
+                                Label("수정하기", systemImage: "square.and.pencil")
+                            })
+                            Button(action: {
+                                // 삭제 @State값을 토글한다.
+                                self.showAlert.toggle()
+                                self.showDeleteAlert.toggle()
+                                print("게시글 삭제 버튼 pressed")
+                            }, label: {
+                                Label("삭제하기", systemImage: "trash")
+                            })
+                        } else {
+                            Button(action: {
+                                print("게시글 신고 버튼 pressed")
+                                self.showAlert.toggle()
+                                self.showReportAlert.toggle()
+                            }, label: {
+                                Label("신고하기", systemImage: "flag")
+                            })
+                        }
                     } label: {
-                        Image(showPostDeleteButton ? "dots" : "")
+                        Image(Constant.ImageName.dots)
                             .resizable()
-                            .frame(width: 23, height: 23)
+                            .frame(width: 20, height: 20)
                     }
                     .background {
                         NavigationLink(destination: ReviseFreeBoardView(post: post), isActive: $isActive) {
                             EmptyView()
                         }
                     }
-                    .disabled(showPostDeleteButton ? false : true)
+                    //                    .disabled(showPostDeleteButton ? false : true)
                     .menuStyle(.automatic)
-                    .alert(isPresented: self.$showDeleteAlert) {
-                        Alert(title: Text("게시글을 삭제하시겠습니까?"),
-                              message: Text("삭제한 게시글은 복구할 수 없습니다."),
-                              primaryButton: .destructive(Text("삭제"), action: {
-                            freeFirestoreViewModel.deletePost(postId: self.post.id)
-                        }),
-                              secondaryButton: .cancel(Text("취소")))
+                    .alert(isPresented: self.$showAlert) {
+                        if showDeleteAlert {
+                            return Alert(title: Text("게시글을 삭제하시겠습니까?"),
+                                         message: Text("삭제한 게시글은 복구할 수 없습니다."),
+                                         primaryButton: .destructive(Text("삭제"), action: {
+                                freeFirestoreViewModel.deletePost(postId: self.post.id)
+                            }),
+                                         secondaryButton: .cancel(Text("취소")))
+                        }
+                        return Alert(title: Text("신고"), message: Text("부적절한 내용 발견시 삭제조치됩니다"), primaryButton: .default(Text("신고하기"), action: {
+                            freeFirestoreViewModel.reportFreePost(postId: post.id)
+                        }), secondaryButton: .destructive(Text("취소")))
+                        
                     }
                 }
             }
@@ -247,9 +267,9 @@ struct SelectedFreeBoardView: View {
         .padding(5)
         .cornerRadius(12)
         .background(Color(Constant.CustomColor.lightBrown).edgesIgnoringSafeArea(.all))
-
+        
     }
-
+    
     func getProfileImage() {
         let storage = Storage.storage()
         let profileImageRef = storage.reference().child("user/profileImage/\(post.author)")

@@ -17,7 +17,9 @@ struct SettingView: View {
     @State private var loginCheck = UserDefaults.standard.bool(forKey: "loginCheck")
     @State private var isSoundOn: Bool = true
     @State private var isVibrationOn: Bool = true
+    @State private var showAlert: Bool = false
     @State private var showLogoutAlert: Bool = false
+    @State private var showEmailAlert: Bool = false
     @State private var showLaterAlert: Bool = false
     
     var body: some View {
@@ -64,30 +66,44 @@ struct SettingView: View {
                 }
                 List {
                     Section("놀러오세요 동물의 집 1.0") {
-//                        Button(action: actionSheet) {
-//                            Text("친구에게 추천하기")
-//                                .foregroundColor(.black)
-//                        }
-                        Text("친구에게 추천하기")
-                            .onTapGesture {
-                                self.showLaterAlert.toggle()
-                            }
-                        Text("평가하기")
-                            .onTapGesture {
-                                self.showLaterAlert.toggle()
-                            }
-                        Text("문의하기")
-                            .onTapGesture {
-                                self.showLaterAlert.toggle()
-                            }
+                        //                        Button(action: actionSheet) {
+                        //                            Text("친구에게 추천하기")
+                        //                                .foregroundColor(.black)
+                        //                        }
+                        Button {
+                            self.showAlert = true
+                            self.showLaterAlert = true
+                            self.showEmailAlert = false
+                        } label: {
+                            Text("친구에게 추천하기").foregroundColor(.black)
+                        }
+                        Button {
+                            self.showAlert = true
+                            self.showLaterAlert = true
+                            self.showEmailAlert = false
+                        } label: {
+                            Text("평가하기").foregroundColor(.black)
+                        }
+                        Button {
+                            self.showAlert = true
+                            self.showEmailAlert = true
+                            self.showLaterAlert = false
+                        } label: {
+                            Text("문의하기").foregroundColor(.black)
+                        }
                         NavigationLink {
                             PrivacyStatementView()
                         } label: {
                             Text("개인정보취급방침").foregroundColor(.black)
                         }
                     }
-                    .alert(isPresented: $showLaterAlert) {
-                        Alert(title: Text("추후에 개발할 예정입니다."), message: Text("빨리 업데이트 하겠습니다."), dismissButton: .default(Text("네")))
+                    .alert(isPresented: $showAlert) {
+                        if showEmailAlert {
+                            return Alert(title: Text("문의사항은 다음 이메일로 연락주세요"), message: Text("anihouse98@gmail.com"), dismissButton: .default(Text("네")))
+                        }
+                        
+                        return Alert(title: Text("추후에 개발할 예정입니다"), message: Text("빨리 업데이트 하겠습니다"), dismissButton: .default(Text("네")))
+                        
                     }
                     Section("알람") {
                         Toggle("사운드", isOn: self.$isSoundOn)
@@ -102,8 +118,8 @@ struct SettingView: View {
                             Text("내가 쓴 게시글 보기")
                                 .foregroundColor(.black)
                         }
-
-
+                        
+                        
                         
                         Button {
                             self.showLogoutAlert.toggle()
@@ -131,7 +147,7 @@ struct SettingView: View {
             .background(Color(Constant.CustomColor.lightBrown))
             .navigationTitle(Text("설정"))
             .navigationBarTitleDisplayMode(.inline)
-
+            
         } // NavigationView
         .onAppear {
             storageManager.getUserProfileImage(email: userInfoManager.user!.email!)
@@ -144,7 +160,7 @@ struct SettingView: View {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         windowScene?.keyWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
-
+        
     }
 }
 

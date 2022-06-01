@@ -18,13 +18,12 @@ class UserInfoViewModel: ObservableObject {
     @Published var userIntroduce: String = "default user introduce"
     @Published var userInfo: [UserInfo] = [UserInfo]()
     
-    func addUser(name: String, nickName: String, email: String, birth: Date) {
+    func addUser(name: String, nickName: String, email: String) {
         let db = Firestore.firestore()
         let ref = db.collection("userInfo").document(email)
         ref.setData(["name": name,
                      "nickName": nickName,
-                     "email": email,
-                     "birth": birth], merge: true) { error in
+                     "email": email], merge: true) { error in
             guard error == nil else { return }
         }
     }

@@ -78,6 +78,15 @@ class MainPostViewModel: ObservableObject {
         self.getData()
     }
     
+    func reportMainPost(postId: String) {
+        let db = Firestore.firestore()
+        let ref = db.collection("reports").document(postId)
+        ref.setData(["board": "main",
+                     "postId": postId], merge: true) { error in
+            guard error == nil else { return }
+        }
+    }
+    
     
     /// post: 현재 접근한 글
     /// currentUser: 글의 좋아요 유저 목록에서 추가할 유저의 이메일
