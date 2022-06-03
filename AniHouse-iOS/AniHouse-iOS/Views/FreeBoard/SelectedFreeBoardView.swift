@@ -36,7 +36,7 @@ struct SelectedFreeBoardView: View {
     @State var showAlert: Bool = false
     @State var showDeleteAlert: Bool = false
     @State var showReportAlert: Bool = false
-    
+    @State var showBlockAlert: Bool = false
     
     @State var formatter: DateFormatter = DateFormatter()
     
@@ -179,7 +179,8 @@ struct SelectedFreeBoardView: View {
                                     content: freeFirestoreViewModel.comments[idx].content,
                                     date: freeFirestoreViewModel.comments[idx].date,
                                     isCommentUser: user!.email! == freeFirestoreViewModel.comments[idx].email,
-                                    documentId: self.post.id)
+                                    documentId: self.post.id,
+                                    isBlockedUser: userInfoManager.userBlockList.contains(freeFirestoreViewModel.comments[idx].email))
                     
                     
                 }
@@ -198,8 +199,10 @@ struct SelectedFreeBoardView: View {
                             })
                             Button(action: {
                                 // 삭제 @State값을 토글한다.
-                                self.showAlert.toggle()
-                                self.showDeleteAlert.toggle()
+                                self.showAlert = true
+                                self.showDeleteAlert = true
+                                self.showReportAlert = false
+                                self.showBlockAlert = false
                                 print("게시글 삭제 버튼 pressed")
                             }, label: {
                                 Label("삭제하기", systemImage: "trash")
@@ -207,11 +210,23 @@ struct SelectedFreeBoardView: View {
                         } else {
                             Button(action: {
                                 print("게시글 신고 버튼 pressed")
-                                self.showAlert.toggle()
-                                self.showReportAlert.toggle()
+                                self.showAlert = true
+                                self.showReportAlert = true
+                                self.showDeleteAlert = false
+                                self.showBlockAlert = false
                             }, label: {
                                 Label("신고하기", systemImage: "flag")
                             })
+                            
+                            Button {
+                                self.showAlert = true
+                                self.showBlockAlert = true
+                                self.showDeleteAlert = false
+                                self.showReportAlert = false
+                            } label: {
+                                Label("이 유저 차단하기", systemImage: "nosign")
+                            }
+
                         }
                     } label: {
                         Image(Constant.ImageName.dots)
@@ -234,9 +249,19 @@ struct SelectedFreeBoardView: View {
                             }),
                                          secondaryButton: .cancel(Text("취소")))
                         }
-                        return Alert(title: Text("신고"), message: Text("부적절한 내용 발견시 삭제조치됩니다"), primaryButton: .default(Text("신고하기"), action: {
-                            freeFirestoreViewModel.reportFreePost(postId: post.id)
-                        }), secondaryButton: .destructive(Text("취소")))
+                        else if showReportAlert {
+                            return Alert(title: Text("신고"), message: Text("부적절한 내용 발견시 삭제조치됩니다"), primaryButton: .default(Text("신고하기"), action: {
+                                freeFirestoreViewModel.reportFreePost(postId: post.id)
+                            }), secondaryButton: .destructive(Text("취소")))
+                        }
+                        return Alert(title: Text("이 유저를 차단하시겠습니까?"),
+                                     message: Text("차단 후에는 이 유저가 쓴 글과 댓글이 보이지 않습니다"),
+                                     primaryButton: .destructive(Text("차단"), action: {
+                            print("차단버튼을 눌렀어요")
+                            userInfoManager.addBlockUser(blockEmail: post.author)
+                            presentationMode.wrappedValue.dismiss() // 이전 화면으로 돌아감.
+                        }), secondaryButton: .default(Text("아니오")))
+                        
                         
                     }
                 }

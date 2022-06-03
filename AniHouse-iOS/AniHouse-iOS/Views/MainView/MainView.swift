@@ -32,8 +32,6 @@ struct MainView: View {
     @EnvironmentObject var storageManager: StorageManager
     @EnvironmentObject var userInfoManager: UserInfoViewModel
     
-    
-    
     var columns = [
         GridItem(.flexible(minimum: 120, maximum: 1000), spacing: 0, alignment: nil),
         GridItem(.flexible(minimum: 120, maximum: 1000), spacing: 0, alignment: nil)
@@ -49,12 +47,14 @@ struct MainView: View {
                         LazyVGrid(columns: columns, spacing: 20) {
                             //임시로 더미를 출력
                             ForEach(mainFirestoreViewModel.posts, content: { (dataItem: MainPost) in
-                                NavigationLink {
-                                    SelectedMainPost(post: dataItem)
-                                } label: {
-                                    MainViewCell(post: dataItem)
-                                        .padding(.horizontal, 10)
-                                    //                                        .padding(.horizontal, 5)
+                                if !userInfoManager.userBlockList.contains(dataItem.author) {
+                                    NavigationLink {
+                                        SelectedMainPost(post: dataItem)
+                                    } label: {
+                                        MainViewCell(post: dataItem)
+                                            .padding(.horizontal, 10)
+                                        //                                        .padding(.horizontal, 5)
+                                    }
                                 }
                                 
                             })

@@ -19,7 +19,7 @@ struct FreeCommentView: View {
     
     var isCommentUser = false
     var documentId: String = ""
-    
+    var isBlockedUser: Bool = false
     //    @Binding var currentComments: [Comment]
     @State var isVisible: Bool = false
     @State var showingCommentAlert = false
@@ -27,12 +27,13 @@ struct FreeCommentView: View {
     @State var formatter = DateFormatter()
     @State var showDeleteAlert: Bool = false
     
+    
     @State var commentProfileImage: UIImage? = nil
     
     @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
     @EnvironmentObject var userInfoManager: UserInfoViewModel
     
-    init(email: String, currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String) {
+    init(email: String, currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String, isBlockedUser: Bool) {
         self.email = email
         self.currentCommentId = currentCommentId
         self.nickName = nickName
@@ -40,6 +41,7 @@ struct FreeCommentView: View {
         self.date = date
         self.isCommentUser = isCommentUser
         self.documentId = documentId
+        self.isBlockedUser = isBlockedUser
     }
     
     var body: some View {
@@ -65,7 +67,7 @@ struct FreeCommentView: View {
                         )
                 }
                 VStack(alignment: .leading) {
-                    Text(nickName!)
+                    Text(!isBlockedUser ? nickName! : "차단된 사용자")
                         .fontWeight(.semibold)
                         .fixedSize(horizontal: false, vertical: true)
                     Text(dateString)
@@ -91,7 +93,7 @@ struct FreeCommentView: View {
                     .disabled(isCommentUser ? false : true)
             }
             .padding([.top, .horizontal], 5)
-            Text(content!)
+            Text(!isBlockedUser ? content! : "차단된 사용자입니다")
             // 댓글의 내용이 전부 보여야 하기 때문
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, 5)

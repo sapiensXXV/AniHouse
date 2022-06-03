@@ -20,7 +20,7 @@ struct FreeBoardView: View {
     @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var freeFirestoreViewModel: FreeBoardViewModel
     @EnvironmentObject var storageManager: StorageManager
-    @EnvironmentObject var userInfoManager: UserInfoViewModel
+    @EnvironmentObject var userInfoViewModel: UserInfoViewModel
     
     var body: some View {
         NavigationView {
@@ -57,90 +57,92 @@ struct FreeBoardView: View {
                 // ForEach는 ScrollView 써야지만 스크롤 생기면서 모든 게시글이 보인다.
                 ZStack(alignment: .bottom) {
                     ScrollView {
-                        ForEach(freeFirestoreViewModel.freeBoardContents) { data in
+                        ForEach(freeFirestoreViewModel.freeBoardContents) { (data: FreeBoardContent) in
                             // 게시글 제목 검색 기능
-                            if search == true && data.title.contains(searchTitle) {
-                                HStack {
-                                    Spacer()
-                                    NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
-                                        VStack(alignment: .leading) {
-                                            HStack {
-                                                //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
-                                                Text("\(data.title)")
-                                                //                                                .font(.system(size: 25))
-                                                    .foregroundColor(Color.black)
-                                                    .font(.system(size: 16))
-                                                    .fontWeight(.black)
-                                                    .lineLimit(1)
-                                                Spacer()
-                                                Image(systemName: "heart.fill")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 11, height: 11)
-                                                    .foregroundColor(.red)
-                                                Text("\(data.hit)")
+                            if !userInfoViewModel.userBlockList.contains(data.author) { // 차단한 유저는 게시글이 뜨지 않도록 함.
+                                if search == true && data.title.contains(searchTitle) {
+                                    HStack {
+                                        Spacer()
+                                        NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
+                                            VStack(alignment: .leading) {
+                                                HStack {
+                                                    //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
+                                                    Text("\(data.title)")
+                                                    //                                                .font(.system(size: 25))
+                                                        .foregroundColor(Color.black)
+                                                        .font(.system(size: 16))
+                                                        .fontWeight(.black)
+                                                        .lineLimit(1)
+                                                    Spacer()
+                                                    Image(systemName: "heart.fill")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fit)
+                                                        .frame(width: 11, height: 11)
+                                                        .foregroundColor(.red)
+                                                    Text("\(data.hit)")
+                                                        .font(.system(size: 13))
+                                                        .foregroundColor(Color.black)
+                                                        .lineLimit(1)
+                                                }
+                                                Text("\(data.body)")
                                                     .font(.system(size: 13))
-                                                    .foregroundColor(Color.black)
+                                                    .foregroundColor(Color.secondary)
                                                     .lineLimit(1)
                                             }
-                                            Text("\(data.body)")
-                                                .font(.system(size: 13))
-                                                .foregroundColor(Color.secondary)
-                                                .lineLimit(1)
+                                            .padding()
                                         }
-                                        .padding()
+                                        .background(Color.white)
+                                        .cornerRadius(12)
+                                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                        Spacer()
                                     }
-                                    .background(Color.white)
-                                    .cornerRadius(12)
-                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                                    Spacer()
+                                    .listRowSeparator(.hidden)
                                 }
-                                .listRowSeparator(.hidden)
-                            }
-                            else if search == false || searchTitle == "" {
-                                HStack {
-                                    Spacer()
-                                    NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
-                                        VStack(alignment: .leading) {
-                                            HStack {
-                                                //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
-                                                Text("\(data.title)")
-                                                //                                                .font(.system(size: 25))
-                                                    .foregroundColor(Color.black)
-                                                    .font(.system(size: 16))
-                                                    .fontWeight(.black)
-                                                    .lineLimit(1)
-                                                Spacer()
-                                                Image(systemName: "heart.fill")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 11, height: 11)
-                                                    .foregroundColor(.red)
-                                                Text("\(data.hit)")
-                                                    .foregroundColor(Color.black)
+                                else if search == false || searchTitle == "" {
+                                    HStack {
+                                        Spacer()
+                                        NavigationLink(destination: SelectedFreeBoardView(post: data, showingOverlay: $isPresented)) {
+                                            VStack(alignment: .leading) {
+                                                HStack {
+                                                    //                                            폰트명: KoreanSDNR-B, KoreanSDNR-M
+                                                    Text("\(data.title)")
+                                                    //                                                .font(.system(size: 25))
+                                                        .foregroundColor(Color.black)
+                                                        .font(.system(size: 16))
+                                                        .fontWeight(.black)
+                                                        .lineLimit(1)
+                                                    Spacer()
+                                                    Image(systemName: "heart.fill")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fit)
+                                                        .frame(width: 11, height: 11)
+                                                        .foregroundColor(.red)
+                                                    Text("\(data.hit)")
+                                                        .foregroundColor(Color.black)
+                                                        .font(.system(size: 13))
+                                                        .lineLimit(1)
+                                                }
+                                                Text("\(data.body)")
                                                     .font(.system(size: 13))
+                                                    .foregroundColor(Color.secondary)
                                                     .lineLimit(1)
                                             }
-                                            Text("\(data.body)")
-                                                .font(.system(size: 13))
-                                                .foregroundColor(Color.secondary)
-                                                .lineLimit(1)
+                                            .padding()
                                         }
-                                        .padding()
+                                        .background(Color.white)
+                                        .cornerRadius(12)
+                                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                        Spacer()
                                     }
-                                    .background(Color.white)
-                                    .cornerRadius(12)
-                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                                    Spacer()
+                                    .listRowSeparator(.hidden)
+                                    
                                 }
-                                .listRowSeparator(.hidden)
-                                
                             }
                         }
                         .background(Color(Constant.CustomColor.lightBrown))
                         .listStyle(PlainListStyle())
                     }
-
+                    
                     NavigationLink {
                         AddFreeBoardView()
                     } label: {
@@ -169,16 +171,12 @@ struct FreeBoardView: View {
                     if let user = user {
                         print("유저의 정보를 찾았습니다.")
                         print(user.email)
-                        self.userInfoManager.getUserInfo(email: user.email!)
+                        self.userInfoViewModel.getUserInfo(email: user.email!)
                     } else {
                         print("기다리고 있어요...")
                     }
                 }
                 freeFirestoreViewModel.getData()
-                
-                
-                //                            UITableView.appearance().backgroundColor = .clear
-                //                            UITableViewCell.appearance().backgroundColor = .clear
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

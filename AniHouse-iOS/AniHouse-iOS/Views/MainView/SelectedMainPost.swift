@@ -36,6 +36,7 @@ struct SelectedMainPost: View {
     @State var showAlert: Bool = false
     @State var showDeleteAlert: Bool = false
     @State var showReportAlert: Bool = false
+    @State var showBlockAlert: Bool = false
     
     @State var formatter: DateFormatter = DateFormatter()
     
@@ -160,7 +161,8 @@ struct SelectedMainPost: View {
                                         content: mainFirestoreViewModel.comments[idx].content,
                                         date: mainFirestoreViewModel.comments[idx].date,
                                         isCommentUser: userInfoManager.user?.email! == mainFirestoreViewModel.comments[idx].email,
-                                        documentId: self.post.id)
+                                        documentId: self.post.id,
+                                        isBlockedUser: userInfoManager.userBlockList.contains(mainFirestoreViewModel.comments[idx].email))
                             .padding(.horizontal, 3)
                             .onAppear {
                                 
@@ -223,25 +225,31 @@ struct SelectedMainPost: View {
                     if self.showPostDeleteButton {
                         Button {
                             // 삭제 @State값을 토글한다.
-                            self.showAlert.toggle()
-                            self.showDeleteAlert.toggle()
+                            self.showAlert = true
+                            self.showDeleteAlert = true
                             print("게시글 삭제 버튼 pressed")
                         } label: {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                            Text("삭제하기")
-                                .foregroundColor(.red)
+                            Label("삭제하기", systemImage: "trash")
+
                         }
                     } else {
                         Button {
-                            self.showAlert.toggle()
-                            self.showReportAlert.toggle()
+                            self.showAlert = true
+                            self.showReportAlert = true
+                            self.showDeleteAlert = false
+                            self.showBlockAlert = false
                             print("신고누름")
                         } label: {
-                            HStack {
-                                Image(systemName: "flag")
-                                Text("신고하기")
-                            }
+                            Label("신고하기", systemImage: "flag")
+                        }
+                        Button {
+                            self.showAlert = true
+                            self.showBlockAlert = true
+                            self.showDeleteAlert = false
+                            self.showReportAlert = false
+                            print("차단 누름")
+                        } label: {
+                            Label("이 유저 차단하기", systemImage: "nosign")
                         }
                     }
                     
@@ -257,14 +265,21 @@ struct SelectedMainPost: View {
                             mainFirestoreViewModel.reportMainPost(postId: post.id)
                         }), secondaryButton: .destructive(Text("취소")))
                     }
-                    
-                    return Alert(title: Text("게시글을 삭제하시겠습니까?"),
-                                 message: Text("삭제한 게시글은 복구할 수 없습니다."),
-                                 primaryButton: .destructive(Text("삭제"), action: {
-                               mainFirestoreViewModel.deletePost(postId: self.post.id)
-                           }),
-                                 secondaryButton: .cancel(Text("취소")))
-                
+                    else if showDeleteAlert {
+                        return Alert(title: Text("게시글을 삭제하시겠습니까?"),
+                                     message: Text("삭제한 게시글은 복구할 수 없습니다"),
+                                     primaryButton: .destructive(Text("삭제"), action: {
+                            mainFirestoreViewModel.deletePost(postId: self.post.id)
+                        }),
+                                     secondaryButton: .cancel(Text("취소")))
+                    }
+                    return Alert(title: Text("이 유저를 차단하시겠습니까?"),
+                                 message: Text("차단 후에는 이 유저가 쓴 글과 댓글이 보이지 않습니다"),
+                                 primaryButton: .destructive(Text("차단"), action: {
+                        print("차단버튼을 눌렀어요")
+                        userInfoManager.addBlockUser(blockEmail: post.author)
+                        presentationMode.wrappedValue.dismiss() // 이전 화면으로 돌아감.
+                    }), secondaryButton: .default(Text("아니오")))
                 }
             } // ToolBarItemGroup
         }
