@@ -66,6 +66,7 @@
 		9185C56627F8357C0009B93F /* FreeBoardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FreeBoardContent.swift; path = "AniHouse-iOS/FreeBoardContent.swift"; sourceTree = SOURCE_ROOT; };
 		9185C56827F835ED0009B93F /* FreeBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeBoardViewModel.swift; sourceTree = "<group>"; };
 		91D6BD5F282D1E0A00A6168C /* FreeAddCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAddCommentView.swift; sourceTree = "<group>"; };
+		BB0508A9284919840055C791 /* AniHouse-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AniHouse-iOS.entitlements"; sourceTree = "<group>"; };
 		BB120F39283E068200F361A1 /* ShowPostDidWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPostDidWrite.swift; sourceTree = "<group>"; };
 		BB120F3C283E0A5D00F361A1 /* ShowPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPostCell.swift; sourceTree = "<group>"; };
 		BB19783728252CD9002B5B60 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -231,6 +232,7 @@
 		BB78602827E0EFB300CFC94A /* AniHouse-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				BB0508A9284919840055C791 /* AniHouse-iOS.entitlements */,
 				9124DE102822DE570094D790 /* Info.plist */,
 				BB78602927E0EFB300CFC94A /* AniHouse_iOSApp.swift */,
 				BB2C69FF2819C15600D1FA2B /* Views */,
@@ -614,6 +616,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "AniHouse-iOS/AniHouse-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -634,7 +637,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.januaryOne.AniHouse-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -652,6 +655,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "AniHouse-iOS/AniHouse-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -701,7 +705,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.januaryOne.AniHouse-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";

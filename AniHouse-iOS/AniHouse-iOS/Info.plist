@@ -11,5 +11,10 @@
 		<string>a신디나루B.otf</string>
 		<string>a신디나루M.otf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

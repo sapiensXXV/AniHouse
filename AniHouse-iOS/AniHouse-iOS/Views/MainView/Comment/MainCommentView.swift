@@ -25,10 +25,11 @@ struct MainCommentView: View {
     @State var formatter = DateFormatter()
     var isCommentUser = false
     var documentId: String = ""
+    var isBlockedUser: Bool = false
     
     @State var showDeleteAlert: Bool = false
     
-    init(email: String, currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String) {
+    init(email: String, currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String, isBlockedUser: Bool) {
         self.email = email
         self.currentCommentId = currentCommentId
         self.nickName = nickName
@@ -36,6 +37,7 @@ struct MainCommentView: View {
         self.date = date
         self.isCommentUser = isCommentUser
         self.documentId = documentId
+        self.isBlockedUser = isBlockedUser
     }
     
     var body: some View {
@@ -67,7 +69,7 @@ struct MainCommentView: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text(nickName!)
+                    Text(!isBlockedUser ? nickName! : "차단된 사용자")
                         .fontWeight(.semibold)
                     Text(dateString)
                         .font(.system(size: 13))
@@ -93,7 +95,7 @@ struct MainCommentView: View {
 
                 
             }
-            Text(content!)
+            Text(!isBlockedUser ? content! : "차단된 사용자 입니다")
                 .fontWeight(.light)
                 .padding(.leading, 5)
         }
@@ -134,6 +136,6 @@ struct MainCommentView: View {
 
 struct MainCommentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainCommentView(email: "", currentCommentId: "", nickName: "소재훈", content: "댓글입니다~~", date: Date(), isCommentUser: false, documentId: "")
+        MainCommentView(email: "", currentCommentId: "", nickName: "소재훈", content: "댓글입니다~~", date: Date(), isCommentUser: false, documentId: "", isBlockedUser: false)
     }
 }
