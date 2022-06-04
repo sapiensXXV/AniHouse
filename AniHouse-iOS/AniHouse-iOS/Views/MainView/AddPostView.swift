@@ -11,6 +11,7 @@ import Firebase
 struct AddPostView: View {
     @EnvironmentObject var mainFirestoreViewModel: MainPostViewModel
     @EnvironmentObject var storageManager: StorageManager
+    @EnvironmentObject var userInfoViewModel: UserInfoViewModel
     
     @State private var isShowingPhotoPicker = false
     @State private var uploadImage: UIImage = UIImage(systemName: "photo.on.rectangle")!
@@ -22,7 +23,7 @@ struct AddPostView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    let user = Auth.auth().currentUser
+//    let user = Auth.auth().currentUser
     @State var postInfo: MainPost = MainPost() // 값들을 저장할 MainPost
     
     init() {
@@ -110,11 +111,11 @@ struct AddPostView: View {
                     else {
                         // 파이어스토어에 저장하기
                         mainFirestoreViewModel.addData(title: title,
-                                      body: content,
-                                      image: uploadImage,
-                                      author: user?.email ?? "unknown",
-                                      hit: 0,
-                                      date: Date())
+                                                       body: content,
+                                                       image: uploadImage,
+                                                       author: userInfoViewModel.user!.email!,
+                                                       hit: 0,
+                                                       date: Date())
                         storageManager.uploadImage(image: uploadImage, uploadPostId: mainFirestoreViewModel.uploadPostId)
                         mainFirestoreViewModel.getData()
                         

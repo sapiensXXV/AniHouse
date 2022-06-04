@@ -23,25 +23,26 @@ struct RegisterView: View {
     
     var body: some View {
         ZStack {
-            if viewModel.signedIn {
-                VStack {
-                    Text("홈 화면")
-
-                    Button {
-                        viewModel.signOut()
-                    } label: {
-                        Text("Sign Out")
-                    }
-                    .foregroundColor(Color.white)
-                    .padding(.horizontal, 50)
-                    .padding(.vertical, 10)
-                    .background(Color.blue)
-                    .cornerRadius(8)
-                }
-            }
-            else {
-                SignUpView()
-            }
+            SignUpView()
+//            if viewModel.signedIn {
+//                VStack {
+//                    Text("홈 화면")
+//
+//                    Button {
+//                        viewModel.signOut()
+//                    } label: {
+//                        Text("Sign Out")
+//                    }
+//                    .foregroundColor(Color.white)
+//                    .padding(.horizontal, 50)
+//                    .padding(.vertical, 10)
+//                    .background(Color.blue)
+//                    .cornerRadius(8)
+//                }
+//            }
+//            else {
+//                SignUpView()
+//            }
         }
         .onAppear {
             viewModel.signedIn = viewModel.isSignedIn
