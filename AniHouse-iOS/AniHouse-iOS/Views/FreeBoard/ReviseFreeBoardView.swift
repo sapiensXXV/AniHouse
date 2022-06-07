@@ -57,6 +57,7 @@ struct ReviseFreeBoardView: View {
                     else {
                         showingFailureAlert = false
                         freeFirestoreViewModel.editPost(postId: post.id, title: post.title, body: post.body, date: Date())
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }, label: {
                     Text("저장")
