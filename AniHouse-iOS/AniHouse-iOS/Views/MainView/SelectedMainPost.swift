@@ -318,7 +318,7 @@ struct SelectedMainPost: View {
     }
     func getWriterNickName() {
         let db = Firestore.firestore()
-        print("SelectedMainPost - getWriterNickName")
+        print("SelectedMainPost - getWriterNickName - \(post.author)")
         db.collection("userInfo").document(post.author).getDocument { snapshot, error in
             if let snapshot = snapshot {
                 self.writerNickName = snapshot.get("nickName") as? String
