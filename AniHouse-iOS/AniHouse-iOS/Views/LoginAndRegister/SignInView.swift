@@ -46,9 +46,6 @@ struct SignInView: View {
                     
                     //로그인버튼
                     Button {
-                        //action
-                        print("Login Button Clicked")
-                        print(viewModel.signedIn)
                         guard !email.isEmpty, !password.isEmpty else {
                             return
                         }

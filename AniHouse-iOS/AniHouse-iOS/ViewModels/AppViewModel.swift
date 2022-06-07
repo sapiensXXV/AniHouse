@@ -26,13 +26,14 @@ class AppViewModel: ObservableObject {
             guard result != nil, error == nil else {
                 print("로그인 실패")
                 print(error!)
-                
+                UserDefaults.standard.set(false, forKey: "loginCheck")
                 return
             }
             
             // 성공
             DispatchQueue.main.async {
-                self?.signedIn = true
+//                self?.signedIn = true
+                UserDefaults.standard.set(true, forKey: "loginCheck")
 //                self?.now = DispatchTime.now()
             }
         }
