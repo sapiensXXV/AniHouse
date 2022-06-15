@@ -18,35 +18,22 @@ struct RegisterView: View {
     @State private var email: String = ""
     @State private var firstPwd: String = ""
     @State private var secondPwd: String = ""
+    @State private var loginCheck: Bool = UserDefaults.standard.bool(forKey: "loginCheck")
     
     @EnvironmentObject var viewModel: AppViewModel
     
     var body: some View {
-        ZStack {
+//        ZStack {
+        if viewModel.signedIn {
+            TabBarView()
+        } else {
             SignUpView()
-//            if viewModel.signedIn {
-//                VStack {
-//                    Text("홈 화면")
-//
-//                    Button {
-//                        viewModel.signOut()
-//                    } label: {
-//                        Text("Sign Out")
-//                    }
-//                    .foregroundColor(Color.white)
-//                    .padding(.horizontal, 50)
-//                    .padding(.vertical, 10)
-//                    .background(Color.blue)
-//                    .cornerRadius(8)
-//                }
-//            }
-//            else {
-//                SignUpView()
-//            }
         }
-        .onAppear {
-            viewModel.signedIn = viewModel.isSignedIn
-        }
+  
+//        }
+//        .onAppear {
+//            viewModel.signedIn = viewModel.isSignedIn
+//        }
     }
 }
 

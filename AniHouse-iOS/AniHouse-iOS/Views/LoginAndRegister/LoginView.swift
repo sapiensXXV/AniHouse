@@ -22,7 +22,7 @@ struct LoginView: View {
     @EnvironmentObject var userInfoViewModel: UserInfoViewModel
     
     var body: some View {
-        if UserDefaults.standard.bool(forKey: "loginCheck") {
+        if viewModel.signedIn {
             TabBarView()
         }
         else {

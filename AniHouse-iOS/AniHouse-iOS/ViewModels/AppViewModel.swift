@@ -11,7 +11,7 @@ import FirebaseAuth
 
 class AppViewModel: ObservableObject {
 
-    @Published var signedIn = false
+    @Published var signedIn = UserDefaults.standard.bool(forKey: "loginCheck")
     
 //    @Published var now = DispatchTime.now()
     let auth = Auth.auth()
@@ -26,6 +26,7 @@ class AppViewModel: ObservableObject {
             guard result != nil, error == nil else {
                 print("로그인 실패")
                 print(error!)
+                self?.signedIn = false
                 UserDefaults.standard.set(false, forKey: "loginCheck")
                 return
             }
@@ -33,6 +34,8 @@ class AppViewModel: ObservableObject {
             // 성공
             DispatchQueue.main.async {
 //                self?.signedIn = true
+                print("로그인에 성공했습니다!")
+                self?.signedIn = true
                 UserDefaults.standard.set(true, forKey: "loginCheck")
 //                self?.now = DispatchTime.now()
             }
@@ -60,6 +63,7 @@ class AppViewModel: ObservableObject {
         try? auth.signOut()
         
         self.signedIn = false
+        UserDefaults.standard.set(false, forKey: "loginCheck")
     }
     
 }

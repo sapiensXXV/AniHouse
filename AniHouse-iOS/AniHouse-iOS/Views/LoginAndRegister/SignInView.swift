@@ -11,7 +11,7 @@ import Lottie
 struct SignInView: View {
     @State var email: String = ""
     @State var password: String = ""
-    @State private var isShowingAlert = UserDefaults.standard.bool(forKey: "loginCheck")
+    @State private var isShowingAlert = false
     // UserDefault를 사용하여 자동 로그인 구현
     @State private var loginCheck = UserDefaults.standard.bool(forKey: "loginCheck")
 
@@ -56,8 +56,8 @@ struct SignInView: View {
 //                            isShowingAlert = !viewModel.signedIn // 실제 로그인 여부와 반대로 값을 받는다.
                             isShowingAlert = !UserDefaults.standard.bool(forKey: "loginCheck")
                         }
-                        self.loginCheck = true
-                        UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
+//                        self.loginCheck = true
+//                        UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
                         
                     } label: {
                         Text("로그인")
@@ -94,6 +94,9 @@ struct SignInView: View {
                     }
                     
                 }
+            }
+            .onAppear {
+                print("viewModel.signedIn: \(viewModel.signedIn)")
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

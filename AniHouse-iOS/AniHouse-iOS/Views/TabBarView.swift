@@ -33,10 +33,6 @@ struct TabBarView: View {
                     Text("설정")
                 }
         }
-//        .environmentObject(viewModel)
-//        .environmentObject(mainFirestoreViewModel)
-//        .environmentObject(storageViewModel)
-//        .environmentObject(userInfoViewModel)
         .accentColor(Color.blue)
         .onAppear {
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

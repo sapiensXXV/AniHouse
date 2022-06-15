@@ -14,7 +14,7 @@ struct SettingView: View {
     @EnvironmentObject var storageManager: StorageManager
     
     // UserDefault를 사용하여 자동 로그인 구현
-    @State private var loginCheck = UserDefaults.standard.bool(forKey: "loginCheck")
+//    @State private var loginCheck = UserDefaults.standard.bool(forKey: "loginCheck")
     @State private var isSoundOn: Bool = true
     @State private var isVibrationOn: Bool = true
     @State private var showAlert: Bool = false
@@ -128,10 +128,10 @@ struct SettingView: View {
                         }
                         .alert(isPresented: self.$showLogoutAlert) {
                             Alert(title: Text("로그아웃 하시겠습니까?"), primaryButton: .destructive(Text("로그아웃"), action: {
-                                self.loginCheck = false
+//                                self.loginCheck = false
                                 storageManager.profileImage = UIImage(named: Constant.ImageName.defaultUserImage)!
                                 storageManager.introduce = ""
-                                UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
+//                                UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
                                 self.viewModel.signOut()
                                 print("로그아웃합니다~")
                             }), secondaryButton: .cancel(Text("취소")))
@@ -151,8 +151,8 @@ struct SettingView: View {
                                 // 회원탈퇴 실시
                                 userInfoManager.deleteUser()
                                 viewModel.signOut()
-                                self.loginCheck = false
-                                UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
+//                                self.loginCheck = false
+                                UserDefaults.standard.set(false, forKey: "loginCheck")
                             }), secondaryButton: .cancel(Text("아니오")))
                         }
                         
