@@ -51,6 +51,7 @@ class UserInfoViewModel: ObservableObject {
         }
     }
     
+    //MARK: - 자기소개 설정
     func setUserIntroduce(email: String, introduce: String) {
         let db = Firestore.firestore()
         let ref = db.collection("userInfo").document(email)
@@ -59,6 +60,7 @@ class UserInfoViewModel: ObservableObject {
         }
     }
     
+    //MARK: - 차단유저 추가
     func addBlockUser(blockEmail: String) {
         let db = Firestore.firestore()
         let ref = db.collection("userInfo").document(self.user!.email!)
@@ -68,4 +70,10 @@ class UserInfoViewModel: ObservableObject {
         }
     }
     
+    //MARK: - 회원탈퇴
+    func deleteUser() {
+        user?.delete(completion: { error in
+            print(error?.localizedDescription)
+        })
+    }
 }

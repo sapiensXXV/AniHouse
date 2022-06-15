@@ -21,6 +21,7 @@ struct SettingView: View {
     @State private var showLogoutAlert: Bool = false
     @State private var showEmailAlert: Bool = false
     @State private var showLaterAlert: Bool = false
+    @State private var showWithdrawalAlert: Bool = false
     
     var body: some View {
         
@@ -119,8 +120,6 @@ struct SettingView: View {
                                 .foregroundColor(.black)
                         }
                         
-                        
-                        
                         Button {
                             self.showLogoutAlert.toggle()
                         } label: {
@@ -138,6 +137,24 @@ struct SettingView: View {
                             }), secondaryButton: .cancel(Text("취소")))
                         }
                         
+                        Button {
+                            self.showWithdrawalAlert.toggle()
+                        } label: {
+                            Text("회원탈퇴")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.red)
+                        }
+                        .alert(isPresented: self.$showWithdrawalAlert) {
+                            Alert(title: Text("회원탈퇴"),
+                                  message: Text("정말로 탈퇴하시겠습니까?"),
+                                  primaryButton: .destructive(Text("회원탈퇴"), action: {
+                                // 회원탈퇴 실시
+                                userInfoManager.deleteUser()
+                                viewModel.signOut()
+                                self.loginCheck = false
+                                UserDefaults.standard.set(self.loginCheck, forKey: "loginCheck")
+                            }), secondaryButton: .cancel(Text("아니오")))
+                        }
                         
                     }
                     

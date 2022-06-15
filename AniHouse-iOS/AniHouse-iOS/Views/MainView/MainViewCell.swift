@@ -41,8 +41,8 @@ struct MainViewCell: View {
                     .scaledToFill()
                     .padding(0)
             } else {
-                Image(Constant.ImageName.defaultImage)
-                    .resizable()
+                Rectangle()
+                    .foregroundColor(.gray)
                     .frame(width: nil)
                     .cornerRadius(0)
                     .scaledToFill()
