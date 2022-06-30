@@ -151,7 +151,6 @@ struct SettingView: View {
                                 // 회원탈퇴 실시
                                 userInfoManager.deleteUser()
                                 viewModel.signOut()
-//                                self.loginCheck = false
                                 UserDefaults.standard.set(false, forKey: "loginCheck")
                             }), secondaryButton: .cancel(Text("아니오")))
                         }

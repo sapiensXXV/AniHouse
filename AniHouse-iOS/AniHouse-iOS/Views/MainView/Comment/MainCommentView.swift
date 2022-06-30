@@ -28,6 +28,7 @@ struct MainCommentView: View {
     var isBlockedUser: Bool = false
     
     @State var showDeleteAlert: Bool = false
+    @State var showReportAlert: Bool = false
     
     init(email: String, currentCommentId: String, nickName: String, content: String, date: Date, isCommentUser: Bool, documentId: String, isBlockedUser: Bool) {
         self.email = email
@@ -78,7 +79,7 @@ struct MainCommentView: View {
                 
                 Spacer()
                 Button {
-                    self.showDeleteAlert.toggle()
+                    self.showDeleteAlert = true
                 } label: {
                     Image(systemName: isCommentUser ? "trash" : "")
                         .foregroundColor(.red)
@@ -92,8 +93,21 @@ struct MainCommentView: View {
                         }
                     }), secondaryButton: .cancel(Text("취소")))
                 }
-
-                
+                Spacer()
+                    .frame(width: 12)
+                Button {
+                    self.showReportAlert = true
+                } label: {
+                    Image(systemName: "flag")
+                }
+                .alert(isPresented: self.$showReportAlert) {
+                    Alert(title: Text("댓글을 신고하시겠습니까?"), message: Text("신고된 댓글은 확인 후 조치됩니다."),
+                          primaryButton: .destructive(Text("신고"), action: {
+                        withAnimation {
+                            print("신고버튼이 눌렸어요!")
+                        }
+                    }),secondaryButton: .cancel(Text("취소")))
+                }
             }
             Text(!isBlockedUser ? content! : "차단된 사용자 입니다")
                 .fontWeight(.light)
