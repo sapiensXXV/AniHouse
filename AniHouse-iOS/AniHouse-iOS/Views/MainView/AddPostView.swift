@@ -155,7 +155,6 @@ struct AddPostView: View {
     func postContainForbidWord() -> Bool {
         for forbidWord in Constant.forbidWord {
             if self.title.contains(forbidWord) || self.content.contains(forbidWord) {
-                print("잡았다 요놈~~")
                 return true
             }
         }

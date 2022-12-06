@@ -25,13 +25,15 @@ class FreeBoardViewModel: ObservableObject {
             if let snapshot = snapshot {
                 DispatchQueue.main.async {
                     self.freeBoardContents = snapshot.documents.map { data in
-                        var freeBoardContent =  FreeBoardContent(id: data.documentID,
-                                                                 title: data["title"] as? String ?? "",
-                                                                 body: data["body"] as? String ?? "",
-                                                                 author: data["author"] as? String ?? "",
-                                                                 hit: data["hit"] as? Int ?? 0,
-                                                                 likeUsers: data["likeUser"] as? [String] ?? [],
-                                                                 date: data["date"] as? Date ?? Date())
+                        var freeBoardContent =  FreeBoardContent(
+                            id: data.documentID,
+                            title: data[BoardContent.title.rawValue] as? String ?? "",
+                            body: data[BoardContent.body.rawValue] as? String ?? "",
+                            author: data[BoardContent.author.rawValue] as? String ?? "",
+                            hit: data[BoardContent.hit.rawValue] as? Int ?? 0,
+                            likeUsers: data[BoardContent.likeUser.rawValue] as? [String] ?? [],
+                            date: data[BoardContent.date.rawValue] as? Date ?? Date()
+                        )
                         self.currentPostId = data.documentID
                         let postTimeStamp = data["date"] as? Timestamp
                         freeBoardContent.date = postTimeStamp?.dateValue() ?? Date()
@@ -59,13 +61,15 @@ class FreeBoardViewModel: ObservableObject {
             if let snapshot = snapshot {
                 DispatchQueue.main.async {
                     self.userFreePost = snapshot.documents.map { data in
-                        var freeBoardContent =  FreeBoardContent(id: data.documentID,
-                                                                 title: data["title"] as? String ?? "",
-                                                                 body: data["body"] as? String ?? "",
-                                                                 author: data["author"] as? String ?? "",
-                                                                 hit: data["hit"] as? Int ?? 0,
-                                                                 likeUsers: data["likeUser"] as? [String] ?? [],
-                                                                 date: data["date"] as? Date ?? Date())
+                        var freeBoardContent =  FreeBoardContent(
+                            id: data.documentID,
+                            title: data[BoardContent.title.rawValue] as? String ?? "",
+                            body: data[BoardContent.body.rawValue] as? String ?? "",
+                            author: data[BoardContent.author.rawValue] as? String ?? "",
+                            hit: data[BoardContent.hit.rawValue] as? Int ?? 0,
+                            likeUsers: data[BoardContent.likeUser.rawValue] as? [String] ?? [],
+                            date: data[BoardContent.date.rawValue] as? Date ?? Date()
+                        )
                         self.currentPostId = data.documentID
                         let postTimeStamp = data["date"] as? Timestamp
                         freeBoardContent.date = postTimeStamp?.dateValue() ?? Date()
@@ -203,30 +207,13 @@ class FreeBoardViewModel: ObservableObject {
             try? await getComment(collectionName: collectionName, documentId: documentId)
         }
     }
-    
-    
-    //    private var db = Firestore.firestore()
-    //
-    //    func fetchData() {
-    //        db.collection("FreeBoard").addSnapshotListener { (querySnapshot, error) in
-    //            guard let documents = querySnapshot?.documents else {
-    //                print("No documents")
-    //                return
-    //            }
-    //
-    //            self.freeBoardContents = documents.map { (QueryDocumentSnapshot) -> FreeBoardContent in
-    //                let data = QueryDocumentSnapshot.data()
-    //
-    //                let title = data["title"] as? String ?? ""
-    //                let body = data["body"] as? String ?? ""
-    //                let priority = data["priority"] as? String ?? ""
-    //                let author = data["author"] as? String ?? ""
-    //                let hit = data["hit"] as? Int ?? 0
-    //                let hitCheck = data["hitCheck"] as? Bool ?? false
-    //
-    //                let freeBoardContent = FreeBoardContent(title: title, body: body, priority: priority, author: author, hit: hit, hitCheck: hitCheck)
-    //                return freeBoardContent
-    //            }
-    //        }
-    //    }
+}
+
+enum BoardContent: String {
+    case title
+    case body
+    case author
+    case hit
+    case likeUser
+    case date
 }
